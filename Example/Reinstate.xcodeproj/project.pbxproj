@@ -29,7 +29,7 @@
 
 /* Begin PBXFileReference section */
 		0A1FB253ACB4FBA91DFBE9B5 /* Pods_Reinstate_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reinstate_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		33FB7658707B26E6F2E8137B /* Pods-Reinstate_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Example/Pods-Reinstate_Example.release.xcconfig"; sourceTree = "<group>"; };
 		3C1B116718DBFA0B2D86F707 /* Pods-Reinstate_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Example/Pods-Reinstate_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		47B4C45D42B667F9099200F8 /* Pods_Reinstate_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reinstate_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -44,8 +44,8 @@
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		69744613DE5E3131E6F28398 /* Pods-Reinstate_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Tests/Pods-Reinstate_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		87B24F64B916857943635F1B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		AB528C86BB6937B46AF90A8D /* Reinstate.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = Reinstate.podspec; path = ../Reinstate.podspec; sourceTree = "<group>"; };
+		87B24F64B916857943635F1B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		AB528C86BB6937B46AF90A8D /* Reinstate.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Reinstate.podspec; path = ../Reinstate.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D02C6763EAF6C1A74F9B52D7 /* Pods-Reinstate_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Tests/Pods-Reinstate_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -463,7 +463,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -509,7 +509,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
