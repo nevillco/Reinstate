@@ -1,0 +1,6 @@
+framework module Reinstate {
+  umbrella header "Reinstate-umbrella.h"
+
+  export *
+  module * { export * }
+}

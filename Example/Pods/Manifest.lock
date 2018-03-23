@@ -1,0 +1,22 @@
+PODS:
+  - Nimble (7.0.3)
+  - Quick (1.2.0)
+  - Reinstate (0.1.0)
+
+DEPENDENCIES:
+  - Nimble (~> 7.0.2)
+  - Quick (~> 1.2.0)
+  - Reinstate (from `../`)
+
+EXTERNAL SOURCES:
+  Reinstate:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Nimble: 7f5a9c447a33002645a071bddafbfb24ea70e0ac
+  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
+  Reinstate: 8878960cd370e2006daf66d079ff5a0ad0fcb021
+
+PODFILE CHECKSUM: 8cefa4b5482e8b75e5c7e4137b70dd12fdf4e923
+
+COCOAPODS: 1.4.0

@@ -1,0 +1,22 @@
+{
+  "name": "Reinstate",
+  "version": "0.1.0",
+  "summary": "A short description of Reinstate.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/nevillco/Reinstate",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "nevillco": "connor.neville@raizlabs.com"
+  },
+  "source": {
+    "git": "https://github.com/nevillco/Reinstate.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Reinstate/Classes/**/*"
+}
