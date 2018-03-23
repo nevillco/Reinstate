@@ -1,6 +1,6 @@
 //
 //  GesturingViewController.swift
-//  StatefulViewController_Example
+//  Reinstate_Example
 //
 //  Created by Connor Neville on 3/1/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.

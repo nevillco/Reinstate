@@ -1,6 +1,6 @@
 //
 //  StatefulViewController.swift
-//  StatefulViewController
+//  Reinstate
 //
 //  Created by Connor Neville on 3/1/18.
 //

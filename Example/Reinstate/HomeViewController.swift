@@ -1,6 +1,6 @@
 //
 //  HomeViewController.swift
-//  StatefulViewController_Example
+//  Reinstate_Example
 //
 //  Created by Connor Neville on 3/2/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.

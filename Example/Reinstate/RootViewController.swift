@@ -1,6 +1,6 @@
 //
-//  ViewController.swift
-//  StatefulViewController
+//  RootViewController.swift
+//  Reinstate_Example
 //
 //  Created by Connor Neville on 03/01/2018.
 //  Copyright (c) 2018 nevillco. All rights reserved.
