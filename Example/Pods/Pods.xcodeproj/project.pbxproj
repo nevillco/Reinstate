@@ -383,8 +383,7 @@
 		2CDE2BF88A7B9BFB1D44C848934E6140 /* Pod */ = {
 			isa = PBXGroup;
 			children = (
-				2DD774C62065485E00DF05D1 /* Utility */,
-				2DD774BF2065484F00DF05D1 /* Public */,
+				2DEF644920656D0F000174ED /* Source */,
 				D979A81E1E956DDADCB9662994FC8392 /* LICENSE */,
 				D9CF27D82DDD7F326F756427718C0E2A /* README.md */,
 				F80506F97F6A87EE45C88B86F1F3B7D2 /* Reinstate.podspec */,
@@ -409,6 +408,15 @@
 				2DD774C82065485E00DF05D1 /* UIView+ContainsInHierarchy.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		2DEF644920656D0F000174ED /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				2DD774BF2065484F00DF05D1 /* Public */,
+				2DD774C62065485E00DF05D1 /* Utility */,
+			);
+			path = Source;
 			sourceTree = "<group>";
 		};
 		3C3FDCB7F0ADE0D02BF96EB1D4E2C89F /* Pods */ = {

@@ -9,34 +9,19 @@
 Pod::Spec.new do |s|
   s.name             = 'Reinstate'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of Reinstate.'
-
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+  s.summary          = 'Leverage child view controllers to manage the state of your app and keep each view controller small.'
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+When managing an app with complex state, it’s easy for your view controllers to balloon in size. Make use of Reinstate’s utilities to create, display and remove child view controllers, cna keep each individual view controller simple.
                        DESC
 
   s.homepage         = 'https://github.com/nevillco/Reinstate'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nevillco' => 'connor.neville@raizlabs.com' }
+  s.author           = { 'nevillco' => 'connor.neville16@gmail.com' }
   s.source           = { :git => 'https://github.com/nevillco/Reinstate.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
+  s.swift_version = '4.0'
   s.ios.deployment_target = '10.0'
 
-  s.source_files = 'Reinstate/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'Reinstate' => ['Reinstate/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+  s.source_files = 'Source/**/*'
 end
