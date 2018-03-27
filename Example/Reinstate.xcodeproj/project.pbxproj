@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D8C9093206A886B00B0F613 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */; };
 		2DD774D72065490D00DF05D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774CB2065490C00DF05D1 /* RootViewController.swift */; };
 		2DD774D82065490D00DF05D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD774CC2065490C00DF05D1 /* Assets.xcassets */; };
-		2DD774D92065490D00DF05D1 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2DD774CE2065490C00DF05D1 /* LaunchScreen.xib */; };
 		2DD774DA2065490D00DF05D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D02065490C00DF05D1 /* HomeViewController.swift */; };
 		2DD774DB2065490D00DF05D1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */; };
 		2DD774DC2065490D00DF05D1 /* Gesturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D22065490C00DF05D1 /* Gesturable.swift */; };
@@ -19,7 +19,6 @@
 		2DD774E02065490D00DF05D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D62065490D00DF05D1 /* AppDelegate.swift */; };
 		2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF643B20655111000174ED /* MockUIViewController.swift */; };
 		2DEF644420655328000174ED /* MockCustomStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */; };
-		2DEF644520655328000174ED /* ContainsInHierarchySpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644020655328000174ED /* ContainsInHierarchySpec.swift */; };
 		2DEF644620655328000174ED /* MockDefaultStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */; };
 		2DEF644720655328000174ED /* ChildViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644220655328000174ED /* ChildViewControllerSpec.swift */; };
 		2DEF644820655328000174ED /* StatefulViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */; };
@@ -40,9 +39,9 @@
 /* Begin PBXFileReference section */
 		0A1FB253ACB4FBA91DFBE9B5 /* Pods_Reinstate_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reinstate_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DD774CB2065490C00DF05D1 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		2DD774CC2065490C00DF05D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2DD774CF2065490C00DF05D1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		2DD774D02065490C00DF05D1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
 		2DD774D22065490C00DF05D1 /* Gesturable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gesturable.swift; sourceTree = "<group>"; };
@@ -52,7 +51,6 @@
 		2DD774D62065490D00DF05D1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DEF643B20655111000174ED /* MockUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIViewController.swift; sourceTree = "<group>"; };
 		2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCustomStatefulViewController.swift; sourceTree = "<group>"; };
-		2DEF644020655328000174ED /* ContainsInHierarchySpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContainsInHierarchySpec.swift; sourceTree = "<group>"; };
 		2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDefaultStatefulViewController.swift; sourceTree = "<group>"; };
 		2DEF644220655328000174ED /* ChildViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildViewControllerSpec.swift; sourceTree = "<group>"; };
 		2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatefulViewControllerSpec.swift; sourceTree = "<group>"; };
@@ -89,15 +87,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2DD774CD2065490C00DF05D1 /* Base.lproj */ = {
-			isa = PBXGroup;
-			children = (
-				2DD774CE2065490C00DF05D1 /* LaunchScreen.xib */,
-			);
-			name = Base.lproj;
-			path = ../../../StatefulViewController/Example/StatefulViewController/Base.lproj;
-			sourceTree = "<group>";
-		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -124,7 +113,6 @@
 			children = (
 				2DD774D62065490D00DF05D1 /* AppDelegate.swift */,
 				2DD774CC2065490C00DF05D1 /* Assets.xcassets */,
-				2DD774CD2065490C00DF05D1 /* Base.lproj */,
 				2DD774D22065490C00DF05D1 /* Gesturable.swift */,
 				2DD774D02065490C00DF05D1 /* HomeViewController.swift */,
 				2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */,
@@ -133,6 +121,7 @@
 				2DD774D32065490C00DF05D1 /* SplashViewController.swift */,
 				2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
+				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
 			);
 			name = "Example for Reinstate";
 			path = Reinstate;
@@ -150,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
-				2DEF644020655328000174ED /* ContainsInHierarchySpec.swift */,
 				2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */,
 				2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */,
 				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
@@ -287,8 +275,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD774D92065490D00DF05D1 /* LaunchScreen.xib in Resources */,
 				2DD774D82065490D00DF05D1 /* Assets.xcassets in Resources */,
+				2D8C9093206A886B00B0F613 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -428,7 +416,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DEF644520655328000174ED /* ContainsInHierarchySpec.swift in Sources */,
 				2DEF644420655328000174ED /* MockCustomStatefulViewController.swift in Sources */,
 				2DEF644620655328000174ED /* MockDefaultStatefulViewController.swift in Sources */,
 				2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */,
@@ -446,17 +433,6 @@
 			targetProxy = 607FACE61AFB9204008FA782 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		2DD774CE2065490C00DF05D1 /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2DD774CF2065490C00DF05D1 /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		607FACED1AFB9204008FA782 /* Debug */ = {

@@ -51,13 +51,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.addChild(child, constrainedTo: container, animation: nil, completion: nil)
                     expect(child.view.superview) == container
                 }
-                // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let child = UIViewController()
-//                    let container = UIView()
-//                    expect { parent.addChild(child, constrainedTo: container, animation: nil, completion: nil) }.to(throwAssertion())
-//                }
             }
             // MARK: with animations
             context("with animation") {
@@ -101,14 +94,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.addChild(child, constrainedTo: container, animation: animation, completion: nil)
                     expect(child.view.superview) == container
                 }
-                // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let child = UIViewController()
-//                    let container = UIView()
-//                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-//                    expect { parent.addChild(child, constrainedTo: container, animation: animation, completion: nil) }.to(throwAssertion())
-//                }
             }
         }
         // MARK: - removeChild
@@ -257,16 +242,6 @@ class ChildViewControllerSpec: QuickSpec {
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
-//                }
-                // TODO: fix this test
 //                it("throws assertion if existing is not a child controller") {
 //                    let parent = UIViewController()
 //                    let oldChild = UIViewController()
@@ -346,16 +321,6 @@ class ChildViewControllerSpec: QuickSpec {
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
-//                }
-                // TODO: fix this test
 //                it("throws assertion if existing is not a child controller") {
 //                    let parent = UIViewController()
 //                    let oldChild = UIViewController()
@@ -434,16 +399,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
                     expect(newChild.view.superview) == container
                 }
-                // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .simultaneous)
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
-//                }
                 // TODO: fix this test
 //                it("throws assertion if existing is not a child controller") {
 //                    let parent = UIViewController()
@@ -545,19 +500,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
                     expect(newChild.view.superview) == container
                 }
-                // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(
-//                        order: .addNewChildFirst,
-//                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-//                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
-//                }
                 // TODO: Fix this test. Testing an async assertion failure
                 // does not seem to work with expect { ... }.toEventually(throwAssertion())
                 //                it("throws assertion if existing is not a child controller") {
@@ -663,20 +605,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
                     expect(newChild.view.superview).toEventually(equal(container))
                 }
-                // TODO: Fix this test. Testing an async assertion failure
-                // does not seem to work with expect
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior: StateTransitionBehavior =
-//                        .removeExistingChildFirst(
-//                            additionAnimations: (duration: 0.2, options: .curveEaseIn),
-//                            removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
-//                } { ... }.toEventually(throwAssertion())
                 // TODO: fix this test
 //                it("throws assertion if existing is not a child controller") {
 //                    let parent = UIViewController()
@@ -703,7 +631,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
                     expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
                 }
-                //
                 it("adds new view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
@@ -781,19 +708,6 @@ class ChildViewControllerSpec: QuickSpec {
                     parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
                     expect(newChild.view.superview) == container
                 }
-                // TODO: fix this test
-//                it("throws assertion if container is not in parent view hierarchy") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    parent.addChildViewController(oldChild)
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(
-//                        order: .simultaneous,
-//                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-//                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-//                    let container = UIView()
-//                    expect { parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
-//                }
                 // TODO: fix this test
 //                it("throws assertion if existing is not a child controller") {
 //                    let parent = UIViewController()
