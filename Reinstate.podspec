@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reinstate'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'Leverage child view controllers to manage the state of your app and keep each view controller small.'
 
   s.description      = <<-DESC
