@@ -43,10 +43,10 @@ class StatefulViewControllerSpec: QuickSpec {
 
                 for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
                     expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                        return constraint.isPinning(childViewA, subviewA, attribute)
+                        return constraint.isPinning(childViewA, and: subviewA, to: attribute)
                     }))
                     expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                        return constraint.isPinning(childViewB, subviewB, attribute)
+                        return constraint.isPinning(childViewB, and: subviewB, to: attribute)
                     }))
                 }
             }
@@ -102,10 +102,10 @@ class StatefulViewControllerSpec: QuickSpec {
 
                     for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
                         expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewA, subviewA, attribute)
+                            return constraint.isPinning(childViewA, and: subviewA, to: attribute)
                         }))
                         expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewB, subviewB, attribute)
+                            return constraint.isPinning(childViewB, and: subviewB, to: attribute)
                         }))
                     }
                 }
@@ -164,10 +164,10 @@ class StatefulViewControllerSpec: QuickSpec {
 
                     for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
                         expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewA, subviewA, attribute)
+                            return constraint.isPinning(childViewA, and: subviewA, to: attribute)
                         }))
                         expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewB, subviewB, attribute)
+                            return constraint.isPinning(childViewB, and: subviewB, to: attribute)
                         }))
                     }
                 }
@@ -197,7 +197,7 @@ class StatefulViewControllerSpec: QuickSpec {
 
 fileprivate extension NSLayoutConstraint {
 
-    func isPinning(_ view1: UIView, _ view2: UIView, _ attribute: NSLayoutAttribute) -> Bool {
+    func isPinning(_ view1: UIView, and view2: UIView, to attribute: NSLayoutAttribute) -> Bool {
         let isCorrectAttribute = firstAttribute == attribute && secondAttribute == attribute
         let containsFirstView = (firstItem as? UIView) == view1 || (secondItem as? UIView) == view1
         let containsSecondView = (firstItem as? UIView) == view2 || (secondItem as? UIView) == view2
