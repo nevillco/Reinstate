@@ -18,8 +18,7 @@ class RootViewController: UIViewController, StatefulViewController {
         case home
     }
     var state = State.splash
-
-    var currentStateManagedChildren: [UIView: UIViewController] = [:]
+    var currentChild: UIViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,7 +29,7 @@ class RootViewController: UIViewController, StatefulViewController {
 
 extension RootViewController {
 
-    func childViewController(for state: RootViewController.State, in view: UIView) -> UIViewController {
+    func childViewController(for state: RootViewController.State) -> UIViewController {
         switch state {
         case .splash:
             let vc = SplashViewController()
@@ -51,7 +50,7 @@ extension RootViewController {
         }
     }
 
-    func transitionBehavior(from oldState: RootViewController.State, to newState: RootViewController.State, in view: UIView) -> StateTransitionBehavior {
+    func transitionBehavior(from oldState: RootViewController.State, to newState: RootViewController.State) -> StateTransitionBehavior {
         switch (oldState, newState) {
         case (.splash, _):
             return StateTransitionBehavior(

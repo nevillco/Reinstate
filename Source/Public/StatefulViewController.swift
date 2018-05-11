@@ -15,23 +15,18 @@ public protocol StatefulViewController: class where Self: UIViewController {
     associatedtype State: Equatable
 
     var state: State { get set }
-    var currentStateManagedChildren: [UIView: UIViewController] { get set }
+    var currentChild: UIViewController? { get set }
 
-    var stateManagedViews: [UIView] { get }
-    func transitionBehavior(from oldState: State, to newState: State, in view: UIView) -> StateTransitionBehavior
+    func transitionBehavior(from oldState: State, to newState: State) -> StateTransitionBehavior
 
-    func childViewController(for state: State, in view: UIView) -> UIViewController
+    func childViewController(for state: State) -> UIViewController
 
 }
 
 // MARK: Default Implementations
 public extension StatefulViewController {
 
-    var stateManagedViews: [UIView] {
-        return [view]
-    }
-
-    func transitionBehavior(from oldState: State, to newState: State, in view: UIView) -> StateTransitionBehavior {
+    func transitionBehavior(from oldState: State, to newState: State) -> StateTransitionBehavior {
         return StateTransitionBehavior(
             order: .addNewChildFirst,
             additionAnimations: nil,
@@ -44,33 +39,24 @@ public extension StatefulViewController {
 public extension StatefulViewController {
 
     func configureInitialState() {
-        for stateManagedView in stateManagedViews {
-            let initialChild = childViewController(for: state, in: stateManagedView)
-            currentStateManagedChildren[stateManagedView] = initialChild
-            addChild(initialChild, constrainedTo: stateManagedView)
-        }
+        let initialChild = childViewController(for: state)
+        currentChild = initialChild
+        addChild(initialChild)
     }
 
     func transition(to newState: State, completion: (() -> Void)? = nil) {
         guard newState != state else {
-            assertionFailure("Encountered a transition to the current state: \(newState). No operation")
+            assertionFailure("Encountered a transition to the current state: \(newState). No operation.")
             return
         }
-        let group = DispatchGroup()
-        for stateManagedView in stateManagedViews {
-            guard let currentChild = currentStateManagedChildren[stateManagedView] else {
-                preconditionFailure("Missing an initial child before transitioning states in view: \(stateManagedView)")
-            }
-            let newChild = childViewController(for: newState, in: stateManagedView)
-            let transitionBehavior = self.transitionBehavior(from: state, to: newState, in: stateManagedView)
-            currentStateManagedChildren[stateManagedView] = newChild
-            group.enter()
-            replaceChild(currentChild, with: newChild, constrainedTo: stateManagedView, transitionBehavior: transitionBehavior, completion: {
-                group.leave()
-            })
+        guard let currentChild = currentChild else {
+            preconditionFailure("Missing a currentChild while transitioning states.")
         }
-        group.notify(queue: .main) {
+        let newChild = childViewController(for: newState)
+        let transitionBehavior = self.transitionBehavior(from: state, to: newState)
+        replaceChild(currentChild, with: newChild, transitionBehavior: transitionBehavior) {
             self.state = newState
+            self.currentChild = newChild
             completion?()
         }
     }

@@ -13,49 +13,33 @@ import Nimble
 class StatefulViewControllerSpec: QuickSpec {
 
     override func spec() {
-        it("defaults to managing self.view") {
-            let vc = MockDefaultStatefulViewController()
-            expect(vc.stateManagedViews) == [vc.view]
-        }
-        it("defaults to non-animated transition") {
-            let vc = MockDefaultStatefulViewController()
-            let behavior = vc.transitionBehavior(from: .stateA, to: .stateB, in: vc.view)
-            expect(behavior.additionAnimations).to(beNil())
-            expect(behavior.removalAnimations).to(beNil())
-        }
         describe("configureInitialState") {
-            it("adds correct child controllers") {
-                let vc = MockCustomStatefulViewController()
+            it("adds correct child controller") {
+                let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
                 vc.configureInitialState()
-                expect(vc.childViewControllers).to(contain(vc.defaultChildForSubviewA))
-                expect(vc.childViewControllers).to(contain(vc.defaultChildForSubviewB))
+                expect(vc.childViewControllers).to(contain(vc.childForStateA))
+                expect(vc.childViewControllers).toNot(contain(vc.childForStateB))
             }
-            it("constrains child controllers to their views") {
-                let vc = MockCustomStatefulViewController()
+            it("constrains child controller to its view") {
+                let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
                 vc.configureInitialState()
 
-                let childViewA = vc.defaultChildForSubviewA.view!
-                let subviewA = vc.subviewA
-                let childViewB = vc.defaultChildForSubviewB.view!
-                let subviewB = vc.subviewB
-
+                let childView = vc.childForStateA.view!
+                let view = vc.view!
                 for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
-                    expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                        return constraint.isPinning(childViewA, and: subviewA, to: attribute)
-                    }))
-                    expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                        return constraint.isPinning(childViewB, and: subviewB, to: attribute)
-                    }))
+                    let predicate: (NSLayoutConstraint) -> Bool = {
+                        return $0.isPinning(childView, and: view, to: attribute)
+                    }
+                    expect(view.constraints).to(containElementSatisfying(predicate))
                 }
             }
-            it("sets currentStateManagedChildren") {
-                let vc = MockCustomStatefulViewController()
+            it("sets currentChild") {
+                let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
                 vc.configureInitialState()
-                expect(vc.currentStateManagedChildren[vc.subviewA]) == vc.defaultChildForSubviewA
-                expect(vc.currentStateManagedChildren[vc.subviewB]) == vc.defaultChildForSubviewB
+                expect(vc.currentChild) == vc.childForStateA
             }
         }
         describe("transition") {
@@ -73,56 +57,48 @@ class StatefulViewControllerSpec: QuickSpec {
 //                    vc.loadViewIfNeeded()
 //                    expect { vc.transition(to: .secondStateNotAnimated) }.to(throwAssertion())
 //                }
-                it("sets correct child controllers") {
-                    let vc = MockCustomStatefulViewController()
+                it("sets correct child controller") {
+                    let vc = MockStatefulViewController(animatedTransitions: false)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateNotAnimated)
-                    expect(vc.childViewControllers).to(contain(vc.secondChildForSubviewA))
-                    expect(vc.childViewControllers).to(contain(vc.secondChildForSubviewB))
+                    vc.transition(to: .stateB)
+                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
                 }
-                it("removes previous child controllers") {
-                    let vc = MockCustomStatefulViewController()
+                it("removes previous child controller") {
+                    let vc = MockStatefulViewController(animatedTransitions: false)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateNotAnimated)
-                    expect(vc.childViewControllers).toNot(contain(vc.defaultChildForSubviewA))
-                    expect(vc.childViewControllers).toNot(contain(vc.defaultChildForSubviewB))
+                    vc.transition(to: .stateB)
+                    expect(vc.childViewControllers).toNot(contain(vc.childForStateA))
                 }
-                it("constrains child controllers to their views") {
-                    let vc = MockCustomStatefulViewController()
+                it("constrains child controller to its view") {
+                    let vc = MockStatefulViewController(animatedTransitions: false)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateNotAnimated)
+                    vc.transition(to: .stateB)
 
-                    let childViewA = vc.secondChildForSubviewA.view!
-                    let subviewA = vc.subviewA
-                    let childViewB = vc.secondChildForSubviewB.view!
-                    let subviewB = vc.subviewB
-
+                    let childView = vc.childForStateB.view!
+                    let view = vc.view!
                     for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
-                        expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewA, and: subviewA, to: attribute)
-                        }))
-                        expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewB, and: subviewB, to: attribute)
-                        }))
+                        let predicate: (NSLayoutConstraint) -> Bool = {
+                            return $0.isPinning(childView, and: view, to: attribute)
+                        }
+                        expect(view.constraints).to(containElementSatisfying(predicate))
                     }
                 }
-                it("sets currentStateManagedChildren") {
-                    let vc = MockCustomStatefulViewController()
+                it("sets currentChild") {
+                    let vc = MockStatefulViewController(animatedTransitions: false)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateNotAnimated)
-                    expect(vc.currentStateManagedChildren[vc.subviewA]) == vc.secondChildForSubviewA
-                    expect(vc.currentStateManagedChildren[vc.subviewB]) == vc.secondChildForSubviewB
+                    vc.transition(to: .stateB)
+                    expect(vc.currentChild) == vc.childForStateB
                 }
                 it("calls completion") {
-                    let vc = MockCustomStatefulViewController()
+                    let vc = MockStatefulViewController(animatedTransitions: false)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
                     var completionCalled = false
-                    vc.transition(to: .secondStateNotAnimated, completion: {
+                    vc.transition(to: .stateB, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -135,56 +111,48 @@ class StatefulViewControllerSpec: QuickSpec {
 //                    vc.loadViewIfNeeded()
 //                    expect { vc.transition(to: .secondStateAnimated) }.to(throwAssertion())
 //                }
-                it("sets correct child controllers") {
-                    let vc = MockCustomStatefulViewController()
+                it("sets correct child controller") {
+                    let vc = MockStatefulViewController(animatedTransitions: true)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateAnimated)
-                    expect(vc.childViewControllers).to(contain(vc.secondChildForSubviewA))
-                    expect(vc.childViewControllers).to(contain(vc.secondChildForSubviewB))
+                    vc.transition(to: .stateB)
+                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
                 }
-                it("removes previous child controllers") {
-                    let vc = MockCustomStatefulViewController()
+                it("removes previous child controller") {
+                    let vc = MockStatefulViewController(animatedTransitions: true)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateAnimated)
-                    expect(vc.childViewControllers).toNot(contain(vc.defaultChildForSubviewA))
-                    expect(vc.childViewControllers).toNot(contain(vc.defaultChildForSubviewB))
+                    vc.transition(to: .stateB)
+                    expect(vc.childViewControllers).toEventuallyNot(contain(vc.childForStateA))
                 }
-                it("constrains child controllers to their views") {
-                    let vc = MockCustomStatefulViewController()
+                it("constrains child controller to its view") {
+                    let vc = MockStatefulViewController(animatedTransitions: true)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateAnimated)
+                    vc.transition(to: .stateB)
 
-                    let childViewA = vc.secondChildForSubviewA.view!
-                    let subviewA = vc.subviewA
-                    let childViewB = vc.secondChildForSubviewB.view!
-                    let subviewB = vc.subviewB
-
+                    let childView = vc.childForStateB.view!
+                    let view = vc.view!
                     for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
-                        expect(subviewA.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewA, and: subviewA, to: attribute)
-                        }))
-                        expect(subviewB.constraints).to(containElementSatisfying({ constraint -> Bool in
-                            return constraint.isPinning(childViewB, and: subviewB, to: attribute)
-                        }))
+                        let predicate: (NSLayoutConstraint) -> Bool = {
+                            return $0.isPinning(childView, and: view, to: attribute)
+                        }
+                        expect(view.constraints).to(containElementSatisfying(predicate))
                     }
                 }
-                it("sets currentStateManagedChildren") {
-                    let vc = MockCustomStatefulViewController()
+                it("sets currentChild") {
+                    let vc = MockStatefulViewController(animatedTransitions: true)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
-                    vc.transition(to: .secondStateAnimated)
-                    expect(vc.currentStateManagedChildren[vc.subviewA]) == vc.secondChildForSubviewA
-                    expect(vc.currentStateManagedChildren[vc.subviewB]) == vc.secondChildForSubviewB
+                    vc.transition(to: .stateB)
+                    expect(vc.currentChild).toEventually(equal(vc.childForStateB))
                 }
                 it("calls completion") {
-                    let vc = MockCustomStatefulViewController()
+                    let vc = MockStatefulViewController(animatedTransitions: true)
                     vc.loadViewIfNeeded()
                     vc.configureInitialState()
                     var completionCalled = false
-                    vc.transition(to: .secondStateAnimated, completion: {
+                    vc.transition(to: .stateB, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())

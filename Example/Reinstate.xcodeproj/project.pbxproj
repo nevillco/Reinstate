@@ -18,8 +18,7 @@
 		2DD774DF2065490D00DF05D1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D52065490C00DF05D1 /* SignInViewController.swift */; };
 		2DD774E02065490D00DF05D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D62065490D00DF05D1 /* AppDelegate.swift */; };
 		2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF643B20655111000174ED /* MockUIViewController.swift */; };
-		2DEF644420655328000174ED /* MockCustomStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */; };
-		2DEF644620655328000174ED /* MockDefaultStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */; };
+		2DEF644620655328000174ED /* MockStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644120655328000174ED /* MockStatefulViewController.swift */; };
 		2DEF644720655328000174ED /* ChildViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644220655328000174ED /* ChildViewControllerSpec.swift */; };
 		2DEF644820655328000174ED /* StatefulViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */; };
 		D5EA8C7C33470CA741ABEF93 /* Pods_Reinstate_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A1FB253ACB4FBA91DFBE9B5 /* Pods_Reinstate_Example.framework */; };
@@ -50,8 +49,7 @@
 		2DD774D52065490C00DF05D1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		2DD774D62065490D00DF05D1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DEF643B20655111000174ED /* MockUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIViewController.swift; sourceTree = "<group>"; };
-		2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockCustomStatefulViewController.swift; sourceTree = "<group>"; };
-		2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockDefaultStatefulViewController.swift; sourceTree = "<group>"; };
+		2DEF644120655328000174ED /* MockStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStatefulViewController.swift; sourceTree = "<group>"; };
 		2DEF644220655328000174ED /* ChildViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildViewControllerSpec.swift; sourceTree = "<group>"; };
 		2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatefulViewControllerSpec.swift; sourceTree = "<group>"; };
 		33FB7658707B26E6F2E8137B /* Pods-Reinstate_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Example/Pods-Reinstate_Example.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,8 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
-				2DEF643F20655328000174ED /* MockCustomStatefulViewController.swift */,
-				2DEF644120655328000174ED /* MockDefaultStatefulViewController.swift */,
+				2DEF644120655328000174ED /* MockStatefulViewController.swift */,
 				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
 				2DEF643B20655111000174ED /* MockUIViewController.swift */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
@@ -416,8 +413,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DEF644420655328000174ED /* MockCustomStatefulViewController.swift in Sources */,
-				2DEF644620655328000174ED /* MockDefaultStatefulViewController.swift in Sources */,
+				2DEF644620655328000174ED /* MockStatefulViewController.swift in Sources */,
 				2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */,
 				2DEF644720655328000174ED /* ChildViewControllerSpec.swift in Sources */,
 				2DEF644820655328000174ED /* StatefulViewControllerSpec.swift in Sources */,
