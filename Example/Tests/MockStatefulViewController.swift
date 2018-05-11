@@ -1,6 +1,6 @@
 //
 //  MockStatefulViewController.swift
-//  StatefulViewController_Example
+//  Reinstate_Tests
 //
 //  Created by Connor Neville on 3/14/18.
 //  Copyright © 2018 CocoaPods. All rights reserved.
