@@ -10,7 +10,7 @@ Reinstate helps you leverage child view controllers in your iOS application to m
 
 Perhaps one of the most common beginner hurdles in the iOS world is the _massive view controller_ - UIKit heavily leans the developer towards an MVC pattern, and in reality that turns into putting everything that is neither a model nor a view inside the controller. There are lots of good ways to alleviate this problem, and one of those ways is to leverage __child view controllers__.
 
-So let's look at adding a child view controller to a particular view. The Apple-approved way of doing so looks like this:
+So let's look at adding a child view controller to a particular view. **Without Reinstate**:
 
 ```swift
 // containerView is a subview of self.view,
@@ -27,7 +27,7 @@ NSLayoutConstraint.activate([
 controller.didMove(toParentViewController: self)
 ```
 
-This gets substantially more complicated if you want to add animations. However, with Reinstate’s utility functions, this just becomes:
+And this is without any animation code. The version with animation code is substantially longer. However, **with Reinstate**:
 
 ```swift
 self.addChild(controller, constrainedTo: containerView)
@@ -39,33 +39,25 @@ You can similarly remove and replace child view controllers this way. But Reinst
 
 ## StatefulViewController
 
-`StatefulViewController` is a protocol that can be implemented by UIViewControllers in order to easily represent a state machine. It does so by swapping out child view controllers that you can map to however you model the state of the controller. `StatefulViewController` can greatly cut down on boilerplate, confusing code, and give you an easy, readable API to specify transition animations and settings.
+`StatefulViewController` is a `UIViewController` subclass that can manage its contents according to a  `State`. It does so by swapping out child view controllers that you can map to however you model the state of the controller. `StatefulViewController` can greatly cut down on boilerplate, confusing code, and give you an easy, readable API to specify transition animations and settings.
 
 ```swift
-import StatefulViewController
 
-class RootViewController: UIViewController, StatefulViewController {
+import Reinstate
 
-    enum State {
-        case splash
-        case onboarding
-        case signIn
-        case home
-    }
-    var state = State.splash
-
-    var currentStateManagedChildren: [UIView: UIViewController] = [:]
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureInitialState()
-    }
-
+enum RootState {
+    case splash
+    case onboarding
+    case signIn
+    case home
 }
 
-extension RootViewController {
+class RootViewController: StatefulViewController<RootState> {
 
-    func childViewController(for state: RootViewController.State, in view: UIView) -> UIViewController {
+    var currentChild: UIViewController?
+
+    // StatefulViewController requires you override this function
+    override func childViewController(for state: RootState) -> UIViewController {
         switch state {
         case .splash:
             let vc = SplashViewController()
@@ -86,23 +78,24 @@ extension RootViewController {
         }
     }
 
-    func transitionBehavior(from oldState: RootViewController.State, to newState: RootViewController.State, in view: UIView) -> StateTransitionBehavior {
+    // Optionally override this function to change the transition animation
+    override func transitionAnimation(from oldState: RootState, to newState: RootState) -> StateTransitionAnimation? {
         switch (oldState, newState) {
         case (.splash, _):
-            return StateTransitionBehavior(
-                order: .simultaneous,
-                additionAnimations: (duration: 0.3, options: .transitionCrossDissolve),
-                removalAnimations: (duration: 0.3, options: .transitionCrossDissolve))
+            return .appearAndSimultaneouslyRemove(
+                onAppear: (0.3, .transitionCrossDissolve),
+                onRemove: (0.3, .transitionCrossDissolve)
+            )
         case (.onboarding, .signIn), (.signIn, .home):
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                additionAnimations: (duration: 0.3, options: .transitionFlipFromLeft))
+            return .appearOverPrevious(
+                onAppear: (0.3, .transitionFlipFromLeft)
+            )
         case (.signIn, .onboarding), (.home, .signIn):
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                    additionAnimations: (duration: 0.3, options: .transitionFlipFromRight))
+            return .appearUnderPrevious(
+                onRemove: (0.3, .transitionFlipFromRight)
+            )
         default:
-            fatalError("Unexpected state transition from \(oldState) to \(newState)")
+            return nil
         }
     }
 
@@ -123,8 +116,37 @@ extension RootViewController: SplashViewControllerDelegate {
 
 }
 
-// additional delegate conformances omitted for brevity
-// see Example/StatefulViewController/RootViewController.swift for full implementation
+extension RootViewController: OnboardingViewControllerDelegate {
+
+    func onboardingViewControllerDidComplete(_ controller: OnboardingViewController) {
+        UserDefaults.standard.hasCompletedOnboarding = true
+        transition(to: .signIn)
+    }
+
+}
+
+extension RootViewController: SignInViewControllerDelegate {
+
+    func signInViewControllerDidSignIn(_ controller: SignInViewController) {
+        UserDefaults.standard.isAuthenticated = true
+        transition(to: .home)
+    }
+
+    func signInViewControllerDidRevisitOnboarding(_ controller: SignInViewController) {
+        UserDefaults.standard.hasCompletedOnboarding = false
+        transition(to: .onboarding)
+    }
+
+}
+
+extension RootViewController: HomeViewControllerDelegate {
+
+    func homeViewControllerDidSignOut(_ controller: HomeViewController) {
+        UserDefaults.standard.isAuthenticated = false
+        transition(to: .signIn)
+    }
+
+}
 ```
 
 ## Example

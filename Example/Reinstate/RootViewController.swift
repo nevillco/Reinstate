@@ -6,7 +6,6 @@
 //  Copyright (c) 2018 nevillco. All rights reserved.
 //
 
-import UIKit
 import Reinstate
 
 enum RootState {
@@ -19,11 +18,6 @@ enum RootState {
 class RootViewController: StatefulViewController<RootState> {
 
     var currentChild: UIViewController?
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureInitialState()
-    }
 
     override func childViewController(for state: RootState) -> UIViewController {
         switch state {
