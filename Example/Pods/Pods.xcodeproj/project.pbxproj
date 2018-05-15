@@ -19,9 +19,9 @@
 		25D1805055756CAA69A167CA03B2465C /* ContainElementSatisfying.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD6CC02AD6D4C0E7D1169EF9ECB3706 /* ContainElementSatisfying.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		29A65FF7D1752DFFF87F5DC8F55CE859 /* ToSucceed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE295D4D0ED3F1666C5921320F0E2C6 /* ToSucceed.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		2B6D98F154B20F4C80374170341AC4D4 /* World+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 467F00CAF06ADEF612F697F068843FB2 /* World+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		2D6EA0CE20AA43CA00EFC2A7 /* StatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */; };
 		2DD774C32065484F00DF05D1 /* UIViewController+ChildViewControllers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774C02065484F00DF05D1 /* UIViewController+ChildViewControllers.swift */; };
-		2DD774C42065484F00DF05D1 /* StatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774C12065484F00DF05D1 /* StatefulViewController.swift */; };
-		2DD774C52065484F00DF05D1 /* StateTransitionBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774C22065484F00DF05D1 /* StateTransitionBehavior.swift */; };
+		2DD774C52065484F00DF05D1 /* StateTransitionAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774C22065484F00DF05D1 /* StateTransitionAnimation.swift */; };
 		2DD774C92065485E00DF05D1 /* UIView+ConstrainToEdges.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774C72065485E00DF05D1 /* UIView+ConstrainToEdges.swift */; };
 		307E1515E40AB3406400BEE27CA3405E /* World+DSL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65B4CDEF78BF13177A9303C1E765E5F6 /* World+DSL.swift */; };
 		30BBAE9912136414D7A58D87D02CBB27 /* Quick.h in Headers */ = {isa = PBXBuildFile; fileRef = 1C846417EADDAAFF733CF6AC8FEB5EEA /* Quick.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -183,10 +183,10 @@
 		2727DBDF3F41A52F002F6B1992165881 /* Nimble.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Nimble.h; path = Sources/Nimble/Nimble.h; sourceTree = "<group>"; };
 		275448DC30BDA55B5E7C9B0722156C10 /* Pods-Reinstate_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Reinstate_Example-resources.sh"; sourceTree = "<group>"; };
 		27D3B45E28A7F402A2E268E66126EB55 /* Pods-Reinstate_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Reinstate_Example-dummy.m"; sourceTree = "<group>"; };
+		2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulViewController.swift; sourceTree = "<group>"; };
 		2DD6CC02AD6D4C0E7D1169EF9ECB3706 /* ContainElementSatisfying.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ContainElementSatisfying.swift; path = Sources/Nimble/Matchers/ContainElementSatisfying.swift; sourceTree = "<group>"; };
 		2DD774C02065484F00DF05D1 /* UIViewController+ChildViewControllers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+ChildViewControllers.swift"; sourceTree = "<group>"; };
-		2DD774C12065484F00DF05D1 /* StatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatefulViewController.swift; sourceTree = "<group>"; };
-		2DD774C22065484F00DF05D1 /* StateTransitionBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTransitionBehavior.swift; sourceTree = "<group>"; };
+		2DD774C22065484F00DF05D1 /* StateTransitionAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StateTransitionAnimation.swift; sourceTree = "<group>"; };
 		2DD774C72065485E00DF05D1 /* UIView+ConstrainToEdges.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+ConstrainToEdges.swift"; sourceTree = "<group>"; };
 		2E8E430D83F3CC7F72E348A0B222C46F /* QuickTestSuite.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = QuickTestSuite.swift; path = Sources/Quick/QuickTestSuite.swift; sourceTree = "<group>"; };
 		301223B3EB74E21CDB1303C459B57231 /* ExampleHooks.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExampleHooks.swift; path = Sources/Quick/Hooks/ExampleHooks.swift; sourceTree = "<group>"; };
@@ -393,8 +393,8 @@
 			isa = PBXGroup;
 			children = (
 				2DD774C02065484F00DF05D1 /* UIViewController+ChildViewControllers.swift */,
-				2DD774C12065484F00DF05D1 /* StatefulViewController.swift */,
-				2DD774C22065484F00DF05D1 /* StateTransitionBehavior.swift */,
+				2DD774C22065484F00DF05D1 /* StateTransitionAnimation.swift */,
+				2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -968,11 +968,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2DD774C52065484F00DF05D1 /* StateTransitionBehavior.swift in Sources */,
+				2DD774C52065484F00DF05D1 /* StateTransitionAnimation.swift in Sources */,
 				2DD774C32065484F00DF05D1 /* UIViewController+ChildViewControllers.swift in Sources */,
 				2DD774C92065485E00DF05D1 /* UIView+ConstrainToEdges.swift in Sources */,
 				C476FDB488E4A8788ACEFC7D5D793FDE /* Reinstate-dummy.m in Sources */,
-				2DD774C42065484F00DF05D1 /* StatefulViewController.swift in Sources */,
+				2D6EA0CE20AA43CA00EFC2A7 /* StatefulViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

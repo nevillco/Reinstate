@@ -9,50 +9,40 @@
 import UIKit
 import Reinstate
 
-class MockStatefulViewController: UIViewController, StatefulViewController {
+enum MockState {
+    case stateA
+    case stateB
+}
 
-    enum State {
-        case stateA
-        case stateB
-    }
-    var state = State.stateA
-    var currentChild: UIViewController?
+class MockStatefulViewController: StatefulViewController<MockState> {
 
     let childForStateA = UIViewController()
     let childForStateB = UIViewController()
+
+    var hasConfiguredInitialState = false
 
     let animatedTransitions: Bool
 
     init(animatedTransitions: Bool) {
         self.animatedTransitions = animatedTransitions
-        super.init(nibName: nil, bundle: nil)
+        super.init(initialState: .stateA)
     }
 
-    @available(*, unavailable) required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func configureInitialState() {
+        super.configureInitialState()
+        hasConfiguredInitialState = true
     }
 
-    func childViewController(for state: State) -> UIViewController {
+    override func childViewController(for state: MockState) -> UIViewController {
         switch state {
         case .stateA: return childForStateA
         case .stateB: return childForStateB
         }
     }
 
-    func transitionBehavior(from oldState: MockStatefulViewController.State, to newState: MockStatefulViewController.State) -> StateTransitionBehavior {
-        switch animatedTransitions {
-        case true:
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                additionAnimations: (duration: 0.3, options: .transitionCrossDissolve),
-                removalAnimations: (duration: 0.3, options: .transitionCrossDissolve))
-        case false:
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                additionAnimations: nil,
-                removalAnimations: nil)
-            
-        }
+    override func transitionAnimation(from oldState: MockState, to newState: MockState) -> StateTransitionAnimation? {
+        let options: StateTransitionAnimationOptions = (0.3, .transitionCrossDissolve)
+        return .appearOverPrevious(onAppear: animatedTransitions ? options : nil)
     }
 
 }

@@ -1,60 +1,57 @@
 //
-//  StatefulViewController.swift
+//  StatefulViewController2.swift
 //  Reinstate
 //
-//  Created by Connor Neville on 3/1/18.
+//  Created by Connor Neville on 5/14/18.
 //
 
-// "Redundant layout constraint" warning is the product of a Swift bug.
-// Only constraining to Self: UIViewController doesn't provide
-// class protocol semantics, so `mutating` functions are necessary,
-// and only conforming to `class` leaves non-UIViewControllers eligible
-// for conformance. See: https://bugs.swift.org/browse/SR-6265
-public protocol StatefulViewController: class where Self: UIViewController {
+import UIKit
 
-    associatedtype State: Equatable
+open class StatefulViewController<State: Equatable>: UIViewController {
 
-    var state: State { get set }
-    var currentChild: UIViewController? { get set }
+    open var state: State
+    open var ignoresSameStateChanges = true
+    internal var currentChild: UIViewController?
 
-    func transitionBehavior(from oldState: State, to newState: State) -> StateTransitionBehavior
-
-    func childViewController(for state: State) -> UIViewController
-
-}
-
-// MARK: Default Implementations
-public extension StatefulViewController {
-
-    func transitionBehavior(from oldState: State, to newState: State) -> StateTransitionBehavior {
-        return StateTransitionBehavior(
-            order: .addNewChildFirst,
-            additionAnimations: nil,
-            removalAnimations: nil)
+    public init(initialState: State) {
+        state = initialState
+        super.init(nibName: nil, bundle: nil)
     }
 
-}
+    @available(*, unavailable) required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
-// MARK: Convenience Functions
-public extension StatefulViewController {
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        configureInitialState()
+    }
 
-    func configureInitialState() {
+    open func configureInitialState() {
         let initialChild = childViewController(for: state)
         currentChild = initialChild
         addChild(initialChild)
     }
 
-    func transition(to newState: State, completion: (() -> Void)? = nil) {
-        guard newState != state else {
-            assertionFailure("Encountered a transition to the current state: \(newState). No operation.")
+    open func childViewController(for state: State) -> UIViewController {
+        fatalError("Subclasses of StatefulViewController must implement childViewController(for:)")
+    }
+
+    open func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
+        return nil
+    }
+
+    open func transition(to newState: State, completion: (() -> Void)? = nil) {
+        if ignoresSameStateChanges, newState == state {
+            print("Encountered a same-state transition to \(newState) - ignoring.")
             return
         }
         guard let currentChild = currentChild else {
             preconditionFailure("Missing a currentChild while transitioning states.")
         }
         let newChild = childViewController(for: newState)
-        let transitionBehavior = self.transitionBehavior(from: state, to: newState)
-        replaceChild(currentChild, with: newChild, transitionBehavior: transitionBehavior) {
+        let animation = transitionAnimation(from: state, to: newState)
+        replaceChild(currentChild, with: newChild, animation: animation) {
             self.state = newState
             self.currentChild = newChild
             completion?()
@@ -62,4 +59,3 @@ public extension StatefulViewController {
     }
 
 }
-

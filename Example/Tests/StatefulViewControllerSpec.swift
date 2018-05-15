@@ -14,17 +14,20 @@ class StatefulViewControllerSpec: QuickSpec {
 
     override func spec() {
         describe("configureInitialState") {
+            it("gets called after loading view") {
+                let vc = MockStatefulViewController(animatedTransitions: false)
+                vc.loadViewIfNeeded()
+                expect(vc.hasConfiguredInitialState) == true
+            }
             it("adds correct child controller") {
                 let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
-                vc.configureInitialState()
                 expect(vc.childViewControllers).to(contain(vc.childForStateA))
                 expect(vc.childViewControllers).toNot(contain(vc.childForStateB))
             }
             it("constrains child controller to its view") {
                 let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
-                vc.configureInitialState()
 
                 let childView = vc.childForStateA.view!
                 let view = vc.view!
@@ -38,7 +41,6 @@ class StatefulViewControllerSpec: QuickSpec {
             it("sets currentChild") {
                 let vc = MockStatefulViewController(animatedTransitions: false)
                 vc.loadViewIfNeeded()
-                vc.configureInitialState()
                 expect(vc.currentChild) == vc.childForStateA
             }
         }

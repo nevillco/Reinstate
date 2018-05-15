@@ -25,7 +25,7 @@ private extension AppDelegate {
     func configureWindow() {
         let window = UIWindow()
         window.backgroundColor = .white
-        window.rootViewController = RootViewController()
+        window.rootViewController = RootViewController(initialState: .splash)
         window.makeKeyAndVisible()
         self.window = window
     }

@@ -11,6 +11,7 @@ import Nimble
 @testable import Reinstate
 
 class ChildViewControllerSpec: QuickSpec {
+    let animationOptions: StateTransitionAnimationOptions = (0.2, .curveEaseIn)
     override func spec() {
         // MARK: - addChild
         describe("addChild") {
@@ -19,20 +20,20 @@ class ChildViewControllerSpec: QuickSpec {
                 it("adds a child view controller") {
                     let parent = UIViewController()
                     let child = UIViewController()
-                    parent.addChild(child, animation: nil, completion: nil)
+                    parent.addChild(child, options: nil, completion: nil)
                     expect(parent.childViewControllers).to(contain(child))
                 }
                 it("calls didMove(toParentViewController:)") {
                     let parent = UIViewController()
                     let child = MockUIViewController()
-                    parent.addChild(child, animation: nil, completion: nil)
+                    parent.addChild(child, options: nil, completion: nil)
                     expect(child.hasMovedToParentViewController) == true
                 }
                 it("calls completion") {
                     let parent = UIViewController()
                     let child = UIViewController()
                     var completionCalled = false
-                    parent.addChild(child, animation: nil, completion: {
+                    parent.addChild(child, options: nil, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -40,7 +41,7 @@ class ChildViewControllerSpec: QuickSpec {
                 it("adds child to parent.view by default") {
                     let parent = UIViewController()
                     let child = UIViewController()
-                    parent.addChild(child, animation: nil, completion: nil)
+                    parent.addChild(child, options: nil, completion: nil)
                     expect(child.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -48,7 +49,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let child = UIViewController()
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.addChild(child, constrainedTo: container, animation: nil, completion: nil)
+                    parent.addChild(child, constrainedTo: container, options: nil, completion: nil)
                     expect(child.view.superview) == container
                 }
             }
@@ -57,23 +58,20 @@ class ChildViewControllerSpec: QuickSpec {
                 it("adds a child view controller") {
                     let parent = UIViewController()
                     let child = UIViewController()
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.addChild(child, animation: animation, completion: nil)
+                    parent.addChild(child, options: self.animationOptions, completion: nil)
                     expect(parent.childViewControllers).to(contain(child))
                 }
                 it("calls didMove(toParentViewController:)") {
                     let parent = UIViewController()
                     let child = MockUIViewController()
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.addChild(child, animation: animation, completion: nil)
+                    parent.addChild(child, options: self.animationOptions, completion: nil)
                     expect(child.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
                     let parent = UIViewController()
                     let child = UIViewController()
                     var completionCalled = false
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.addChild(child, animation: animation, completion: {
+                    parent.addChild(child, options: self.animationOptions, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -81,8 +79,7 @@ class ChildViewControllerSpec: QuickSpec {
                 it("adds child to parent.view by default") {
                     let parent = UIViewController()
                     let child = UIViewController()
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.addChild(child, animation: animation, completion: nil)
+                    parent.addChild(child, options: self.animationOptions, completion: nil)
                     expect(child.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -90,8 +87,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let child = UIViewController()
                     let container = UIView()
                     parent.view.addSubview(container)
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.addChild(child, constrainedTo: container, animation: animation, completion: nil)
+                    parent.addChild(child, constrainedTo: container, options: self.animationOptions, completion: nil)
                     expect(child.view.superview) == container
                 }
             }
@@ -104,14 +100,14 @@ class ChildViewControllerSpec: QuickSpec {
                     let parent = UIViewController()
                     let child = UIViewController()
                     parent.addChildViewController(child)
-                    parent.removeChild(child, animation: nil, completion: nil)
+                    parent.removeChild(child, options: nil, completion: nil)
                     expect(parent.childViewControllers).to(beEmpty())
                 }
                 it("calls didMove(toParentViewController:)") {
                     let parent = UIViewController()
                     let child = MockUIViewController()
                     parent.addChildViewController(child)
-                    parent.removeChild(child, animation: nil, completion: nil)
+                    parent.removeChild(child, options: nil, completion: nil)
                     expect(child.hasMovedToParentViewController) == true
                 }
                 it("calls completion") {
@@ -119,7 +115,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let child = UIViewController()
                     parent.addChildViewController(child)
                     var completionCalled = false
-                    parent.removeChild(child, animation: nil, completion: {
+                    parent.removeChild(child, options: nil, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -137,16 +133,14 @@ class ChildViewControllerSpec: QuickSpec {
                     let parent = UIViewController()
                     let child = UIViewController()
                     parent.addChildViewController(child)
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.removeChild(child, animation: animation, completion: nil)
+                    parent.removeChild(child, options: self.animationOptions, completion: nil)
                     expect(parent.childViewControllers).toEventually(beEmpty())
                 }
                 it("calls didMove(toParentViewController:)") {
                     let parent = UIViewController()
                     let child = MockUIViewController()
                     parent.addChildViewController(child)
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.removeChild(child, animation: animation, completion: nil)
+                    parent.removeChild(child, options: self.animationOptions, completion: nil)
                     expect(child.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -154,8 +148,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let child = UIViewController()
                     parent.addChildViewController(child)
                     var completionCalled = false
-                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-                    parent.removeChild(child, animation: animation, completion: {
+                    parent.removeChild(child, options: self.animationOptions, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -171,15 +164,16 @@ class ChildViewControllerSpec: QuickSpec {
         }
         // MARK: - replaceChild
         describe("replaceChild") {
-            // MARK: without animations - add new first behavior
-            context("without animations - add new first behavior") {
+            // MARK: appear over previous without animations
+            context("appear over previous without animations") {
+                let animation = StateTransitionAnimation
+                    .appearOverPrevious(onAppear: nil)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toNot(contain(oldChild))
                 }
                 it("adds new view controller") {
@@ -187,8 +181,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).to(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -196,8 +189,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -205,8 +197,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -214,9 +205,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -226,8 +216,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -235,10 +224,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
@@ -250,15 +238,16 @@ class ChildViewControllerSpec: QuickSpec {
 //                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
 //                }
             }
-            // MARK: without animations - remove existing first behavior
-            context("without animations - remove existing first behavior") {
+            // MARK: appear under previous then remove without animations
+            context("appear under previous then remove without animations") {
+                let animation = StateTransitionAnimation
+                    .appearUnderPrevious(onRemove: nil)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toNot(contain(oldChild))
                 }
                 it("adds new view controller") {
@@ -266,8 +255,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).to(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -275,8 +263,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -284,8 +271,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -293,9 +279,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -305,8 +290,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -314,10 +298,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
@@ -329,15 +312,16 @@ class ChildViewControllerSpec: QuickSpec {
 //                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
 //                }
             }
-            // MARK: without animations - simultaneous behavior
-            context("without animations - simultaneous behavior") {
+            // MARK: appear and simultaneously remove without animations
+            context("appear and simultaneously remove without animations") {
+                let animation = StateTransitionAnimation
+                    .appearAndSimultaneouslyRemove(onAppear: nil, onRemove: nil)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toNot(contain(oldChild))
                 }
                 it("adds new view controller") {
@@ -345,8 +329,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).to(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -354,8 +337,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -363,8 +345,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -372,9 +353,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -384,8 +364,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -393,10 +372,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(order: .simultaneous)
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
@@ -408,31 +386,24 @@ class ChildViewControllerSpec: QuickSpec {
 //                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
 //                }
             }
-            // MARK: with animations - add new first behavior
-            context("with animations - add new first behavior") {
+            // MARK: appear over previous with animations
+            context("appear over previous with animations") {
+                let animation = StateTransitionAnimation
+                    .appearOverPrevious(onAppear: self.animationOptions)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
                 }
-                //
                 it("adds new view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).to(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -440,11 +411,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -452,11 +419,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -464,12 +427,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -479,11 +438,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -491,13 +446,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .addNewChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview) == container
                 }
                 // TODO: Fix this test. Testing an async assertion failure
@@ -514,18 +465,16 @@ class ChildViewControllerSpec: QuickSpec {
                 //                }
                 //
             }
-            // MARK: with animations - remove existing first behavior
-            context("with animations - remove existing first behavior") {
+            // MARK: appear under previous without animations
+            context("appear under previous with animations") {
+                let animation = StateTransitionAnimation
+                    .appearUnderPrevious(onRemove: self.animationOptions)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
                 }
                 it("adds new view controller") {
@@ -533,11 +482,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toEventually(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -545,11 +490,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -557,11 +498,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -569,12 +506,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -584,11 +517,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview).toEventually(equal(parent.view))
                 }
                 it("adds child to container if specified") {
@@ -596,13 +525,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .removeExistingChildFirst,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview).toEventually(equal(container))
                 }
                 // TODO: fix this test
@@ -617,18 +542,16 @@ class ChildViewControllerSpec: QuickSpec {
 //                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
 //                }
             }
-            // MARK: with animations - simultaneous behavior
-            context("with animations - simultaneous behavior") {
+            // MARK: appear and simultaneously remove with animations
+            context("appear and simultaneously remove with animations") {
+                let animation = StateTransitionAnimation
+                    .appearAndSimultaneouslyRemove(onAppear: self.animationOptions, onRemove: self.animationOptions)
                 it("removes existing child view controller") {
                     let parent = UIViewController()
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
                 }
                 it("adds new view controller") {
@@ -636,11 +559,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(parent.childViewControllers).to(contain(newChild))
                 }
                 it("calls didMove(toParentViewController:) for existing") {
@@ -648,11 +567,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = MockUIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls didMove(toParentViewController:) for new") {
@@ -660,11 +575,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = MockUIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
                 }
                 it("calls completion") {
@@ -672,12 +583,8 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: {
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
@@ -687,11 +594,7 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                    parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
                     expect(newChild.view.superview) == parent.view
                 }
                 it("adds child to container if specified") {
@@ -699,13 +602,9 @@ class ChildViewControllerSpec: QuickSpec {
                     let oldChild = UIViewController()
                     parent.addChildViewController(oldChild)
                     let newChild = UIViewController()
-                    let behavior = StateTransitionBehavior(
-                        order: .simultaneous,
-                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
                     let container = UIView()
                     parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, transitionBehavior: behavior, completion: nil)
+                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
                     expect(newChild.view.superview) == container
                 }
                 // TODO: fix this test
@@ -723,4 +622,6 @@ class ChildViewControllerSpec: QuickSpec {
         }
     }
 }
+
+// TODO: Test remaining StateTransitionAnimation
 

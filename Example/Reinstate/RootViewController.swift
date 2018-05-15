@@ -9,15 +9,15 @@
 import UIKit
 import Reinstate
 
-class RootViewController: UIViewController, StatefulViewController {
+enum RootState {
+    case splash
+    case onboarding
+    case signIn
+    case home
+}
 
-    enum State {
-        case splash
-        case onboarding
-        case signIn
-        case home
-    }
-    var state = State.splash
+class RootViewController: StatefulViewController<RootState> {
+
     var currentChild: UIViewController?
 
     override func viewDidLoad() {
@@ -25,11 +25,7 @@ class RootViewController: UIViewController, StatefulViewController {
         configureInitialState()
     }
 
-}
-
-extension RootViewController {
-
-    func childViewController(for state: RootViewController.State) -> UIViewController {
+    override func childViewController(for state: RootState) -> UIViewController {
         switch state {
         case .splash:
             let vc = SplashViewController()
@@ -50,23 +46,21 @@ extension RootViewController {
         }
     }
 
-    func transitionBehavior(from oldState: RootViewController.State, to newState: RootViewController.State) -> StateTransitionBehavior {
+    override func transitionAnimation(from oldState: RootState, to newState: RootState) -> StateTransitionAnimation? {
         switch (oldState, newState) {
         case (.splash, _):
-            return StateTransitionBehavior(
-                order: .simultaneous,
-                additionAnimations: (duration: 0.3, options: .transitionCrossDissolve),
-                removalAnimations: (duration: 0.3, options: .transitionCrossDissolve))
+            return .appearAndSimultaneouslyRemove(
+                onAppear: (0.3, .transitionCrossDissolve),
+                onRemove: (0.3, .transitionCrossDissolve)
+            )
         case (.onboarding, .signIn), (.signIn, .home):
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                additionAnimations: (duration: 0.3, options: .transitionFlipFromLeft))
+            return .appearOverPrevious(onAppear:
+                (0.3, .transitionFlipFromLeft))
         case (.signIn, .onboarding), (.home, .signIn):
-            return StateTransitionBehavior(
-                order: .addNewChildFirst,
-                additionAnimations: (duration: 0.3, options: .transitionFlipFromRight))
+            return .appearUnderPrevious(onRemove:
+                (0.3, .transitionFlipFromRight))
         default:
-            fatalError("Unexpected state transition from \(oldState) to \(newState)")
+            return nil
         }
     }
 
