@@ -8,11 +8,11 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reinstate'
-  s.version          = '0.1.1'
+  s.version          = '0.2.0'
   s.summary          = 'Leverage child view controllers to manage the state of your app and keep each view controller small.'
 
   s.description      = <<-DESC
-When managing an app with complex state, it’s easy for your view controllers to balloon in size. Make use of Reinstate’s utilities to create, display and remove child view controllers, cna keep each individual view controller simple.
+When managing an app with complex state, it’s easy for your view controllers to balloon in size. Make use of Reinstate’s utilities to create, display and remove child view controllers, can keep each individual view controller simple.
                        DESC
 
   s.homepage         = 'https://github.com/nevillco/Reinstate'
