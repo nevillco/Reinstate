@@ -27,7 +27,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         return isViewLoaded
     }
 
-    open override func transition(to newState: State, completion: (() -> Void)?) {
+    open override func transition(to newState: State, completion: (() -> Void)? = nil) {
         if ignoresSameStateChanges, newState == state {
             print("Encountered a same-state transition to \(newState) - ignoring.")
             return
