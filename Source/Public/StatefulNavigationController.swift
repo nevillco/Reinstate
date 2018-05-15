@@ -50,7 +50,9 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     }
 
     func existingChild(ofType controllerType: UIViewController.Type) -> UIViewController? {
-        return nil
+        return childNavigationController.viewControllers.first(where: { child in
+            return type(of: child) == controllerType
+        })
     }
 
 }
