@@ -56,7 +56,6 @@ class RootViewController: StatefulViewController<RootState> {
 
     var currentChild: UIViewController?
 
-    // StatefulViewController requires you override this function
     override func childViewController(for state: RootState) -> UIViewController {
         switch state {
         case .splash:
@@ -78,7 +77,6 @@ class RootViewController: StatefulViewController<RootState> {
         }
     }
 
-    // Optionally override this function to change the transition animation
     override func transitionAnimation(from oldState: RootState, to newState: RootState) -> StateTransitionAnimation? {
         switch (oldState, newState) {
         case (.splash, _):
@@ -87,13 +85,11 @@ class RootViewController: StatefulViewController<RootState> {
                 onRemove: (0.3, .transitionCrossDissolve)
             )
         case (.onboarding, .signIn), (.signIn, .home):
-            return .appearOverPrevious(
-                onAppear: (0.3, .transitionFlipFromLeft)
-            )
+            return .appearOverPrevious(onAppear:
+                (0.3, .transitionFlipFromLeft))
         case (.signIn, .onboarding), (.home, .signIn):
-            return .appearUnderPrevious(
-                onRemove: (0.3, .transitionFlipFromRight)
-            )
+            return .appearUnderPrevious(onRemove:
+                (0.3, .transitionFlipFromRight))
         default:
             return nil
         }
@@ -106,11 +102,11 @@ extension RootViewController: SplashViewControllerDelegate {
     func splashViewControllerDidComplete(_ controller: SplashViewController) {
         switch (UserDefaults.standard.isAuthenticated, UserDefaults.standard.hasCompletedOnboarding) {
         case (true, _):
-            transition(to: .home)
+			transition(to: .home, animated: true)
         case (false, true):
-            transition(to: .signIn)
+			transition(to: .signIn, animated: true)
         case (false, false):
-            transition(to: .onboarding)
+			transition(to: .onboarding, animated: true)
         }
     }
 
@@ -120,33 +116,12 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
     func onboardingViewControllerDidComplete(_ controller: OnboardingViewController) {
         UserDefaults.standard.hasCompletedOnboarding = true
-        transition(to: .signIn)
+		transition(to: .signIn, animated: true)
     }
 
 }
 
-extension RootViewController: SignInViewControllerDelegate {
-
-    func signInViewControllerDidSignIn(_ controller: SignInViewController) {
-        UserDefaults.standard.isAuthenticated = true
-        transition(to: .home)
-    }
-
-    func signInViewControllerDidRevisitOnboarding(_ controller: SignInViewController) {
-        UserDefaults.standard.hasCompletedOnboarding = false
-        transition(to: .onboarding)
-    }
-
-}
-
-extension RootViewController: HomeViewControllerDelegate {
-
-    func homeViewControllerDidSignOut(_ controller: HomeViewController) {
-        UserDefaults.standard.isAuthenticated = false
-        transition(to: .signIn)
-    }
-
-}
+// Other delegate implementations omitted for brevity
 ```
 
 ## Example

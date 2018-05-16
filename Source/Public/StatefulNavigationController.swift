@@ -23,6 +23,11 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
+	open override func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
+		print("transitionAnimation(from:, to:) called from a StatefulNavigationController subclass has no effect")
+		return nil
+	}
+
 	open override func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
         if ignoresSameStateChanges, newState == state {
             print("Encountered a same-state transition to \(newState) - ignoring.")
