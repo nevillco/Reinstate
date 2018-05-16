@@ -21,12 +21,9 @@ class MockStatefulViewController: StatefulViewController<MockState> {
 
     var hasConfiguredInitialState = false
 
-    let animatedTransitions: Bool
-
-    init(animatedTransitions: Bool) {
-        self.animatedTransitions = animatedTransitions
-        super.init(initialState: .stateA)
-    }
+	required init() {
+		super.init(initialState: .stateA)
+	}
 
     override func configureInitialState() {
         super.configureInitialState()
@@ -42,7 +39,7 @@ class MockStatefulViewController: StatefulViewController<MockState> {
 
     override func transitionAnimation(from oldState: MockState, to newState: MockState) -> StateTransitionAnimation? {
         let options: StateTransitionAnimationOptions = (0.3, .transitionCrossDissolve)
-        return .appearOverPrevious(onAppear: animatedTransitions ? options : nil)
+        return .appearOverPrevious(onAppear: options)
     }
 
 }

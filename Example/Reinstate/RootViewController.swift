@@ -65,11 +65,11 @@ extension RootViewController: SplashViewControllerDelegate {
     func splashViewControllerDidComplete(_ controller: SplashViewController) {
         switch (UserDefaults.standard.isAuthenticated, UserDefaults.standard.hasCompletedOnboarding) {
         case (true, _):
-            transition(to: .home)
+			transition(to: .home, animated: true)
         case (false, true):
-            transition(to: .signIn)
+			transition(to: .signIn, animated: true)
         case (false, false):
-            transition(to: .onboarding)
+			transition(to: .onboarding, animated: true)
         }
     }
 
@@ -79,7 +79,7 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
     func onboardingViewControllerDidComplete(_ controller: OnboardingViewController) {
         UserDefaults.standard.hasCompletedOnboarding = true
-        transition(to: .signIn)
+		transition(to: .signIn, animated: true)
     }
 
 }
@@ -88,12 +88,12 @@ extension RootViewController: SignInViewControllerDelegate {
 
     func signInViewControllerDidSignIn(_ controller: SignInViewController) {
         UserDefaults.standard.isAuthenticated = true
-        transition(to: .home)
+		transition(to: .home, animated: true)
     }
 
     func signInViewControllerDidRevisitOnboarding(_ controller: SignInViewController) {
         UserDefaults.standard.hasCompletedOnboarding = false
-        transition(to: .onboarding)
+		transition(to: .onboarding, animated: true)
     }
 
 }
@@ -102,7 +102,7 @@ extension RootViewController: HomeViewControllerDelegate {
 
     func homeViewControllerDidSignOut(_ controller: HomeViewController) {
         UserDefaults.standard.isAuthenticated = false
-        transition(to: .signIn)
+		transition(to: .signIn, animated: true)
     }
 
 }

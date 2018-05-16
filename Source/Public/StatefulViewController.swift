@@ -41,7 +41,7 @@ open class StatefulViewController<State: Equatable>: UIViewController {
         return nil
     }
 
-    open func transition(to newState: State, completion: (() -> Void)? = nil) {
+	open func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
         if ignoresSameStateChanges, newState == state {
             print("Encountered a same-state transition to \(newState) - ignoring.")
             return
@@ -50,7 +50,7 @@ open class StatefulViewController<State: Equatable>: UIViewController {
             preconditionFailure("Missing a currentChild while transitioning states.")
         }
         let newChild = childViewController(for: newState)
-        let animation = transitionAnimation(from: state, to: newState)
+		let animation = animated ? transitionAnimation(from: state, to: newState) : nil
         replaceChild(currentChild, with: newChild, animation: animation) {
             self.state = newState
             self.currentChild = newChild
