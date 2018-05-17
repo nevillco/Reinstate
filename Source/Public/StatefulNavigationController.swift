@@ -9,7 +9,7 @@ import UIKit
 
 open class StatefulNavigationController<State: Equatable>: StatefulViewController<State> {
 
-    internal let childNavigationController = UINavigationController()
+    public let childNavigationController = UINavigationController()
     open var seeksToExistingChild = true
 
     open override func configureInitialState() {
@@ -23,7 +23,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
-	open override func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
+	@available(*, unavailable) open override func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
 		print("transitionAnimation(from:, to:) called from a StatefulNavigationController subclass has no effect")
 		return nil
 	}

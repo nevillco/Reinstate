@@ -1,5 +1,5 @@
 //
-//  StatefulViewController2.swift
+//  StatefulViewController.swift
 //  Reinstate
 //
 //  Created by Connor Neville on 5/14/18.
