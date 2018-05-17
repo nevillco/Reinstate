@@ -47,7 +47,8 @@ open class StatefulViewController<State: Equatable>: UIViewController {
             return
         }
         guard let currentChild = currentChild else {
-            preconditionFailure("Missing a currentChild while transitioning states.")
+            assertionFailure("Missing a currentChild while transitioning states.")
+            return
         }
         let newChild = childViewController(for: newState)
 		let animation = animated ? transitionAnimation(from: state, to: newState) : nil

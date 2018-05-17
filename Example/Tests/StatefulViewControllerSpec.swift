@@ -45,19 +45,12 @@ class StatefulViewControllerSpec: QuickSpec {
             }
         }
         describe("transition") {
-            // TODO: fix this test
-//            it("throws assertion if transitioning to same state") {
-//                let vc = MockCustomStatefulViewController()
-//                vc.loadViewIfNeeded()
-//                vc.configureInitialState()
-//                expect { vc.transition(to: .defaultState) }.to(throwAssertion())
-//            }
             context("not animated") {
-                // TODO: fix this test
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
 //                it("throws assertion if initial state not set") {
-//                    let vc = MockCustomStatefulViewController()
-//                    vc.loadViewIfNeeded()
-//                    expect { vc.transition(to: .secondStateNotAnimated) }.to(throwAssertion())
+//                    let vc = MockStatefulViewController()
+//                    expect { vc.transition(to: .stateB, animated: false) }.to(throwAssertion())
 //                }
                 it("sets correct child controller") {
                     let vc = MockStatefulViewController()
@@ -107,12 +100,12 @@ class StatefulViewControllerSpec: QuickSpec {
                 }
             }
             context("animated") {
-                // TODO: fix this test
-//                it("throws assertion if initial state not set") {
-//                    let vc = MockCustomStatefulViewController()
-//                    vc.loadViewIfNeeded()
-//                    expect { vc.transition(to: .secondStateAnimated) }.to(throwAssertion())
-//                }
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
+                //                it("throws assertion if initial state not set") {
+                //                    let vc = MockStatefulViewController()
+                //                    expect { vc.transition(to: .stateB, animated: true) }.to(throwAssertion())
+                //                }
                 it("sets correct child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
