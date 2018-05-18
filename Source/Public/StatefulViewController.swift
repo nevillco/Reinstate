@@ -9,7 +9,7 @@ import UIKit
 
 open class StatefulViewController<State: Equatable>: UIViewController {
 
-    open var state: State
+    public internal(set) var state: State
     open var ignoresSameStateChanges = true
     public private(set) var currentChild: UIViewController?
 

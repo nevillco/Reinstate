@@ -43,6 +43,11 @@ class StatefulViewControllerSpec: QuickSpec {
                 vc.loadViewIfNeeded()
                 expect(vc.currentChild) == vc.childForStateA
             }
+            it("sets state") {
+                let vc = MockStatefulViewController()
+                vc.loadViewIfNeeded()
+                expect(vc.state) == .stateA
+            }
         }
         // MARK: transitionAnimation
         describe("transitionAnimation") {
@@ -95,6 +100,12 @@ class StatefulViewControllerSpec: QuickSpec {
                     vc.transition(to: .stateB, animated: false)
                     expect(vc.currentChild) == vc.childForStateB
                 }
+                it("sets state") {
+                    let vc = MockStatefulViewController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.state) == .stateB
+                }
                 it("calls completion") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
@@ -143,6 +154,12 @@ class StatefulViewControllerSpec: QuickSpec {
                     vc.loadViewIfNeeded()
                     vc.transition(to: .stateB, animated: true)
                     expect(vc.currentChild).toEventually(equal(vc.childForStateB))
+                }
+                it("sets state") {
+                    let vc = MockStatefulViewController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: true)
+                    expect(vc.state).toEventually(equal(.stateB))
                 }
                 it("calls completion") {
                     let vc = MockStatefulViewController()
