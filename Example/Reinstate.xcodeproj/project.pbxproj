@@ -94,7 +94,6 @@
 				2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */,
 				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
 			);
-			name = Specs;
 			path = Specs;
 			sourceTree = "<group>";
 		};
@@ -104,8 +103,38 @@
 				2DEF644120655328000174ED /* MockStatefulViewController.swift */,
 				2DEF643B20655111000174ED /* MockUIViewController.swift */,
 			);
-			name = Mocks;
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		2DD5EAFC20AF8A5D0059365E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2DD774D02065490C00DF05D1 /* HomeViewController.swift */,
+				2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */,
+				2DD774CB2065490C00DF05D1 /* RootViewController.swift */,
+				2DD774D52065490C00DF05D1 /* SignInViewController.swift */,
+				2DD774D32065490C00DF05D1 /* SplashViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		2DD5EAFD20AF8A670059365E /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				2DD774D62065490D00DF05D1 /* AppDelegate.swift */,
+				2DD774CC2065490C00DF05D1 /* Assets.xcassets */,
+				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		2DD5EAFE20AF8A6E0059365E /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				2DD774D22065490C00DF05D1 /* Gesturable.swift */,
+				2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
@@ -132,19 +161,11 @@
 		607FACD21AFB9204008FA782 /* Example for Reinstate */ = {
 			isa = PBXGroup;
 			children = (
+				2DD5EAFD20AF8A670059365E /* Application */,
+				2DD5EAFC20AF8A5D0059365E /* Controllers */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				2DD774D62065490D00DF05D1 /* AppDelegate.swift */,
-				2DD774CC2065490C00DF05D1 /* Assets.xcassets */,
-				2DD774D22065490C00DF05D1 /* Gesturable.swift */,
-				2DD774D02065490C00DF05D1 /* HomeViewController.swift */,
-				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
-				2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */,
-				2DD774CB2065490C00DF05D1 /* RootViewController.swift */,
-				2DD774D52065490C00DF05D1 /* SignInViewController.swift */,
-				2DD774D32065490C00DF05D1 /* SplashViewController.swift */,
-				2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */,
+				2DD5EAFE20AF8A6E0059365E /* Utility */,
 			);
-			name = "Example for Reinstate";
 			path = "Example for Reinstate";
 			sourceTree = "<group>";
 		};
@@ -153,7 +174,6 @@
 			children = (
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
-			name = "Supporting Files";
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
@@ -172,7 +192,6 @@
 			children = (
 				607FACEA1AFB9204008FA782 /* Info.plist */,
 			);
-			name = "Supporting Files";
 			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
@@ -183,7 +202,6 @@
 				0E62A14BACAEA661656BA4FE /* README.md */,
 				AB528C86BB6937B46AF90A8D /* Reinstate.podspec */,
 			);
-			name = "Podspec Metadata";
 			path = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
