@@ -13,6 +13,7 @@ import Nimble
 class StatefulViewControllerSpec: QuickSpec {
 
     override func spec() {
+        // MARK: configureInitialState
         describe("configureInitialState") {
             it("gets called after loading view") {
 				let vc = MockStatefulViewController()
@@ -28,7 +29,6 @@ class StatefulViewControllerSpec: QuickSpec {
             it("constrains child controller to its view") {
                 let vc = MockStatefulViewController()
                 vc.loadViewIfNeeded()
-
                 let childView = vc.childForStateA.view!
                 let view = vc.view!
                 for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
@@ -44,7 +44,9 @@ class StatefulViewControllerSpec: QuickSpec {
                 expect(vc.currentChild) == vc.childForStateA
             }
         }
+        // MARK: transition
         describe("transition") {
+            // MARK: not animated
             context("not animated") {
                 // TODO: re-enable this test when the throwAssertion()
                 // predicate in Nimble is no longer broken
@@ -55,21 +57,18 @@ class StatefulViewControllerSpec: QuickSpec {
                 it("sets correct child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
 					vc.transition(to: .stateB, animated: false)
                     expect(vc.childViewControllers).to(contain(vc.childForStateB))
                 }
                 it("removes previous child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: false)
                     expect(vc.childViewControllers).toNot(contain(vc.childForStateA))
                 }
                 it("constrains child controller to its view") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: false)
 
                     let childView = vc.childForStateB.view!
@@ -84,14 +83,12 @@ class StatefulViewControllerSpec: QuickSpec {
                 it("sets currentChild") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: false)
                     expect(vc.currentChild) == vc.childForStateB
                 }
                 it("calls completion") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     var completionCalled = false
                     vc.transition(to: .stateB, animated: false, completion: {
                         completionCalled = true
@@ -99,33 +96,30 @@ class StatefulViewControllerSpec: QuickSpec {
                     expect(completionCalled).toEventually(beTrue())
                 }
             }
+            // MARK: animated
             context("animated") {
                 // TODO: re-enable this test when the throwAssertion()
                 // predicate in Nimble is no longer broken
-                //                it("throws assertion if initial state not set") {
-                //                    let vc = MockStatefulViewController()
-                //                    expect { vc.transition(to: .stateB, animated: true) }.to(throwAssertion())
-                //                }
+//                it("throws assertion if initial state not set") {
+//                    let vc = MockStatefulViewController()
+//                    expect { vc.transition(to: .stateB, animated: true) }.to(throwAssertion())
+//                }
                 it("sets correct child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: true)
                     expect(vc.childViewControllers).to(contain(vc.childForStateB))
                 }
                 it("removes previous child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: true)
                     expect(vc.childViewControllers).toEventuallyNot(contain(vc.childForStateA))
                 }
                 it("constrains child controller to its view") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: true)
-
                     let childView = vc.childForStateB.view!
                     let view = vc.view!
                     for attribute: NSLayoutAttribute in [.top, .leading, .bottom, .trailing] {
@@ -138,20 +132,54 @@ class StatefulViewControllerSpec: QuickSpec {
                 it("sets currentChild") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     vc.transition(to: .stateB, animated: true)
                     expect(vc.currentChild).toEventually(equal(vc.childForStateB))
                 }
                 it("calls completion") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
-                    vc.configureInitialState()
                     var completionCalled = false
                     vc.transition(to: .stateB, animated: true, completion: {
                         completionCalled = true
                     })
                     expect(completionCalled).toEventually(beTrue())
                 }
+            }
+        }
+        // MARK: ignoresSameStateChanges
+        describe("ignoresSameStateChanges") {
+            it("defaults to true") {
+                let vc = MockStatefulViewController()
+                expect(vc.ignoresSameStateChanges) == true
+            }
+            it("keeps same currentChild") {
+                let vc = MockStatefulViewController()
+                vc.loadViewIfNeeded()
+                let vcChild = vc.currentChild
+                vc.transition(to: .stateA, animated: false)
+                expect(vc.currentChild) == vcChild
+            }
+            it("does not add duplicate controllers") {
+                let vc = MockStatefulViewController()
+                vc.loadViewIfNeeded()
+                let vcChild = vc.currentChild
+                vc.transition(to: .stateA, animated: false)
+                expect(vc.childViewControllers) == [vcChild].compactMap { $0 }
+            }
+            it("keeps same state") {
+                let vc = MockStatefulViewController()
+                vc.loadViewIfNeeded()
+                vc.transition(to: .stateA, animated: false)
+                expect(vc.state) == .stateA
+            }
+            it("does not call completion") {
+                let vc = MockStatefulViewController()
+                vc.loadViewIfNeeded()
+                var completionCalled = false
+                vc.transition(to: .stateA, animated: false, completion: {
+                    completionCalled = true
+                })
+                expect(completionCalled).toEventuallyNot(beTrue())
             }
         }
     }
