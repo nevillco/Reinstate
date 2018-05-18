@@ -9,8 +9,15 @@ import UIKit
 
 open class StatefulViewController<State: Equatable>: UIViewController {
 
+    /// The current state of the view controller.
     public internal(set) var state: State
+    /// Whether the view controller should ignore a state transition
+    /// when the target state is the same as the current. If `false`,
+    /// the current child view controller will be replaced with
+    /// a freshly-loaded one. Default is `true`.
     open var ignoresSameStateChanges = true
+    /// The current child view controller being managed by the
+    /// view controller’s state.
     public private(set) var currentChild: UIViewController?
 
     public init(initialState: State) {
