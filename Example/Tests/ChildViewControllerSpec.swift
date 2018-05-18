@@ -11,7 +11,7 @@ import Nimble
 @testable import Reinstate
 
 class ChildViewControllerSpec: QuickSpec {
-    let animationOptions: StateTransitionAnimationOptions = (0.2, .curveEaseIn)
+    let animationOptions: StateTransitionAnimationOptions = (0.1, .curveEaseIn)
     override func spec() {
         // MARK: - addChild
         describe("addChild") {
@@ -120,12 +120,13 @@ class ChildViewControllerSpec: QuickSpec {
                     })
                     expect(completionCalled).toEventually(beTrue())
                 }
-                // TODO: fix this test
-//                it("throws assertion if child is not a child controller") {
-//                    let parent = UIViewController()
-//                    let child = UIViewController()
-//                    expect { parent.removeChild(child, animation: nil, completion: nil) }.to(throwAssertion())
-//                }
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
+                //                it("throws assertion if child is not a child controller") {
+                //                    let parent = UIViewController()
+                //                    let child = UIViewController()
+                //                    expect { parent.removeChild(child, options: nil, completion: nil) }.to(throwAssertion())
+                //                }
             }
             // MARK: with animations
             context("with animations") {
@@ -153,475 +154,206 @@ class ChildViewControllerSpec: QuickSpec {
                     })
                     expect(completionCalled).toEventually(beTrue())
                 }
-                // TODO: fix this test
-//                it("throws assertion if child is not a child controller") {
-//                    let parent = UIViewController()
-//                    let child = UIViewController()
-//                    let animation: StateTransitionAnimation = (duration: 0.5, options: .curveEaseIn)
-//                    expect { parent.removeChild(child, animation: animation, completion: nil) }.to(throwAssertion())
-//                }
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
+                //                it("throws assertion if child is not a child controller") {
+                //                    let parent = UIViewController()
+                //                    let child = UIViewController()
+                //                    expect { parent.removeChild(child, options: self.animationOptions, completion: nil) }.to(throwAssertion())
+                //                }
             }
         }
         // MARK: - replaceChild
         describe("replaceChild") {
-            // MARK: appear over previous without animations
-            context("appear over previous without animations") {
-                let animation = StateTransitionAnimation
-                    .appearOverPrevious(onAppear: nil)
+            // MARK: without animations
+            context("without animations") {
+                let allAnimations: [StateTransitionAnimation] = [
+                    .appearOverPrevious(onAppear: nil),
+                    .appearUnderPrevious(onRemove: nil),
+                    .appearAndSimultaneouslyRemove(onAppear: nil, onRemove: nil),
+                    .removePreviousThenAppear(onRemove: nil, onAppear: nil)
+                ]
                 it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toNot(contain(oldChild))
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(parent.childViewControllers).toNot(contain(oldChild))
+                    }
                 }
                 it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).to(contain(newChild))
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(parent.childViewControllers).to(contain(newChild))
+                    }
                 }
                 it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = MockUIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
+                    }
                 }
                 it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = MockUIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
+                    }
                 }
                 it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        var completionCalled = false
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
+                            completionCalled = true
+                        })
+                        expect(completionCalled).toEventually(beTrue())
+                    }
                 }
                 it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == parent.view
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(newChild.view.superview) == parent.view
+                    }
                 }
                 it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == container
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        let container = UIView()
+                        parent.view.addSubview(container)
+                        parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
+                        expect(newChild.view.superview) == container
+                    }
                 }
-                // TODO: fix this test
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
 //                it("throws assertion if existing is not a child controller") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .addNewChildFirst)
-//                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
-//                }
-            }
-            // MARK: appear under previous then remove without animations
-            context("appear under previous then remove without animations") {
-                let animation = StateTransitionAnimation
-                    .appearUnderPrevious(onRemove: nil)
-                it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toNot(contain(oldChild))
-                }
-                it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).to(contain(newChild))
-                }
-                it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
-                }
-                it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == parent.view
-                }
-                it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == container
-                }
-                // TODO: fix this test
-//                it("throws assertion if existing is not a child controller") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .removeExistingChildFirst)
-//                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
-//                }
-            }
-            // MARK: appear and simultaneously remove without animations
-            context("appear and simultaneously remove without animations") {
-                let animation = StateTransitionAnimation
-                    .appearAndSimultaneouslyRemove(onAppear: nil, onRemove: nil)
-                it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toNot(contain(oldChild))
-                }
-                it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).to(contain(newChild))
-                }
-                it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
-                }
-                it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == parent.view
-                }
-                it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == container
-                }
-                // TODO: fix this test
-//                it("throws assertion if existing is not a child controller") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(order: .simultaneous)
-//                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.to(throwAssertion())
+//                    for animation in allAnimations {
+//                        let parent = UIViewController()
+//                        let oldChild = UIViewController()
+//                        let newChild = UIViewController()
+//                        expect { parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil) }.to(throwAssertion())
+//                    }
 //                }
             }
             // MARK: appear over previous with animations
             context("appear over previous with animations") {
-                let animation = StateTransitionAnimation
-                    .appearOverPrevious(onAppear: self.animationOptions)
+                let allAnimations: [StateTransitionAnimation] = [
+                    .appearOverPrevious(onAppear: self.animationOptions),
+                    .appearUnderPrevious(onRemove: self.animationOptions),
+                    .appearAndSimultaneouslyRemove(onAppear: self.animationOptions, onRemove: nil),
+                    .removePreviousThenAppear(onRemove: self.animationOptions, onAppear: self.animationOptions)
+                ]
                 it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
+                    }
                 }
                 it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).to(contain(newChild))
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(parent.childViewControllers).toEventually(contain(newChild))
+                    }
                 }
                 it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = MockUIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
+                    }
                 }
                 it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = MockUIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
+                    }
                 }
                 it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        var completionCalled = false
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
+                            completionCalled = true
+                        })
+                        expect(completionCalled).toEventually(beTrue())
+                    }
                 }
                 it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == parent.view
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
+                        expect(newChild.view.superview).toEventually(equal(parent.view))
+                    }
                 }
                 it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == container
+                    for animation in allAnimations {
+                        let parent = UIViewController()
+                        let oldChild = UIViewController()
+                        parent.addChildViewController(oldChild)
+                        let newChild = UIViewController()
+                        let container = UIView()
+                        parent.view.addSubview(container)
+                        parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
+                        expect(newChild.view.superview).toEventually(equal(container))
+                    }
                 }
-                // TODO: Fix this test. Testing an async assertion failure
-                // does not seem to work with expect { ... }.toEventually(throwAssertion())
-                //                it("throws assertion if existing is not a child controller") {
-                //                    let parent = UIViewController()
-                //                    let oldChild = UIViewController()
-                //                    let newChild = UIViewController()
-                //                    let behavior: StateTransitionBehavior =
-                //                        .addNewChildFirst(
-                //                            additionAnimations: (duration: 0.2, options: .curveEaseIn),
-                //                            removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-                //                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
-                //                }
-                //
-            }
-            // MARK: appear under previous without animations
-            context("appear under previous with animations") {
-                let animation = StateTransitionAnimation
-                    .appearUnderPrevious(onRemove: self.animationOptions)
-                it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
-                }
-                it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toEventually(contain(newChild))
-                }
-                it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
-                }
-                it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview).toEventually(equal(parent.view))
-                }
-                it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview).toEventually(equal(container))
-                }
-                // TODO: fix this test
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
 //                it("throws assertion if existing is not a child controller") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(
-//                        order: .removeExistingChildFirst,
-//                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-//                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-//                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
-//                }
-            }
-            // MARK: appear and simultaneously remove with animations
-            context("appear and simultaneously remove with animations") {
-                let animation = StateTransitionAnimation
-                    .appearAndSimultaneouslyRemove(onAppear: self.animationOptions, onRemove: self.animationOptions)
-                it("removes existing child view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).toEventuallyNot(contain(oldChild))
-                }
-                it("adds new view controller") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(parent.childViewControllers).to(contain(newChild))
-                }
-                it("calls didMove(toParentViewController:) for existing") {
-                    let parent = UIViewController()
-                    let oldChild = MockUIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(oldChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls didMove(toParentViewController:) for new") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = MockUIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.hasMovedToParentViewController).toEventually(beTrue())
-                }
-                it("calls completion") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    var completionCalled = false
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: {
-                        completionCalled = true
-                    })
-                    expect(completionCalled).toEventually(beTrue())
-                }
-                it("adds child to parent.view by default") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == parent.view
-                }
-                it("adds child to container if specified") {
-                    let parent = UIViewController()
-                    let oldChild = UIViewController()
-                    parent.addChildViewController(oldChild)
-                    let newChild = UIViewController()
-                    let container = UIView()
-                    parent.view.addSubview(container)
-                    parent.replaceChild(oldChild, with: newChild, constrainedTo: container, animation: animation, completion: nil)
-                    expect(newChild.view.superview) == container
-                }
-                // TODO: fix this test
-//                it("throws assertion if existing is not a child controller") {
-//                    let parent = UIViewController()
-//                    let oldChild = UIViewController()
-//                    let newChild = UIViewController()
-//                    let behavior = StateTransitionBehavior(
-//                        order: .simultaneous,
-//                        additionAnimations: (duration: 0.2, options: .curveEaseIn),
-//                        removalAnimations: (duration: 0.2, options: .transitionFlipFromLeft))
-//                    expect { parent.replaceChild(oldChild, with: newChild, transitionBehavior: behavior, completion: nil) }.toEventually(throwAssertion())
+//                    for animation in allAnimations {
+//                        let parent = UIViewController()
+//                        let oldChild = UIViewController()
+//                        let newChild = UIViewController()
+//                        expect { parent.replaceChild(oldChild, with: newChild, animation: animation, completion: nil) }.toEventually(throwAssertion())
+//                    }
 //                }
             }
         }
     }
 }
-
-// TODO: Test remaining StateTransitionAnimation
 
