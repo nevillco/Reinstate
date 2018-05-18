@@ -38,7 +38,7 @@
 
 /* Begin PBXFileReference section */
 		0A1FB253ACB4FBA91DFBE9B5 /* Pods_Reinstate_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reinstate_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulNavigationControllerSpec.swift; sourceTree = "<group>"; };
 		2DD774CB2065490C00DF05D1 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
@@ -62,8 +62,8 @@
 		607FACE51AFB9204008FA782 /* Reinstate_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Reinstate_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		69744613DE5E3131E6F28398 /* Pods-Reinstate_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Tests/Pods-Reinstate_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		87B24F64B916857943635F1B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		AB528C86BB6937B46AF90A8D /* Reinstate.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Reinstate.podspec; path = ../Reinstate.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		87B24F64B916857943635F1B /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../../LICENSE; sourceTree = "<group>"; };
+		AB528C86BB6937B46AF90A8D /* Reinstate.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Reinstate.podspec; path = ../../Reinstate.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		D02C6763EAF6C1A74F9B52D7 /* Pods-Reinstate_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reinstate_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Reinstate_Tests/Pods-Reinstate_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,10 +91,11 @@
 			isa = PBXGroup;
 			children = (
 				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
-				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
 				2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */,
+				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
 			);
 			name = Specs;
+			path = Specs;
 			sourceTree = "<group>";
 		};
 		2DD5EAF920AF88BD0059365E /* Mocks */ = {
@@ -104,17 +105,18 @@
 				2DEF643B20655111000174ED /* MockUIViewController.swift */,
 			);
 			name = Mocks;
+			path = Mocks;
 			sourceTree = "<group>";
 		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				607FACF51AFB993E008FA782 /* Podspec Metadata */,
 				607FACD21AFB9204008FA782 /* Example for Reinstate */,
-				607FACE81AFB9204008FA782 /* Tests */,
-				607FACD11AFB9204008FA782 /* Products */,
-				7F2E8E9281636278337231B6 /* Pods */,
 				814482190A8CAA4814460875 /* Frameworks */,
+				7F2E8E9281636278337231B6 /* Pods */,
+				607FACF51AFB993E008FA782 /* Podspec Metadata */,
+				607FACD11AFB9204008FA782 /* Products */,
+				607FACE81AFB9204008FA782 /* Tests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -130,20 +132,20 @@
 		607FACD21AFB9204008FA782 /* Example for Reinstate */ = {
 			isa = PBXGroup;
 			children = (
+				607FACD31AFB9204008FA782 /* Supporting Files */,
 				2DD774D62065490D00DF05D1 /* AppDelegate.swift */,
 				2DD774CC2065490C00DF05D1 /* Assets.xcassets */,
 				2DD774D22065490C00DF05D1 /* Gesturable.swift */,
 				2DD774D02065490C00DF05D1 /* HomeViewController.swift */,
+				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
 				2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */,
 				2DD774CB2065490C00DF05D1 /* RootViewController.swift */,
 				2DD774D52065490C00DF05D1 /* SignInViewController.swift */,
 				2DD774D32065490C00DF05D1 /* SplashViewController.swift */,
 				2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */,
-				607FACD31AFB9204008FA782 /* Supporting Files */,
-				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
 			);
 			name = "Example for Reinstate";
-			path = Reinstate;
+			path = "Example for Reinstate";
 			sourceTree = "<group>";
 		};
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
@@ -152,6 +154,7 @@
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		607FACE81AFB9204008FA782 /* Tests */ = {
@@ -170,16 +173,18 @@
 				607FACEA1AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				AB528C86BB6937B46AF90A8D /* Reinstate.podspec */,
-				0E62A14BACAEA661656BA4FE /* README.md */,
 				87B24F64B916857943635F1B /* LICENSE */,
+				0E62A14BACAEA661656BA4FE /* README.md */,
+				AB528C86BB6937B46AF90A8D /* Reinstate.podspec */,
 			);
 			name = "Podspec Metadata";
+			path = "Podspec Metadata";
 			sourceTree = "<group>";
 		};
 		7F2E8E9281636278337231B6 /* Pods */ = {
@@ -560,7 +565,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = Reinstate/Info.plist;
+				INFOPLIST_FILE = "Example for Reinstate/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -577,7 +582,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				INFOPLIST_FILE = Reinstate/Info.plist;
+				INFOPLIST_FILE = "Example for Reinstate/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.$(PRODUCT_NAME:rfc1034identifier)";
@@ -597,7 +602,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -613,7 +618,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = Tests/Info.plist;
+				INFOPLIST_FILE = "Tests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
