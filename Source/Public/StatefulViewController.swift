@@ -11,7 +11,7 @@ open class StatefulViewController<State: Equatable>: UIViewController {
 
     open var state: State
     open var ignoresSameStateChanges = true
-    internal var currentChild: UIViewController?
+    public private(set) var currentChild: UIViewController?
 
     public init(initialState: State) {
         state = initialState

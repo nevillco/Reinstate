@@ -9,11 +9,6 @@
 import UIKit
 import Reinstate
 
-enum MockState {
-    case stateA
-    case stateB
-}
-
 class MockStatefulViewController: StatefulViewController<MockState> {
 
     let childForStateA = UIViewController()

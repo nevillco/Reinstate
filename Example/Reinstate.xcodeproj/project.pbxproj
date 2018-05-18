@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2D8C9093206A886B00B0F613 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */; };
 		2DD5EAFB20AF89B20059365E /* StatefulNavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */; };
+		2DD5EB0020AF8B420059365E /* MockStatefulNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EAFF20AF8B420059365E /* MockStatefulNavigationController.swift */; };
+		2DD5EB0220AF8B550059365E /* MockState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EB0120AF8B550059365E /* MockState.swift */; };
 		2DD774D72065490D00DF05D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774CB2065490C00DF05D1 /* RootViewController.swift */; };
 		2DD774D82065490D00DF05D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD774CC2065490C00DF05D1 /* Assets.xcassets */; };
 		2DD774DA2065490D00DF05D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D02065490C00DF05D1 /* HomeViewController.swift */; };
@@ -41,6 +43,8 @@
 		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulNavigationControllerSpec.swift; sourceTree = "<group>"; };
+		2DD5EAFF20AF8B420059365E /* MockStatefulNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatefulNavigationController.swift; sourceTree = "<group>"; };
+		2DD5EB0120AF8B550059365E /* MockState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockState.swift; sourceTree = "<group>"; };
 		2DD774CB2065490C00DF05D1 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		2DD774CC2065490C00DF05D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2DD774D02065490C00DF05D1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 			children = (
 				2DEF644120655328000174ED /* MockStatefulViewController.swift */,
 				2DEF643B20655111000174ED /* MockUIViewController.swift */,
+				2DD5EAFF20AF8B420059365E /* MockStatefulNavigationController.swift */,
+				2DD5EB0120AF8B550059365E /* MockState.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -455,7 +461,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2DD5EB0220AF8B550059365E /* MockState.swift in Sources */,
 				2DEF644620655328000174ED /* MockStatefulViewController.swift in Sources */,
+				2DD5EB0020AF8B420059365E /* MockStatefulNavigationController.swift in Sources */,
 				2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */,
 				2DD5EAFB20AF89B20059365E /* StatefulNavigationControllerSpec.swift in Sources */,
 				2DEF644720655328000174ED /* ChildViewControllerSpec.swift in Sources */,

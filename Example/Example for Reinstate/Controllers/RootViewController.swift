@@ -17,8 +17,6 @@ enum RootState {
 
 class RootViewController: StatefulViewController<RootState> {
 
-    var currentChild: UIViewController?
-
     override func childViewController(for state: RootState) -> UIViewController {
         switch state {
         case .splash:

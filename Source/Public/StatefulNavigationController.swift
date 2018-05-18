@@ -11,10 +11,12 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
 
     public let childNavigationController = UINavigationController()
     open var seeksToExistingChild = true
+    override public var currentChild: UIViewController? {
+        return childNavigationController.visibleViewController
+    }
 
     open override func configureInitialState() {
         let initialChild = childViewController(for: state)
-        currentChild = initialChild
         childNavigationController.setViewControllers([initialChild], animated: false)
         addChild(childNavigationController)
     }
@@ -37,13 +39,19 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         if seeksToExistingChild, let existingChild = existingChild(
             ofType: type(of: newChild)) {
             CATransaction.begin()
-            CATransaction.setCompletionBlock(completion)
+            CATransaction.setCompletionBlock {
+                self.state = newState
+                completion?()
+            }
             childNavigationController.popToViewController(existingChild, animated: animated)
             CATransaction.commit()
         }
         else {
             CATransaction.begin()
-            CATransaction.setCompletionBlock(completion)
+            CATransaction.setCompletionBlock {
+                self.state = newState
+                completion?()
+            }
             childNavigationController.pushViewController(newChild, animated: animated)
             CATransaction.commit()
         }
