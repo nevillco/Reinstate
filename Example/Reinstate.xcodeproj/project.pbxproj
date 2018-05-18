@@ -85,6 +85,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2DD5EAF820AF88B60059365E /* Specs */ = {
+			isa = PBXGroup;
+			children = (
+				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
+				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
+			);
+			name = Specs;
+			sourceTree = "<group>";
+		};
+		2DD5EAF920AF88BD0059365E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				2DEF644120655328000174ED /* MockStatefulViewController.swift */,
+				2DEF643B20655111000174ED /* MockUIViewController.swift */,
+			);
+			name = Mocks;
+			sourceTree = "<group>";
+		};
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
@@ -136,10 +154,8 @@
 		607FACE81AFB9204008FA782 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
-				2DEF644120655328000174ED /* MockStatefulViewController.swift */,
-				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
-				2DEF643B20655111000174ED /* MockUIViewController.swift */,
+				2DD5EAF920AF88BD0059365E /* Mocks */,
+				2DD5EAF820AF88B60059365E /* Specs */,
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 			);
 			path = Tests;
