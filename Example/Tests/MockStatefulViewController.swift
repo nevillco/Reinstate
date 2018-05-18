@@ -20,6 +20,7 @@ class MockStatefulViewController: StatefulViewController<MockState> {
     let childForStateB = UIViewController()
 
     var hasConfiguredInitialState = false
+    var useSuperclassTransitionAnimation = false
 
 	required init() {
 		super.init(initialState: .stateA)
@@ -38,8 +39,13 @@ class MockStatefulViewController: StatefulViewController<MockState> {
     }
 
     override func transitionAnimation(from oldState: MockState, to newState: MockState) -> StateTransitionAnimation? {
-        let options: StateTransitionAnimationOptions = (0.3, .transitionCrossDissolve)
-        return .appearOverPrevious(onAppear: options)
+        switch useSuperclassTransitionAnimation {
+        case true:
+            return super.transitionAnimation(from: oldState, to: newState)
+        case false:
+            let options: StateTransitionAnimationOptions = (0.3, .transitionCrossDissolve)
+            return .appearOverPrevious(onAppear: options)
+        }
     }
 
 }

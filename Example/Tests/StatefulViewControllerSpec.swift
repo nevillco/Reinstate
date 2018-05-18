@@ -44,6 +44,15 @@ class StatefulViewControllerSpec: QuickSpec {
                 expect(vc.currentChild) == vc.childForStateA
             }
         }
+        // MARK: transitionAnimation
+        describe("transitionAnimation") {
+            it("provides a default super animation") {
+                let vc = MockStatefulViewController()
+                vc.useSuperclassTransitionAnimation = true
+                let animation = vc.transitionAnimation(from: .stateA, to: .stateB)
+                expect(animation).toNot(beNil())
+            }
+        }
         // MARK: transition
         describe("transition") {
             // MARK: not animated
