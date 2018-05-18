@@ -20,6 +20,12 @@ class StatefulNavigationControllerSpec: QuickSpec {
                 vc.loadViewIfNeeded()
                 expect(vc.hasConfiguredInitialState) == true
             }
+            it("adds child controller to navigation stack") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                let navStack = vc.childNavigationController.viewControllers
+                expect(navStack) == [vc.childForStateA]
+            }
             it("constrains navigation controller to its view") {
                 let vc = MockStatefulNavigationController()
                 vc.loadViewIfNeeded()
@@ -31,6 +37,16 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     }
                     expect(view.constraints).to(containElementSatisfying(predicate))
                 }
+            }
+            it("sets currentChild") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                expect(vc.currentChild) == vc.childForStateA
+            }
+            it("sets state") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                expect(vc.state) == .stateA
             }
         }
     }
