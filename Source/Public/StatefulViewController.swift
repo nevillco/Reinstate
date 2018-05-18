@@ -38,7 +38,7 @@ open class StatefulViewController<State: Equatable>: UIViewController {
     }
 
     open func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
-        return nil
+        return .appearOverPrevious(onAppear: (0.2, []))
     }
 
 	open func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
