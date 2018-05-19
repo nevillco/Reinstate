@@ -48,7 +48,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
 	}
 
     open override func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
-        transition(to: newState, canPop: false, animated: true, completion: completion)
+        transition(to: newState, canPop: false, animated: animated, completion: completion)
     }
 
     open func transition(to newState: State, canPop: Bool, animated: Bool, completion: (() -> Void)? = nil) {
@@ -56,11 +56,6 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
             print("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
             state = newState
             configureInitialState()
-            completion?()
-            return
-        }
-        if newState == state {
-            print("StatefulNavigationController encountered a same-state transition to \(newState) - ignoring.")
             completion?()
             return
         }
