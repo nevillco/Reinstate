@@ -12,18 +12,9 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     /// The `UINavigationController` displayed by this view
     /// controller.
     public let childNavigationController = UINavigationController()
-    /// If a prior equivalent child view controller exists on the
-    /// navigation stack, the navigation stack will pop to that
-    /// child if this property is `true`. If false, a new child
-    /// controller is always created.
-    /// The concept of a prior "equivalent" view controller is
-    /// defined in ``.
-    /// Default is `true`.
-    open var seeksToExistingChild = true
     override public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
-    // TODO: fix ignoresSameStateChanges access (don't use here)
 
     var statesInNavigationStack: [State] = []
 
@@ -117,9 +108,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
             .filter({ $0.element == newState })
             .last
             .map { $0.offset }
-            .map { let _ = print("EXISTING INDEX \($0)"); return self.childNavigationController.viewControllers[$0] }
-//        return statesInNavigationStack.index(of: newState)
-//            .map { self.childNavigationController.viewControllers[$0] }
+            .map { self.childNavigationController.viewControllers[$0] }
     }
 
 }
