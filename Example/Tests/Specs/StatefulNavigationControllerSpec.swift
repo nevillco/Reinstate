@@ -158,13 +158,24 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     vc.transition(to: .stateA, animated: true) {
                         vc.transition(to: .stateB, animated: true) {
                             vc.transition(to: .stateA, canPop: true, animated: true) {
-                                expect(vc.statesInNavigationStack) == [.stateA]
+                                expect(vc.statesInNavigationStack) == [.stateA, .stateA]
                                 done()
                             }
                         }
                     }
                 }
-
+            }
+            it("will pop to the nearest option if multiple are eligible") {
+                let vc = MockStateIdentifiedNavigationController()
+                vc.loadViewIfNeeded()
+                waitUntil { done in
+                    vc.transition(to: .stateA, animated: true) {
+                        vc.transition(to: .stateA, canPop: true, animated: true) {
+                            expect(vc.statesInNavigationStack) == [.stateA, .stateA]
+                            done()
+                        }
+                    }
+                }
             }
         }
     }

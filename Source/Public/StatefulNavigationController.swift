@@ -113,8 +113,13 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     }
 
     func existingChild(for newState: State) -> UIViewController? {
-        return statesInNavigationStack.index(of: newState)
-            .map { self.childNavigationController.viewControllers[$0] }
+        return statesInNavigationStack.enumerated()
+            .filter({ $0.element == newState })
+            .last
+            .map { $0.offset }
+            .map { let _ = print("EXISTING INDEX \($0)"); return self.childNavigationController.viewControllers[$0] }
+//        return statesInNavigationStack.index(of: newState)
+//            .map { self.childNavigationController.viewControllers[$0] }
     }
 
 }
