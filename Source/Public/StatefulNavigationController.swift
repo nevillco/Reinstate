@@ -12,15 +12,22 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     /// The `UINavigationController` displayed by this view
     /// controller.
     public let childNavigationController = UINavigationController()
+    /// The current child view controller being displayed in
+    /// this navigation stack.
     override public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
+    /// `ignoresSameStateChanges` is not used in StatefulNavigationController.
+    open override var ignoresSameStateChanges: Bool {
+        get {
+            return true
+        }
+        set {
+            print("ignoresSameStateChanges is not used in StatefulNavigationController, and setting it has no effect.")
+        }
+    }
 
     var statesInNavigationStack: [State] = []
-
-    public override init(initialState: State) {
-        super.init(initialState: initialState)
-    }
 
     open override func configureInitialState() {
         let initialChild = childViewController(for: state)
@@ -105,7 +112,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
 
     func existingChild(for newState: State) -> UIViewController? {
         return statesInNavigationStack.enumerated()
-            .filter({ $0.element == newState })
+            .filter { $0.element == newState }
             .last
             .map { $0.offset }
             .map { self.childNavigationController.viewControllers[$0] }
