@@ -13,18 +13,12 @@ import Nimble
 class StatefulNavigationControllerSpec: QuickSpec {
 
     override func spec() {
-        // MARK: configureInitialState
+        // MARK: - configureInitialState
         describe("configureInitialState") {
             it("gets called after loading view") {
                 let vc = MockStatefulNavigationController()
                 vc.loadViewIfNeeded()
                 expect(vc.hasConfiguredInitialState) == true
-            }
-            it("adds child controller to navigation stack") {
-                let vc = MockStatefulNavigationController()
-                vc.loadViewIfNeeded()
-                let navStack = vc.childNavigationController.viewControllers
-                expect(navStack) == [vc.childForStateA]
             }
             it("constrains navigation controller to its view") {
                 let vc = MockStatefulNavigationController()
@@ -38,6 +32,12 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     expect(view.constraints).to(containElementSatisfying(predicate))
                 }
             }
+            it("sets navigation stack") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                let navStack = vc.childNavigationController.viewControllers
+                expect(navStack) == [vc.childForStateA]
+            }
             it("sets currentChild") {
                 let vc = MockStatefulNavigationController()
                 vc.loadViewIfNeeded()
@@ -48,25 +48,47 @@ class StatefulNavigationControllerSpec: QuickSpec {
                 vc.loadViewIfNeeded()
                 expect(vc.state) == .stateA
             }
+            it("sets statesInNavigationStack") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                expect(vc.statesInNavigationStack) == [.stateA]
+            }
         }
-        // MARK: transition
+        // MARK: - transition
         describe("transition") {
             // MARK: not animated
             context("not animated") {
-                // TODO: re-enable this test when the throwAssertion()
-                // predicate in Nimble is no longer broken
                 it("calls configureInitialState if state not yet set") {
                     let vc = MockStatefulNavigationController()
                     expect(vc.hasConfiguredInitialState) == false
                     vc.transition(to: .stateB, animated: false)
                     expect(vc.hasConfiguredInitialState) == true
                 }
-//                it("sets correct child controller") {
-//                    let vc = MockStatefulViewController()
-//                    vc.loadViewIfNeeded()
-//                    vc.transition(to: .stateB, animated: false)
-//                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
-//                }
+                it("sets navigation stack") {
+                    let vc = MockStatefulNavigationController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.childNavigationController.viewControllers)
+                        .toEventually(equal([vc.childForStateA, vc.childForStateB]))
+                }
+                it("sets currentChild") {
+                    let vc = MockStatefulNavigationController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.currentChild).toEventually(equal(vc.childForStateB))
+                }
+                it("sets state") {
+                    let vc = MockStatefulNavigationController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.state).toEventually(equal(.stateB))
+                }
+                it("sets statesInNavigationStack") {
+                    let vc = MockStatefulNavigationController()
+                    vc.loadViewIfNeeded()
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.statesInNavigationStack).toEventually(equal([.stateA, .stateB]))
+                }
             }
         }
     }

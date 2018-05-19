@@ -24,7 +24,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         return childNavigationController.visibleViewController
     }
 
-    private var statesInNavigationStack: [State] = []
+    var statesInNavigationStack: [State] = []
 
     public override init(initialState: State) {
         super.init(initialState: initialState)

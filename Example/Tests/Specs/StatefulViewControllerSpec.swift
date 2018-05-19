@@ -13,7 +13,7 @@ import Nimble
 class StatefulViewControllerSpec: QuickSpec {
 
     override func spec() {
-        // MARK: configureInitialState
+        // MARK: - configureInitialState
         describe("configureInitialState") {
             it("gets called after loading view") {
 				let vc = MockStatefulViewController()
@@ -49,7 +49,7 @@ class StatefulViewControllerSpec: QuickSpec {
                 expect(vc.state) == .stateA
             }
         }
-        // MARK: transitionAnimation
+        // MARK: - transitionAnimation
         describe("transitionAnimation") {
             it("provides a default super animation") {
                 let vc = MockStatefulViewController()
@@ -58,7 +58,7 @@ class StatefulViewControllerSpec: QuickSpec {
                 expect(animation).toNot(beNil())
             }
         }
-        // MARK: transition
+        // MARK: - transition
         describe("transition") {
             // MARK: not animated
             context("not animated") {
@@ -172,7 +172,7 @@ class StatefulViewControllerSpec: QuickSpec {
                 }
             }
         }
-        // MARK: ignoresSameStateChanges
+        // MARK: - ignoresSameStateChanges
         describe("ignoresSameStateChanges") {
             it("defaults to true") {
                 let vc = MockStatefulViewController()
