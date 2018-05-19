@@ -127,6 +127,21 @@ class StatefulNavigationControllerSpec: QuickSpec {
                 }
             }
         }
+        // MARK: - pop transitions
+        describe("pop transitions") {
+            it("pops automatically if the same view controller exists in the stack") {
+                let vc = MockStatefulNavigationController()
+                vc.loadViewIfNeeded()
+                waitUntil(timeout: 10) { done in
+                    vc.transition(to: .stateB, animated: true) {
+                        vc.transition(to: .stateA, animated: true) {
+                            expect(vc.statesInNavigationStack) == [.stateA]
+                            done()
+                        }
+                    }
+                }
+            }
+        }
     }
 
 }

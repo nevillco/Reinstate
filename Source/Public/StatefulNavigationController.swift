@@ -23,6 +23,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     override public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
+    // TODO: fix ignoresSameStateChanges access (don't use here)
 
     var statesInNavigationStack: [State] = []
 
@@ -47,7 +48,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
 	}
 
     open override func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
-        transition(to: newState, canPop: false, animated: true, completion: nil)
+        transition(to: newState, canPop: false, animated: true, completion: completion)
     }
 
     open func transition(to newState: State, canPop: Bool, animated: Bool, completion: (() -> Void)? = nil) {
@@ -58,44 +59,61 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
             completion?()
             return
         }
-        if ignoresSameStateChanges, newState == state {
+        if newState == state {
             print("Encountered a same-state transition to \(newState) - ignoring.")
+            completion?()
             return
         }
         let augmentedCompletion: (() -> Void)? = {
-            completion?()
             self.state = newState
+            completion?()
         }
         let newChild = childViewController(for: newState)
+        if childNavigationController.viewControllers.contains(newChild) {
+            pop(to: newChild, animated: animated, completion: augmentedCompletion)
+            return
+        }
         switch (canPop, existingChild(for: newState)) {
         case let (true, .some(existingChild)):
             pop(to: existingChild, animated: animated, completion: augmentedCompletion)
         default:
-            push(newChild, animated: animated, completion: augmentedCompletion)
+            push(newChild, for: newState, animated: animated, completion: augmentedCompletion)
         }
     }
 
     func pop(to existingChild: UIViewController, animated: Bool, completion: (() -> Void)?) {
         let augmentedCompletion: (() -> Void)? = {
-            completion?()
             let newStackLength = self.childNavigationController.viewControllers.count
             self.statesInNavigationStack = Array(self.statesInNavigationStack.prefix(newStackLength))
+            completion?()
         }
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(augmentedCompletion)
-        childNavigationController.popToViewController(existingChild, animated: animated)
-        CATransaction.commit()
+        if animated {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock(augmentedCompletion)
+            childNavigationController.popToViewController(existingChild, animated: animated)
+            CATransaction.commit()
+        }
+        else {
+            childNavigationController.popToViewController(existingChild, animated: false)
+            augmentedCompletion?()
+        }
     }
 
-    func push(_ newChild: UIViewController, animated: Bool, completion: (() -> Void)?) {
+    func push(_ newChild: UIViewController, for newState: State, animated: Bool, completion: (() -> Void)?) {
         let augmentedCompletion: (() -> Void)? = {
+            self.statesInNavigationStack.append(newState)
             completion?()
-            self.statesInNavigationStack.append(self.state)
         }
-        CATransaction.begin()
-        CATransaction.setCompletionBlock(augmentedCompletion)
-        childNavigationController.pushViewController(newChild, animated: animated)
-        CATransaction.commit()
+        if animated {
+            CATransaction.begin()
+            CATransaction.setCompletionBlock(augmentedCompletion)
+            childNavigationController.pushViewController(newChild, animated: animated)
+            CATransaction.commit()
+        }
+        else {
+            childNavigationController.pushViewController(newChild, animated: false)
+            augmentedCompletion?()
+        }
     }
 
     func existingChild(for newState: State) -> UIViewController? {
