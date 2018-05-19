@@ -49,6 +49,26 @@ class StatefulNavigationControllerSpec: QuickSpec {
                 expect(vc.state) == .stateA
             }
         }
+        // MARK: transition
+        describe("transition") {
+            // MARK: not animated
+            context("not animated") {
+                // TODO: re-enable this test when the throwAssertion()
+                // predicate in Nimble is no longer broken
+                it("calls configureInitialState if state not yet set") {
+                    let vc = MockStatefulNavigationController()
+                    expect(vc.hasConfiguredInitialState) == false
+                    vc.transition(to: .stateB, animated: false)
+                    expect(vc.hasConfiguredInitialState) == true
+                }
+//                it("sets correct child controller") {
+//                    let vc = MockStatefulViewController()
+//                    vc.loadViewIfNeeded()
+//                    vc.transition(to: .stateB, animated: false)
+//                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
+//                }
+            }
+        }
     }
 
 }
