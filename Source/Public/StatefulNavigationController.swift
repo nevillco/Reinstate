@@ -60,7 +60,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
             return
         }
         if newState == state {
-            print("Encountered a same-state transition to \(newState) - ignoring.")
+            print("StatefulNavigationController encountered a same-state transition to \(newState) - ignoring.")
             completion?()
             return
         }
@@ -70,6 +70,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         }
         let newChild = childViewController(for: newState)
         if childNavigationController.viewControllers.contains(newChild) {
+            print("StatefulNavigationController attempted to transition to a view controller that was already in its stack. Popping back to the previous controller.")
             pop(to: newChild, animated: animated, completion: augmentedCompletion)
             return
         }
