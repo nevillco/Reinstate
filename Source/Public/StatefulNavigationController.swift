@@ -23,6 +23,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     override public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
+
     private var statesInNavigationStack: [State] = []
 
     public override init(initialState: State) {
@@ -33,6 +34,7 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
         let initialChild = childViewController(for: state)
         childNavigationController.setViewControllers([initialChild], animated: false)
         addChild(childNavigationController)
+        statesInNavigationStack = [state]
     }
 
     open override func childViewController(for state: State) -> UIViewController {
@@ -44,7 +46,11 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
 		return nil
 	}
 
-    open func transition(to newState: State, canPop: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+    open override func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
+        transition(to: newState, canPop: false, animated: true, completion: nil)
+    }
+
+    open func transition(to newState: State, canPop: Bool, animated: Bool, completion: (() -> Void)? = nil) {
         if childNavigationController.viewControllers.isEmpty {
             print("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
             state = newState
