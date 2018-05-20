@@ -24,8 +24,10 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
         }
     }
 
+    /// All of the tab bar items for this StatefulTabBarController.
     public let allItems: [Item]
-    public internal(set) var currentItem: Item
+    /// The currently selected item for this StatefulTabBarController.
+    public private(set) var currentItem: Item
 
     public init(allItems: [Item], currentItem: Item) {
         self.allItems = allItems

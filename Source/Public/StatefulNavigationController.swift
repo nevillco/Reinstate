@@ -10,7 +10,7 @@ import UIKit
 open class StatefulNavigationController<State: Equatable>: UIViewController {
 
     /// The current state of the view controller.
-    public internal(set) var state: State
+    public private(set) var state: State
     /// The `UINavigationController` displayed by this view controller.
     public let childNavigationController = UINavigationController()
     /// The current child view controller being displayed in
