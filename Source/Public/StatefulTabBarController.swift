@@ -52,12 +52,13 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
         addChild(childTabBarController)
     }
 
-    open func transition(to newState: State, completion: (() -> Void)?) {
+    open func transition(to newState: State) {
         guard let index = allItems.index(where: { $0.state == newState }) else {
             fatalError("Transitioning to state not found in tab bar items: \(newState)")
         }
-        childTabBarController.selectedIndex = index
-        currentItem = allItems[index]
+        let newItem = allItems[index]
+        childTabBarController.selectedViewController = newItem.controller
+        currentItem = newItem
     }
 
 }
