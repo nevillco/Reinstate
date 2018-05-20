@@ -14,7 +14,6 @@ class MockStatefulNavigationController: StatefulNavigationController<MockState> 
     let childForStateB = UIViewController()
 
     var hasConfiguredInitialState = false
-    var useSuperclassTransitionAnimation = false
 
     required init() {
         super.init(initialState: .stateA)

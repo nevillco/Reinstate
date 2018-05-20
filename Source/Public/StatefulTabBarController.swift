@@ -22,12 +22,17 @@ open class StatefulTabBarController<State: Equatable>: StatefulViewController<St
     public struct Item {
         let state: State
         let controller: UIViewController
+
+        public init(_ state: State, _ controller: UIViewController) {
+            self.state = state
+            self.controller = controller
+        }
     }
 
     let allItems: [Item]
     var currentItem: Item
 
-    required public init(allItems: [Item], currentItem: Item) {
+    public init(allItems: [Item], currentItem: Item) {
         self.allItems = allItems
         self.currentItem = currentItem
         super.init(initialState: currentItem.state)
