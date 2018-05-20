@@ -172,42 +172,6 @@ class StatefulViewControllerSpec: QuickSpec {
                 }
             }
         }
-        // MARK: - ignoresSameStateChanges
-        describe("ignoresSameStateChanges") {
-            it("defaults to true") {
-                let vc = MockStatefulViewController()
-                expect(vc.ignoresSameStateChanges) == true
-            }
-            it("keeps same currentChild") {
-                let vc = MockStatefulViewController()
-                vc.loadViewIfNeeded()
-                let vcChild = vc.currentChild
-                vc.transition(to: .stateA, animated: false)
-                expect(vc.currentChild) == vcChild
-            }
-            it("does not add duplicate controllers") {
-                let vc = MockStatefulViewController()
-                vc.loadViewIfNeeded()
-                let vcChild = vc.currentChild
-                vc.transition(to: .stateA, animated: false)
-                expect(vc.childViewControllers) == [vcChild].compactMap { $0 }
-            }
-            it("keeps same state") {
-                let vc = MockStatefulViewController()
-                vc.loadViewIfNeeded()
-                vc.transition(to: .stateA, animated: false)
-                expect(vc.state) == .stateA
-            }
-            it("does not call completion") {
-                let vc = MockStatefulViewController()
-                vc.loadViewIfNeeded()
-                var completionCalled = false
-                vc.transition(to: .stateA, animated: false, completion: {
-                    completionCalled = true
-                })
-                expect(completionCalled).toEventuallyNot(beTrue())
-            }
-        }
     }
 
 }

@@ -17,15 +17,6 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
     override public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
-    /// `ignoresSameStateChanges` is not used in StatefulNavigationController.
-    open override var ignoresSameStateChanges: Bool {
-        get {
-            return true
-        }
-        set {
-            print("ignoresSameStateChanges is not used in StatefulNavigationController, and setting it has no effect.")
-        }
-    }
 
     var statesInNavigationStack: [State] = []
 
