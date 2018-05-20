@@ -7,41 +7,46 @@
 
 import UIKit
 
-open class StatefulNavigationController<State: Equatable>: StatefulViewController<State> {
+open class StatefulNavigationController<State: Equatable>: UIViewController {
 
-    /// The `UINavigationController` displayed by this view
-    /// controller.
+    /// The current state of the view controller.
+    public internal(set) var state: State
+    /// The `UINavigationController` displayed by this view controller.
     public let childNavigationController = UINavigationController()
     /// The current child view controller being displayed in
     /// this navigation stack.
-    override public var currentChild: UIViewController? {
+    public var currentChild: UIViewController? {
         return childNavigationController.visibleViewController
     }
 
     var statesInNavigationStack: [State] = []
 
-    open override func configureInitialState() {
+    public init(initialState: State) {
+        state = initialState
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable) required public init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    open override func viewDidLoad() {
+        super.viewDidLoad()
+        configureInitialState()
+    }
+
+    open func configureInitialState() {
         let initialChild = childViewController(for: state)
         childNavigationController.setViewControllers([initialChild], animated: false)
         addChild(childNavigationController)
         statesInNavigationStack = [state]
     }
 
-    open override func childViewController(for state: State) -> UIViewController {
+    open func childViewController(for state: State) -> UIViewController {
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
-	@available(*, unavailable) public override final func transitionAnimation(
-        from oldState: State, to newState: State) -> StateTransitionAnimation? {
-		print("transitionAnimation(from:, to:) called from a StatefulNavigationController subclass has no effect")
-		return nil
-	}
-
-    open override func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
-        transition(to: newState, canPop: false, animated: animated, completion: completion)
-    }
-
-    open func transition(to newState: State, canPop: Bool, animated: Bool, completion: (() -> Void)? = nil) {
+    open func transition(to newState: State, canPop: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
         if childNavigationController.viewControllers.isEmpty {
             print("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
             state = newState
@@ -66,6 +71,10 @@ open class StatefulNavigationController<State: Equatable>: StatefulViewControlle
             push(newChild, for: newState, animated: animated, completion: augmentedCompletion)
         }
     }
+
+}
+
+extension StatefulNavigationController {
 
     func pop(to existingChild: UIViewController, animated: Bool, completion: (() -> Void)?) {
         let augmentedCompletion: (() -> Void)? = {
