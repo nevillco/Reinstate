@@ -17,13 +17,15 @@ open class StatefulTabBarController<State: Equatable>: StatefulViewController<St
     override public var currentChild: UIViewController? {
         return childTabBarController.selectedViewController
     }
+    /// A representation of one tab bar item on a
+    /// StatefulTabBarController.
     public struct Item {
         let state: State
         let controller: UIViewController
     }
-    /// All states displayed in the tab bar.
+
     let allItems: [Item]
-    let currentItem: Item
+    var currentItem: Item
 
     required public init(allItems: [Item], currentItem: Item) {
         self.allItems = allItems
@@ -43,16 +45,17 @@ open class StatefulTabBarController<State: Equatable>: StatefulViewController<St
         fatalError("Subclasses of StatefulTabBarController must implement childViewController(for:)")
     }
 
-    @available(*, unavailable) open override func transition(to newState: State, animated: Bool, completion: (() -> Void)?) {
+    @available(*, unavailable) public override final func transition(to newState: State, animated: Bool, completion: (() -> Void)?) {
         print("StatefulTabBarController does not animate transitions - use transition(to:, completion:) instead")
     }
 
-    @available(*, unavailable) open override func transitionAnimation(from oldState: State, to newState: State) -> StateTransitionAnimation? {
+    @available(*, unavailable) public override final func transitionAnimation(
+        from oldState: State, to newState: State) -> StateTransitionAnimation? {
         print("transitionAnimation(from:, to:) called from a StatefulTabBarController subclass has no effect")
         return nil
     }
 
-    func transition(to newState: State, completion: (() -> Void)?) {
+    open func transition(to newState: State, completion: (() -> Void)?) {
         guard let index = allItems.index(where: { $0.state == newState }) else {
             fatalError("Transitioning to state not found in tab bar items: \(newState)")
         }
