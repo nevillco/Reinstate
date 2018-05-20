@@ -28,11 +28,4 @@ class MockStatefulTabBarController: StatefulTabBarController<MockState> {
         hasConfiguredInitialState = true
     }
 
-    override func childViewController(for state: MockState) -> UIViewController {
-        switch state {
-        case .stateA: return childForStateA
-        case .stateB: return childForStateB
-        }
-    }
-
 }
