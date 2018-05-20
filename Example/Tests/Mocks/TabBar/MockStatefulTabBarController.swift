@@ -16,9 +16,10 @@ class MockStatefulTabBarController: StatefulTabBarController<MockState> {
     var hasConfiguredInitialState = false
 
     required init() {
-        let currentItem = Item(.stateA, childForStateA)
+        let currentItem: Item = (.stateA, childForStateA)
         let items: [Item] = [
-            currentItem
+            currentItem,
+            (.stateB, childForStateB)
         ]
         super.init(allItems: items, currentItem: currentItem)
     }

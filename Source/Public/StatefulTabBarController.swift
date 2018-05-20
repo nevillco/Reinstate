@@ -14,15 +14,7 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
     public let childTabBarController = UITabBarController()
     /// A representation of one tab bar item on a
     /// StatefulTabBarController.
-    public struct Item {
-        let state: State
-        let controller: UIViewController
-
-        public init(_ state: State, _ controller: UIViewController) {
-            self.state = state
-            self.controller = controller
-        }
-    }
+    public typealias Item = (State, UIViewController)
 
     /// All of the tab bar items for this StatefulTabBarController.
     public let allItems: [Item]
@@ -45,19 +37,19 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
     }
 
     open func configureInitialState() {
-        let allControllers = allItems.map { $0.controller }
+        let allControllers = allItems.map { $0.1 }
         childTabBarController.setViewControllers(allControllers, animated: false)
-        let currentController = currentItem.controller
+        let currentController = currentItem.1
         childTabBarController.selectedViewController = currentController
         addChild(childTabBarController)
     }
 
     open func transition(to newState: State) {
-        guard let index = allItems.index(where: { $0.state == newState }) else {
+        guard let index = allItems.index(where: { $0.0 == newState }) else {
             fatalError("Transitioning to state not found in tab bar items: \(newState)")
         }
         let newItem = allItems[index]
-        childTabBarController.selectedViewController = newItem.controller
+        childTabBarController.selectedViewController = newItem.1
         currentItem = newItem
     }
 

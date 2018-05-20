@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2D0EDCC520B1B24800FD74D8 /* MockStatefulTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */; };
+		2D0EDCC820B1B84700FD74D8 /* StatefulTabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */; };
 		2D8C9093206A886B00B0F613 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */; };
 		2DD5EAFB20AF89B20059365E /* StatefulNavigationControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */; };
 		2DD5EB0020AF8B420059365E /* MockStatefulNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EAFF20AF8B420059365E /* MockStatefulNavigationController.swift */; };
@@ -46,6 +47,7 @@
 		0A1FB253ACB4FBA91DFBE9B5 /* Pods_Reinstate_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reinstate_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatefulTabBarController.swift; sourceTree = "<group>"; };
+		2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulTabBarControllerSpec.swift; sourceTree = "<group>"; };
 		2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulNavigationControllerSpec.swift; sourceTree = "<group>"; };
 		2DD5EAFF20AF8B420059365E /* MockStatefulNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatefulNavigationController.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				2DEF644220655328000174ED /* ChildViewControllerSpec.swift */,
 				2DD5EAFA20AF89B20059365E /* StatefulNavigationControllerSpec.swift */,
 				2DEF644320655328000174ED /* StatefulViewControllerSpec.swift */,
+				2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */,
 			);
 			path = Specs;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				2DD5EB0020AF8B420059365E /* MockStatefulNavigationController.swift in Sources */,
 				2DD5EB0B20AFBF520059365E /* StateIdentifiedViewController.swift in Sources */,
 				2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */,
+				2D0EDCC820B1B84700FD74D8 /* StatefulTabBarControllerSpec.swift in Sources */,
 				2DD5EAFB20AF89B20059365E /* StatefulNavigationControllerSpec.swift in Sources */,
 				2DEF644720655328000174ED /* ChildViewControllerSpec.swift in Sources */,
 				2DEF644820655328000174ED /* StatefulViewControllerSpec.swift in Sources */,
