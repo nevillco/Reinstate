@@ -82,8 +82,8 @@ extension StatefulNavigationController {
     func pop(to existingChild: UIViewController, animated: Bool, completion: (() -> Void)?) {
         let augmentedCompletion: (() -> Void)? = {
             let newStackLength = self.childNavigationController.viewControllers.count
-            let prefixed =
-            self.statesInNavigationStack = Array(self.statesInNavigationStack.prefix(newStackLength))
+            let prefixed = self.statesInNavigationStack.prefix(newStackLength)
+            self.statesInNavigationStack = Array(prefixed)
             completion?()
         }
         if animated {
