@@ -393,14 +393,30 @@
 			name = Pod;
 			sourceTree = "<group>";
 		};
-		2DD774BF2065484F00DF05D1 /* Public */ = {
+		2D1D91A120C03635007D7808 /* Children */ = {
 			isa = PBXGroup;
 			children = (
 				2DD774C02065484F00DF05D1 /* UIViewController+ChildViewControllers.swift */,
 				2DD774C22065484F00DF05D1 /* StateTransitionAnimation.swift */,
+			);
+			path = Children;
+			sourceTree = "<group>";
+		};
+		2D1D91A220C03642007D7808 /* Stateful */ = {
+			isa = PBXGroup;
+			children = (
 				2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */,
 				2D6EA0D420AB1A7D00EFC2A7 /* StatefulNavigationController.swift */,
 				2D0EDCBF20B0E73F00FD74D8 /* StatefulTabBarController.swift */,
+			);
+			path = Stateful;
+			sourceTree = "<group>";
+		};
+		2DD774BF2065484F00DF05D1 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				2D1D91A120C03635007D7808 /* Children */,
+				2D1D91A220C03642007D7808 /* Stateful */,
 			);
 			path = Public;
 			sourceTree = "<group>";
