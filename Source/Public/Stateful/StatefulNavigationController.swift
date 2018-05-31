@@ -9,11 +9,14 @@ import UIKit
 
 open class StatefulNavigationController<State: Equatable>: UIViewController {
 
+    let internalChild = ChildNavigationController()
+
     /// The current state of the view controller.
     public private(set) var state: State
     /// The `UINavigationController` displayed by this view controller.
-    public let childNavigationController = UINavigationController()
-    let internalObserver = InternalNavigationObserver()
+    public var childNavigationController: UINavigationController {
+        return internalChild.internalController
+    }
     /// The current child view controller being displayed in
     /// this navigation stack.
     public var currentChild: UIViewController? {
@@ -32,8 +35,7 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
     }
 
     open override func viewDidLoad() {
-        internalObserver.delegate = self
-        childNavigationController.delegate = internalObserver
+        internalChild.delegate = self
         super.viewDidLoad()
         configureInitialState()
     }
@@ -125,28 +127,12 @@ extension StatefulNavigationController {
 
 }
 
-extension StatefulNavigationController: InternalNavigationObserverDelegate {
+extension StatefulNavigationController: ChildNavigationControllerDelegate {
 
-    func internalNavigationObserver(_ observer: InternalNavigationObserver, didUpdateViewControllerCountTo count: Int) {
-        let prefixed = self.statesInNavigationStack.prefix(count)
+    func childNavigationController(_ vc: ChildNavigationController, didUpdateStackCountTo stackCount: Int) {
+        let prefixed = self.statesInNavigationStack.prefix(stackCount)
         self.statesInNavigationStack = Array(prefixed)
     }
 
-}
-
-protocol InternalNavigationObserverDelegate: class {
-
-    func internalNavigationObserver(_ observer: InternalNavigationObserver, didUpdateViewControllerCountTo count: Int)
-
-}
-
-final class InternalNavigationObserver: NSObject, UINavigationControllerDelegate {
-
-    weak var delegate: InternalNavigationObserverDelegate?
-
-    func navigationController(_ navigationController: UINavigationController, didShow viewController: UIViewController, animated: Bool) {
-        let newControllerCount = navigationController.viewControllers.count
-        delegate?.internalNavigationObserver(self, didUpdateViewControllerCountTo: newControllerCount)
-    }
 
 }
