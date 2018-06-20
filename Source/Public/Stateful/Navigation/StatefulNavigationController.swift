@@ -51,7 +51,7 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
-    open func transition(to newState: State, canPop: Bool = false, animated: Bool, completion: (() -> Void)? = nil) {
+    open func transition(to newState: State, canPop: Bool = true, animated: Bool, completion: (() -> Void)? = nil) {
         if childNavigationController.viewControllers.isEmpty {
             print("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
             state = newState
@@ -69,7 +69,7 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
             pop(to: newChild, animated: animated, completion: augmentedCompletion)
             return
         }
-        if let popIndex = popIndex(for: newState) {
+        if canPop, let popIndex = popIndex(for: newState) {
             childNavigationController.viewControllers[popIndex] = newChild
             pop(to: newChild, animated: animated, completion: completion)
         }

@@ -13,12 +13,4 @@ enum MockState: NavigationEquatable {
     case stateA
     case stateB
 
-    static func canPop(to oldState: MockState, for newState: MockState) -> Bool {
-        switch (oldState, newState) {
-        case (.stateA, stateA): return true
-        case (.stateB, .stateB): return true
-        default: return false
-        }
-    }
-
 }
