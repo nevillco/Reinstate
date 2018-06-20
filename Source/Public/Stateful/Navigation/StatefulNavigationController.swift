@@ -7,7 +7,7 @@
 
 import UIKit
 
-open class StatefulNavigationController<State: Equatable>: UIViewController {
+open class StatefulNavigationController<State: NavigationEquatable>: UIViewController {
 
     let internalChild = ChildNavigationController()
 
@@ -69,10 +69,11 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
             pop(to: newChild, animated: animated, completion: augmentedCompletion)
             return
         }
-        switch (canPop, existingChild(for: newState)) {
-        case let (true, .some(existingChild)):
-            pop(to: existingChild, animated: animated, completion: augmentedCompletion)
-        default:
+        if let popIndex = popIndex(for: newState) {
+            childNavigationController.viewControllers[popIndex] = newChild
+            pop(to: newChild, animated: animated, completion: completion)
+        }
+        else {
             push(newChild, for: newState, animated: animated, completion: augmentedCompletion)
         }
     }
@@ -117,12 +118,11 @@ extension StatefulNavigationController {
         }
     }
 
-    func existingChild(for newState: State) -> UIViewController? {
+    func popIndex(for newState: State) -> Int? {
         return statesInNavigationStack.enumerated()
-            .filter { $0.element == newState }
+            .filter({ State.canPop(to: $0.element, for: newState) })
             .last
             .map { $0.offset }
-            .map { self.childNavigationController.viewControllers[$0] }
     }
 
 }
