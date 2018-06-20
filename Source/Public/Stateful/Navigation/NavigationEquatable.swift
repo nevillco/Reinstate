@@ -16,7 +16,7 @@ public protocol NavigationEquatable: Equatable {
 public extension NavigationEquatable {
 
     static func canPop(to oldState: Self, for newState: Self) -> Bool {
-        return false
+        return oldState == newState
     }
 
 }
