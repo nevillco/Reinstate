@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		2D0EDCC520B1B24800FD74D8 /* MockStatefulTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */; };
 		2D0EDCC820B1B84700FD74D8 /* StatefulTabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */; };
+		2D399AB720E560A600D4F83E /* DelegationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AB620E560A600D4F83E /* DelegationViewController.swift */; };
+		2D399AB920E5613900D4F83E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AB820E5613900D4F83E /* ContainerViewController.swift */; };
+		2D399ABB20E5615500D4F83E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399ABA20E5615500D4F83E /* NavigationViewController.swift */; };
+		2D399ABD20E564EB00D4F83E /* ContainerChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */; };
+		2D399AC220E5799400D4F83E /* NavigationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */; };
+		2D399AC420E57B2D00D4F83E /* NavigationSetUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */; };
 		2D64C83420DAE9AA00D368AF /* MockNavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64C83220DAE96900D368AF /* MockNavigationState.swift */; };
 		2D64C83A20DAEB5F00D368AF /* MockPoppableNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64C83820DAEB4900D368AF /* MockPoppableNavigationController.swift */; };
 		2D8C9093206A886B00B0F613 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */; };
@@ -19,12 +25,6 @@
 		2DD5EB0B20AFBF520059365E /* StateIdentifiedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD5EB0A20AFBF520059365E /* StateIdentifiedViewController.swift */; };
 		2DD774D72065490D00DF05D1 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774CB2065490C00DF05D1 /* RootViewController.swift */; };
 		2DD774D82065490D00DF05D1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2DD774CC2065490C00DF05D1 /* Assets.xcassets */; };
-		2DD774DA2065490D00DF05D1 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D02065490C00DF05D1 /* HomeViewController.swift */; };
-		2DD774DB2065490D00DF05D1 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */; };
-		2DD774DC2065490D00DF05D1 /* Gesturable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D22065490C00DF05D1 /* Gesturable.swift */; };
-		2DD774DD2065490D00DF05D1 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D32065490C00DF05D1 /* SplashViewController.swift */; };
-		2DD774DE2065490D00DF05D1 /* UserDefaults+Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */; };
-		2DD774DF2065490D00DF05D1 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D52065490C00DF05D1 /* SignInViewController.swift */; };
 		2DD774E02065490D00DF05D1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DD774D62065490D00DF05D1 /* AppDelegate.swift */; };
 		2DEF643C20655111000174ED /* MockUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF643B20655111000174ED /* MockUIViewController.swift */; };
 		2DEF644620655328000174ED /* MockStatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DEF644120655328000174ED /* MockStatefulViewController.swift */; };
@@ -49,6 +49,12 @@
 		0E62A14BACAEA661656BA4FE /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../../README.md; sourceTree = "<group>"; };
 		2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatefulTabBarController.swift; sourceTree = "<group>"; };
 		2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulTabBarControllerSpec.swift; sourceTree = "<group>"; };
+		2D399AB620E560A600D4F83E /* DelegationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationViewController.swift; sourceTree = "<group>"; };
+		2D399AB820E5613900D4F83E /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		2D399ABA20E5615500D4F83E /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerChildViewController.swift; sourceTree = "<group>"; };
+		2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationInfoViewController.swift; sourceTree = "<group>"; };
+		2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSetUsernameViewController.swift; sourceTree = "<group>"; };
 		2D64C83220DAE96900D368AF /* MockNavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationState.swift; sourceTree = "<group>"; };
 		2D64C83820DAEB4900D368AF /* MockPoppableNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPoppableNavigationController.swift; sourceTree = "<group>"; };
 		2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -59,12 +65,6 @@
 		2DD5EB0A20AFBF520059365E /* StateIdentifiedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateIdentifiedViewController.swift; sourceTree = "<group>"; };
 		2DD774CB2065490C00DF05D1 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		2DD774CC2065490C00DF05D1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2DD774D02065490C00DF05D1 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
-		2DD774D22065490C00DF05D1 /* Gesturable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Gesturable.swift; sourceTree = "<group>"; };
-		2DD774D32065490C00DF05D1 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
-		2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserDefaults+Utility.swift"; sourceTree = "<group>"; };
-		2DD774D52065490C00DF05D1 /* SignInViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		2DD774D62065490D00DF05D1 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2DEF643B20655111000174ED /* MockUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIViewController.swift; sourceTree = "<group>"; };
 		2DEF644120655328000174ED /* MockStatefulViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockStatefulViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +122,33 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
+		2D399ABE20E5794A00D4F83E /* DelegationExample */ = {
+			isa = PBXGroup;
+			children = (
+				2D399AB620E560A600D4F83E /* DelegationViewController.swift */,
+			);
+			path = DelegationExample;
+			sourceTree = "<group>";
+		};
+		2D399ABF20E5795300D4F83E /* ContainmentExample */ = {
+			isa = PBXGroup;
+			children = (
+				2D399AB820E5613900D4F83E /* ContainerViewController.swift */,
+				2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */,
+			);
+			path = ContainmentExample;
+			sourceTree = "<group>";
+		};
+		2D399AC020E5795E00D4F83E /* NavigationExample */ = {
+			isa = PBXGroup;
+			children = (
+				2D399ABA20E5615500D4F83E /* NavigationViewController.swift */,
+				2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */,
+				2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */,
+			);
+			path = NavigationExample;
+			sourceTree = "<group>";
+		};
 		2DD5EAF820AF88B60059365E /* Specs */ = {
 			isa = PBXGroup;
 			children = (
@@ -148,11 +175,10 @@
 		2DD5EAFC20AF8A5D0059365E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2DD774D02065490C00DF05D1 /* HomeViewController.swift */,
-				2DD774D12065490C00DF05D1 /* OnboardingViewController.swift */,
+				2D399AC020E5795E00D4F83E /* NavigationExample */,
+				2D399ABF20E5795300D4F83E /* ContainmentExample */,
+				2D399ABE20E5794A00D4F83E /* DelegationExample */,
 				2DD774CB2065490C00DF05D1 /* RootViewController.swift */,
-				2DD774D52065490C00DF05D1 /* SignInViewController.swift */,
-				2DD774D32065490C00DF05D1 /* SplashViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -165,15 +191,6 @@
 				2D8C9092206A886B00B0F613 /* LaunchScreen.storyboard */,
 			);
 			path = Application;
-			sourceTree = "<group>";
-		};
-		2DD5EAFE20AF8A6E0059365E /* Utility */ = {
-			isa = PBXGroup;
-			children = (
-				2DD774D22065490C00DF05D1 /* Gesturable.swift */,
-				2DD774D42065490C00DF05D1 /* UserDefaults+Utility.swift */,
-			);
-			path = Utility;
 			sourceTree = "<group>";
 		};
 		2DD5EB0320AF901A0059365E /* Utility */ = {
@@ -211,7 +228,6 @@
 				2DD5EAFD20AF8A670059365E /* Application */,
 				2DD5EAFC20AF8A5D0059365E /* Controllers */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
-				2DD5EAFE20AF8A6E0059365E /* Utility */,
 			);
 			path = "Example for Reinstate";
 			sourceTree = "<group>";
@@ -488,14 +504,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2D399AB720E560A600D4F83E /* DelegationViewController.swift in Sources */,
 				2DD774E02065490D00DF05D1 /* AppDelegate.swift in Sources */,
-				2DD774DF2065490D00DF05D1 /* SignInViewController.swift in Sources */,
+				2D399AB920E5613900D4F83E /* ContainerViewController.swift in Sources */,
+				2D399AC220E5799400D4F83E /* NavigationInfoViewController.swift in Sources */,
+				2D399ABB20E5615500D4F83E /* NavigationViewController.swift in Sources */,
 				2DD774D72065490D00DF05D1 /* RootViewController.swift in Sources */,
-				2DD774DC2065490D00DF05D1 /* Gesturable.swift in Sources */,
-				2DD774DB2065490D00DF05D1 /* OnboardingViewController.swift in Sources */,
-				2DD774DA2065490D00DF05D1 /* HomeViewController.swift in Sources */,
-				2DD774DD2065490D00DF05D1 /* SplashViewController.swift in Sources */,
-				2DD774DE2065490D00DF05D1 /* UserDefaults+Utility.swift in Sources */,
+				2D399ABD20E564EB00D4F83E /* ContainerChildViewController.swift in Sources */,
+				2D399AC420E57B2D00D4F83E /* NavigationSetUsernameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,99 +8,34 @@
 
 import Reinstate
 
-enum RootState {
-    case splash
-    case onboarding
-    case signIn
-    case home
+enum RootViewState {
+
+    case delegation
+    case container
+    case navigation
+
 }
 
-class RootViewController: StatefulViewController<RootState> {
+class RootViewController: StatefulTabBarController<RootViewState> {
 
-    override func childViewController(for state: RootState) -> UIViewController {
-        switch state {
-        case .splash:
-            let vc = SplashViewController()
-            vc.delegate = self
-            return vc
-        case .onboarding:
-            let vc = OnboardingViewController()
-            vc.delegate = self
-            return vc
-        case .signIn:
-            let vc = SignInViewController()
-            vc.delegate = self
-            return vc
-        case .home:
-            let vc = HomeViewController()
-            vc.delegate = self
-            return vc
-        }
-    }
-
-    override func transitionAnimation(from oldState: RootState, to newState: RootState) -> StateTransitionAnimation? {
-        switch (oldState, newState) {
-        case (.splash, _):
-            return .appearAndSimultaneouslyRemove(
-                onAppear: (0.3, .transitionCrossDissolve),
-                onRemove: (0.3, .transitionCrossDissolve)
-            )
-        case (.onboarding, .signIn), (.signIn, .home):
-            return .appearOverPrevious(onAppear:
-                (0.3, .transitionFlipFromLeft))
-        case (.signIn, .onboarding), (.home, .signIn):
-            return .appearUnderPrevious(onRemove:
-                (0.3, .transitionFlipFromRight))
-        default:
-            return nil
-        }
+    init() {
+        let delegationVC = DelegationViewController()
+        let containerVC = ContainerViewController()
+        let navigationVC = NavigationViewController()
+        let delegationItem: Item = (.delegation, delegationVC)
+        let containerItem: Item = (.container, containerVC)
+        let navigationItem: Item = (.navigation, navigationVC)
+        let allItems = [delegationItem, containerItem, navigationItem]
+        super.init(allItems: allItems, initialItem: delegationItem)
+        delegationVC.delegate = self
     }
 
 }
 
-extension RootViewController: SplashViewControllerDelegate {
+extension RootViewController: DelegationViewControllerDelegate {
 
-    func splashViewControllerDidComplete(_ controller: SplashViewController) {
-        switch (UserDefaults.standard.isAuthenticated, UserDefaults.standard.hasCompletedOnboarding) {
-        case (true, _):
-			transition(to: .home, animated: true)
-        case (false, true):
-			transition(to: .signIn, animated: true)
-        case (false, false):
-			transition(to: .onboarding, animated: true)
-        }
-    }
-
-}
-
-extension RootViewController: OnboardingViewControllerDelegate {
-
-    func onboardingViewControllerDidComplete(_ controller: OnboardingViewController) {
-        UserDefaults.standard.hasCompletedOnboarding = true
-		transition(to: .signIn, animated: true)
-    }
-
-}
-
-extension RootViewController: SignInViewControllerDelegate {
-
-    func signInViewControllerDidSignIn(_ controller: SignInViewController) {
-        UserDefaults.standard.isAuthenticated = true
-		transition(to: .home, animated: true)
-    }
-
-    func signInViewControllerDidRevisitOnboarding(_ controller: SignInViewController) {
-        UserDefaults.standard.hasCompletedOnboarding = false
-		transition(to: .onboarding, animated: true)
-    }
-
-}
-
-extension RootViewController: HomeViewControllerDelegate {
-
-    func homeViewControllerDidSignOut(_ controller: HomeViewController) {
-        UserDefaults.standard.isAuthenticated = false
-		transition(to: .signIn, animated: true)
+    func delegationViewControllerDidSwitchTabs(_ vc: DelegationViewController) {
+        transition(to: .container)
     }
 
 }
