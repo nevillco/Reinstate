@@ -20,7 +20,7 @@
 		29A65FF7D1752DFFF87F5DC8F55CE859 /* ToSucceed.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE295D4D0ED3F1666C5921320F0E2C6 /* ToSucceed.swift */; settings = {COMPILER_FLAGS = "-DPRODUCT_NAME=Nimble/Nimble"; }; };
 		2B6D98F154B20F4C80374170341AC4D4 /* World+DSL.h in Headers */ = {isa = PBXBuildFile; fileRef = 467F00CAF06ADEF612F697F068843FB2 /* World+DSL.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		2D0EDCC020B0E73F00FD74D8 /* StatefulTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCBF20B0E73F00FD74D8 /* StatefulTabBarController.swift */; };
-		2D1D91A420C036B7007D7808 /* StatefulNavigationController+Delegation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1D91A320C036B7007D7808 /* StatefulNavigationController+Delegation.swift */; };
+		2D1D91A420C036B7007D7808 /* ChildNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D1D91A320C036B7007D7808 /* ChildNavigationController.swift */; };
 		2D64C83120DAE36B00D368AF /* NavigationEquatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64C83020DAE36B00D368AF /* NavigationEquatable.swift */; };
 		2D6EA0CE20AA43CA00EFC2A7 /* StatefulViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */; };
 		2D6EA0D520AB1A7D00EFC2A7 /* StatefulNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D6EA0D420AB1A7D00EFC2A7 /* StatefulNavigationController.swift */; };
@@ -188,7 +188,7 @@
 		275448DC30BDA55B5E7C9B0722156C10 /* Pods-Reinstate_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Reinstate_Example-resources.sh"; sourceTree = "<group>"; };
 		27D3B45E28A7F402A2E268E66126EB55 /* Pods-Reinstate_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Reinstate_Example-dummy.m"; sourceTree = "<group>"; };
 		2D0EDCBF20B0E73F00FD74D8 /* StatefulTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulTabBarController.swift; sourceTree = "<group>"; };
-		2D1D91A320C036B7007D7808 /* StatefulNavigationController+Delegation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StatefulNavigationController+Delegation.swift"; sourceTree = "<group>"; };
+		2D1D91A320C036B7007D7808 /* ChildNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildNavigationController.swift; sourceTree = "<group>"; };
 		2D64C83020DAE36B00D368AF /* NavigationEquatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationEquatable.swift; sourceTree = "<group>"; };
 		2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulViewController.swift; sourceTree = "<group>"; };
 		2D6EA0D420AB1A7D00EFC2A7 /* StatefulNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulNavigationController.swift; sourceTree = "<group>"; };
@@ -420,7 +420,7 @@
 			isa = PBXGroup;
 			children = (
 				2D6EA0D420AB1A7D00EFC2A7 /* StatefulNavigationController.swift */,
-				2D1D91A320C036B7007D7808 /* StatefulNavigationController+Delegation.swift */,
+				2D1D91A320C036B7007D7808 /* ChildNavigationController.swift */,
 				2D64C83020DAE36B00D368AF /* NavigationEquatable.swift */,
 			);
 			path = Navigation;
@@ -1008,7 +1008,7 @@
 				2DD774C32065484F00DF05D1 /* UIViewController+ChildViewControllers.swift in Sources */,
 				2D64C83120DAE36B00D368AF /* NavigationEquatable.swift in Sources */,
 				2DD774C92065485E00DF05D1 /* UIView+ConstrainToEdges.swift in Sources */,
-				2D1D91A420C036B7007D7808 /* StatefulNavigationController+Delegation.swift in Sources */,
+				2D1D91A420C036B7007D7808 /* ChildNavigationController.swift in Sources */,
 				2D0EDCC020B0E73F00FD74D8 /* StatefulTabBarController.swift in Sources */,
 				2D6EA0D520AB1A7D00EFC2A7 /* StatefulNavigationController.swift in Sources */,
 				C476FDB488E4A8788ACEFC7D5D793FDE /* Reinstate-dummy.m in Sources */,
