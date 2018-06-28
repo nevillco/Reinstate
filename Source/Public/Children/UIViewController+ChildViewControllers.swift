@@ -13,12 +13,26 @@ import UIKit
 // MARK: Add Child Controller
 public extension UIViewController {
 
+    /// Adds the specified view controller as a child.
+    ///
+    /// - Parameters:
+    ///   - controller: the controller to add as a child.
+    ///   - options: optional animation details.
+    ///   - completion: a completion block.
     public func addChild(_ controller: UIViewController,
                   options: StateTransitionAnimationOptions? = nil,
                   completion: (() -> Void)? = nil) {
         addChild(controller, constrainedTo: view, options: options, completion: completion)
     }
 
+    /// Adds the specified view controller as a child.
+    ///
+    /// - Parameters:
+    ///   - controller: the controller to add as a child.
+    ///   - containerView: the container that will be used to constrain
+    /// `controller.view`. Must be within the view hierarchy of `self.view`.
+    ///   - options: optional animation details.
+    ///   - completion: a completion block.
     public func addChild(_ controller: UIViewController,
                   constrainedTo containerView: UIView,
                   options: StateTransitionAnimationOptions? = nil,
@@ -46,12 +60,27 @@ public extension UIViewController {
 // MARK: Remove Child Controller
 public extension UIViewController {
 
+    /// Removes the specified view controller as a child. Fails if
+    /// `controller` is not already a child view controller of `self`.
+    ///
+    /// - Parameters:
+    ///   - controller: the controller to remove as a child.
+    ///   - options: optional animation details.
+    ///   - completion: a completion block.
     public func removeChild(_ controller: UIViewController,
                      options: StateTransitionAnimationOptions? = nil,
                      completion: (() -> Void)? = nil) {
         removeChild(controller, constrainedTo: view, options: options, completion: completion)
     }
 
+    /// Removes the specified view controller as a child. Fails if
+    /// `controller` is not already a child view controller of `self`.
+    ///
+    /// - Parameters:
+    ///   - controller: the controller to remove as a child.
+    ///   - containerView: the view that was used to constrain `controller.view`.
+    ///   - options: optional animation details.
+    ///   - completion: a completion block.
     public func removeChild(_ controller: UIViewController,
                      constrainedTo containerView: UIView,
                      options: StateTransitionAnimationOptions? = nil,
@@ -79,6 +108,14 @@ public extension UIViewController {
 // MARK: Replace Child Controller
 public extension UIViewController {
 
+    /// Replaces an existing child view controller with a new one. Fails if
+    /// `oldController` is not already a child view controller of `self`.
+    ///
+    /// - Parameters:
+    ///   - oldController: the controller to remove as a child.
+    ///   - newController: the controller to add as a child.
+    ///   - animation: optional animation details.
+    ///   - completion: a completion block.
     public func replaceChild(_ oldController: UIViewController,
                       with newController: UIViewController,
                       animation: StateTransitionAnimation? = nil,
@@ -86,6 +123,17 @@ public extension UIViewController {
         replaceChild(oldController, with: newController, constrainedTo: view, animation: animation, completion: completion)
     }
 
+    /// Replaces an existing child view controller with a new one. Fails if
+    /// `oldController` is not already a child view controller of `self`.
+    ///
+    /// - Parameters:
+    ///   - oldController: the controller to remove as a child.
+    ///   - newController: the controller to add as a child.
+    ///   - containerView: the view that was used to constrain
+    /// `oldController.view` and will be used to constrain
+    /// `newController.view`. Must be within the view hierarchy of `self.view`.
+    ///   - animation: optional animation details.
+    ///   - completion: a completion block.
     public func replaceChild(_ oldController: UIViewController,
                       with newController: UIViewController,
                       constrainedTo containerView: UIView,

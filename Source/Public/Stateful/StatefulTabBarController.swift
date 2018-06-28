@@ -7,9 +7,11 @@
 
 import UIKit
 
+/// A wrapper around `UITabBarController` that manages itself
+/// according to a state variable.
 open class StatefulTabBarController<State: Equatable>: UIViewController {
 
-    /// The `UINavigationController` displayed by this view
+    /// The `UITabBarController` displayed by this view
     /// controller.
     public let childTabBarController = UITabBarController()
     /// A representation of one tab bar item on a
@@ -21,9 +23,15 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
     /// The currently selected item for this StatefulTabBarController.
     public private(set) var currentItem: Item
 
-    public init(allItems: [Item], currentItem: Item) {
+    /// Initializes a new `StatefulTabBarController` with the given
+    /// set of possible states and initial state.
+    ///
+    /// - Parameters:
+    ///   - allItems: all of the items to be displayed on the tab bar.
+    ///   - initialItem: the intitially selected item.
+    public init(allItems: [Item], initialItem: Item) {
         self.allItems = allItems
-        self.currentItem = currentItem
+        self.currentItem = initialItem
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -36,6 +44,9 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
         configureInitialState()
     }
 
+    /// Configures the initial state of the view controller. Should not be called
+    /// directly and usually should not be overridden. If you do override this
+    /// function, include a call to the superclass implementation.
     open func configureInitialState() {
         let allControllers = allItems.map { $0.1 }
         childTabBarController.setViewControllers(allControllers, animated: false)
@@ -44,9 +55,12 @@ open class StatefulTabBarController<State: Equatable>: UIViewController {
         addChild(childTabBarController)
     }
 
+    /// Transitions the tab bar to a new state.
+    ///
+    /// - Parameter newState: the state to transition to.
     open func transition(to newState: State) {
         guard let index = allItems.index(where: { $0.0 == newState }) else {
-            fatalError("Transitioning to state not found in tab bar items: \(newState)")
+            fatalError("StatefulTabBarController found an unexpected state: \(newState)")
         }
         let newItem = allItems[index]
         childTabBarController.selectedViewController = newItem.1

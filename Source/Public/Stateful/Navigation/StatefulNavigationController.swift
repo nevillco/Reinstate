@@ -7,6 +7,8 @@
 
 import UIKit
 
+/// A wrapper around `UINavigationController` that manages itself
+/// according to a state variable.
 open class StatefulNavigationController<State: NavigationEquatable>: UIViewController {
 
     let internalChild = ChildNavigationController()
@@ -25,6 +27,10 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
 
     var statesInNavigationStack: [State] = []
 
+    /// Initializes a new `StatefulNavigationController` with the specified
+    /// initial state, which will determine its first child view controller.
+    ///
+    /// - Parameter initialState: the initial state of the controller.
     public init(initialState: State) {
         state = initialState
         super.init(nibName: nil, bundle: nil)
@@ -40,6 +46,9 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
         configureInitialState()
     }
 
+    /// Configures the initial state of the view controller. Should not be called
+    /// directly and usually should not be overridden. If you do override this
+    /// function, include a call to the superclass implementation.
     open func configureInitialState() {
         let initialChild = childViewController(for: state)
         childNavigationController.setViewControllers([initialChild], animated: false)
@@ -47,10 +56,32 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
         statesInNavigationStack = [state]
     }
 
+    /// The child view controller that should be displayed for the given state.
+    ///
+    /// - Parameter state: the state for which the `StatefulNavigationController`
+    /// is requesting a child view controller.
+    /// - Returns: a child view controller that reflects the `state`.
     open func childViewController(for state: State) -> UIViewController {
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
+    /// Transitions this `StatefulNavigationController` to a new state. This
+    /// transition will either be a push to a new view controller, or a pop backwards
+    /// through the navigation stack, depending on a number of conditions:
+    ///
+    /// * If the new child view controller that corresponds to `newState` already
+    /// exists in the stack, pop to it.
+    /// * If `canPop` is false, push to the new child view controller.
+    /// * If `canPop` is true, search the existing states on the navigation stack for
+    /// a candidate according to the `NavigationEquatable` definition. If one is found,
+    /// and it is equal to `newState`, pop to it. If it is not equal to `newState`, replace
+    /// the existing view controller with the new one first, then pop to it.
+    ///
+    /// - Parameters:
+    ///   - newState: the state to transition to.
+    ///   - canPop: whether to allow popping transitions. Defaults to `true`.
+    ///   - animated: whether to animate the transition.
+    ///   - completion: a completion block.
     open func transition(to newState: State, canPop: Bool = true, animated: Bool, completion: (() -> Void)? = nil) {
         let augmentedCompletion: (() -> Void)? = {
             self.state = newState
