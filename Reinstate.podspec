@@ -8,11 +8,11 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reinstate'
-  s.version          = '0.3.6'
-  s.summary          = 'Leverage child view controllers to manage the state of your app and keep each view controller small.'
+  s.version          = '0.4.0'
+  s.summary          = 'A toolbox for better view controller management in iOS.'
 
   s.description      = <<-DESC
-When managing an app with complex state, it’s easy for your view controllers to balloon in size. Make use of Reinstate’s utilities to create, display and remove child view controllers, can keep each individual view controller simple.
+  It is common to leverage container view controllers in iOS, like UINavigationController and UITabBarController. It is less common to fully utilize the pattern of view controller composition to keep your code clean and easy to reason with. Reinstate provides a variety of tools to help you compose a hierarchy of view controllers, each one small and with a single focus.
                        DESC
 
   s.homepage         = 'https://github.com/nevillco/Reinstate'
