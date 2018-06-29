@@ -100,14 +100,13 @@ class RootViewController: StatefulViewController<RootViewState> {
         case (.splash, _):
             return .appearAndSimultaneouslyRemove(
                 onAppear: (0.3, .transitionCrossDissolve),
-                onRemove: (0.3, .transitionCrossDissolve)
-            )
+                onRemove: (0.3, .transitionCrossDissolve))
         case (.onboarding, .signIn), (.signIn, .home):
-            return .appearOverPrevious(onAppear:
-                (0.3, .transitionFlipFromLeft))
+            return .appearOverPrevious(
+                onAppear: (0.3, .transitionFlipFromLeft))
         case (.signIn, .onboarding), (.home, .signIn):
-            return .appearUnderPrevious(onRemove:
-                (0.3, .transitionFlipFromRight))
+            return .appearUnderPrevious(
+                onRemove: (0.3, .transitionFlipFromRight))
         default:
             return nil
         }
@@ -120,11 +119,11 @@ extension RootViewController: SplashViewControllerDelegate {
     func splashViewControllerDidComplete(_ controller: SplashViewController) {
         switch (UserDefaults.standard.isAuthenticated, UserDefaults.standard.hasCompletedOnboarding) {
         case (true, _):
-			transition(to: .home, animated: true)
+            transition(to: .home, animated: true)
         case (false, true):
-			transition(to: .signIn, animated: true)
+            transition(to: .signIn, animated: true)
         case (false, false):
-			transition(to: .onboarding, animated: true)
+            transition(to: .onboarding, animated: true)
         }
     }
 
@@ -134,7 +133,7 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
     func onboardingViewControllerDidComplete(_ controller: OnboardingViewController) {
         UserDefaults.standard.hasCompletedOnboarding = true
-		transition(to: .signIn, animated: true)
+        transition(to: .signIn, animated: true)
     }
 
 }
