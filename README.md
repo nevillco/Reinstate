@@ -152,11 +152,7 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
-
-![Demo GIF](Resources/demo.gif)
-
-The example demonstrates how you might use `StatefulViewController` to make a `RootViewController`, as described in the code above.
+To run the example project, clone the repo, open and run `Example/Reinstate.xcworkspace`.
 
 ## Author
 
