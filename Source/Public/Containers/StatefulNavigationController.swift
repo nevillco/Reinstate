@@ -95,7 +95,7 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
     ///   - canPop: whether to allow popping transitions. Defaults to `true`.
     ///   - animated: whether to animate the transition.
     ///   - completion: a completion block.
-    open func transition(to newState: State, canPop: Bool = true, animated: Bool, completion: (() -> Void)? = nil) {
+    open func transition(to newState: State, animated: Bool, canPop: Bool = true, completion: (() -> Void)? = nil) {
         let augmentedCompletion: (() -> Void)? = {
             self.state = newState
             completion?()

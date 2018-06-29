@@ -143,16 +143,6 @@ class StatefulNavigationControllerSpec: QuickSpec {
                         }
                     }
                 }
-                it("won't pop automatically if told not to, and controllers are unique") {
-                    let vc = MockStatefulNavigationController()
-                    vc.loadViewIfNeeded()
-                    waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), canPop: false, animated: false) {
-                            expect(vc.statesInNavigationStack.count) == 2
-                            done()
-                        }
-                    }
-                }
                 it("will pop if allowed to, and a child from same state exists") {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
@@ -169,7 +159,7 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
                     waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), canPop: false, animated: false) {
+                        vc.transition(to: .stateA(reusableVC: false), animated: false, canPop: false) {
                             vc.transition(to: .stateA(reusableVC: false), animated: false) {
                                 expect(vc.statesInNavigationStack.count) == 2
                                 done()
@@ -192,16 +182,6 @@ class StatefulNavigationControllerSpec: QuickSpec {
                         }
                     }
                 }
-                it("won't pop automatically if allowed to, and controllers are unique") {
-                    let vc = MockStatefulNavigationController()
-                    vc.loadViewIfNeeded()
-                    waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), canPop: false, animated: true) {
-                            expect(vc.statesInNavigationStack.count) == 2
-                            done()
-                        }
-                    }
-                }
                 it("will pop if allowed to, and a child from same state exists") {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
@@ -218,7 +198,7 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
                     waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), canPop: false, animated: true) {
+                        vc.transition(to: .stateA(reusableVC: false), animated: true, canPop: false) {
                             vc.transition(to: .stateA(reusableVC: false), animated: true) {
                                 expect(vc.statesInNavigationStack.count) == 2
                                 done()
