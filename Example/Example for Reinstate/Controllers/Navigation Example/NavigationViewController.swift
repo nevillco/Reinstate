@@ -9,18 +9,10 @@
 import Reinstate
 import UIKit
 
-enum NavigationViewState: NavigationEquatable {
+enum NavigationViewState: Equatable {
 
     case info(username: String?)
     case usernameEntry
-
-    static func canPop(to oldState: NavigationViewState, for newState: NavigationViewState) -> Bool {
-        switch (oldState, newState) {
-        case (.info, .info): return true
-        case (.usernameEntry, .usernameEntry): return true
-        default: return false
-        }
-    }
 
 }
 

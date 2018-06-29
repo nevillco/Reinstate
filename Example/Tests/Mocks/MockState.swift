@@ -8,7 +8,7 @@
 
 import Reinstate
 
-enum MockState: NavigationEquatable {
+enum MockState: Equatable {
 
     case stateA
     case stateB

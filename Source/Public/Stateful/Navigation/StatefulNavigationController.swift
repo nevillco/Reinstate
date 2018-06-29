@@ -9,7 +9,7 @@ import UIKit
 
 /// A wrapper around `UINavigationController` that manages itself
 /// according to a state variable.
-open class StatefulNavigationController<State: NavigationEquatable>: UIViewController {
+open class StatefulNavigationController<State: Equatable>: UIViewController {
 
     let internalChild = ChildNavigationController()
 
@@ -63,6 +63,19 @@ open class StatefulNavigationController<State: NavigationEquatable>: UIViewContr
     /// - Returns: a child view controller that reflects the `state`.
     open func childViewController(for state: State) -> UIViewController {
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
+    }
+
+    /// Whether or not, when transitioning to a new state, the given `oldState`
+    /// is an acceptable candidate to pop backwards to in the navigation stack.
+    /// The default value is whether oldState and newState are equal.
+    ///
+    /// - Parameters:
+    ///   - oldState: a previous state that exists in the navigation stack.
+    ///   - newState: a state being transitioned to.
+    /// - Returns: whether this controller should pop back to `oldState`’s
+    /// position in the stack rather than pushing to a new controller.
+    open func canPop(from oldState: State, to newState: State) -> Bool {
+        return oldState == newState
     }
 
     /// Transitions this `StatefulNavigationController` to a new state. This
@@ -159,7 +172,7 @@ extension StatefulNavigationController {
 
     func popIndex(for newState: State) -> Int? {
         return statesInNavigationStack.enumerated()
-            .filter({ State.canPop(to: $0.element, for: newState) })
+            .filter({ canPop(from: $0.element, to: newState) })
             .last
             .map { $0.offset }
     }

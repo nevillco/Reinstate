@@ -8,7 +8,7 @@
 
 import Reinstate
 
-class MockStatefulNavigationController: StatefulNavigationController<MockState> {
+class MockStatefulNavigationController: StatefulNavigationController<MockNavigationState> {
 
     let childForStateA = UIViewController()
     let childForStateB = UIViewController()
@@ -16,7 +16,7 @@ class MockStatefulNavigationController: StatefulNavigationController<MockState> 
     var hasConfiguredInitialState = false
 
     required init() {
-        super.init(initialState: .stateA)
+        super.init(initialState: .stateA(reusableVC: true))
     }
 
     override func configureInitialState() {
@@ -24,10 +24,20 @@ class MockStatefulNavigationController: StatefulNavigationController<MockState> 
         hasConfiguredInitialState = true
     }
 
-    override func childViewController(for state: MockState) -> UIViewController {
+    override func canPop(from oldState: MockNavigationState, to newState: MockNavigationState) -> Bool {
+        switch (oldState, newState) {
+        case (.stateA, .stateA): return true
+        case (.stateB, .stateB): return true
+        default: return false
+        }
+    }
+
+    override func childViewController(for state: MockNavigationState) -> UIViewController {
         switch state {
-        case .stateA: return childForStateA
-        case .stateB: return childForStateB
+        case .stateA(let reusableVC):
+            return reusableVC ? childForStateA : UIViewController()
+        case .stateB(let reusableVC):
+            return reusableVC ? childForStateB : UIViewController()
         }
     }
 
