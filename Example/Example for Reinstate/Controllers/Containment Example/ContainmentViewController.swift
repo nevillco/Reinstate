@@ -1,5 +1,5 @@
 //
-//  ContainerViewController.swift
+//  ContainmentViewController.swift
 //  Reinstate_Example
 //
 //  Created by Connor Neville on 6/28/18.
@@ -9,7 +9,7 @@
 import Reinstate
 import UIKit
 
-enum ContainerViewState: Int {
+enum ContainmentViewState: Int {
 
     case redChild
     case yellowChild
@@ -17,7 +17,7 @@ enum ContainerViewState: Int {
 
 }
 
-class ContainerViewController: StatefulViewController<ContainerViewState> {
+class ContainmentViewController: StatefulViewController<ContainmentViewState> {
 
     private var timer: Timer?
 
@@ -26,14 +26,14 @@ class ContainerViewController: StatefulViewController<ContainerViewState> {
         title = "Container"
     }
 
-    override func childViewController(for state: ContainerViewState) -> UIViewController {
+    override func childViewController(for state: ContainmentViewState) -> UIViewController {
         let color: UIColor
         switch state {
         case .redChild: color = .red
         case .yellowChild: color = .yellow
         case .cyanChild: color = .cyan
         }
-        return ContainerChildViewController(color: color)
+        return ContainmentChildViewController(color: color)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -59,7 +59,7 @@ class ContainerViewController: StatefulViewController<ContainerViewState> {
 
     private func goToNextState() {
         let currentRawValue = state.rawValue
-        let nextState = ContainerViewState(rawValue: currentRawValue + 1) ?? ContainerViewState.redChild
+        let nextState = ContainmentViewState(rawValue: currentRawValue + 1) ?? ContainmentViewState.redChild
         transition(to: nextState, animated: true)
     }
 

@@ -1,5 +1,5 @@
 //
-//  ContainerChildViewController.swift
+//  ContainmentChildViewController.swift
 //  Reinstate_Example
 //
 //  Created by Connor Neville on 6/28/18.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ContainerChildViewController: UIViewController {
+class ContainmentChildViewController: UIViewController {
 
     private let stackView: UIStackView = {
         let view = UIStackView()

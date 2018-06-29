@@ -10,9 +10,9 @@
 		2D0EDCC520B1B24800FD74D8 /* MockStatefulTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */; };
 		2D0EDCC820B1B84700FD74D8 /* StatefulTabBarControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */; };
 		2D399AB720E560A600D4F83E /* DelegationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AB620E560A600D4F83E /* DelegationViewController.swift */; };
-		2D399AB920E5613900D4F83E /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AB820E5613900D4F83E /* ContainerViewController.swift */; };
+		2D399AB920E5613900D4F83E /* ContainmentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AB820E5613900D4F83E /* ContainmentViewController.swift */; };
 		2D399ABB20E5615500D4F83E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399ABA20E5615500D4F83E /* NavigationViewController.swift */; };
-		2D399ABD20E564EB00D4F83E /* ContainerChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */; };
+		2D399ABD20E564EB00D4F83E /* ContainmentChildViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399ABC20E564EB00D4F83E /* ContainmentChildViewController.swift */; };
 		2D399AC220E5799400D4F83E /* NavigationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */; };
 		2D399AC420E57B2D00D4F83E /* NavigationSetUsernameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */; };
 		2D64C83420DAE9AA00D368AF /* MockNavigationState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D64C83220DAE96900D368AF /* MockNavigationState.swift */; };
@@ -50,9 +50,9 @@
 		2D0EDCC120B1B20300FD74D8 /* MockStatefulTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStatefulTabBarController.swift; sourceTree = "<group>"; };
 		2D0EDCC620B1B82C00FD74D8 /* StatefulTabBarControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatefulTabBarControllerSpec.swift; sourceTree = "<group>"; };
 		2D399AB620E560A600D4F83E /* DelegationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegationViewController.swift; sourceTree = "<group>"; };
-		2D399AB820E5613900D4F83E /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		2D399AB820E5613900D4F83E /* ContainmentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainmentViewController.swift; sourceTree = "<group>"; };
 		2D399ABA20E5615500D4F83E /* NavigationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
-		2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerChildViewController.swift; sourceTree = "<group>"; };
+		2D399ABC20E564EB00D4F83E /* ContainmentChildViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainmentChildViewController.swift; sourceTree = "<group>"; };
 		2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationInfoViewController.swift; sourceTree = "<group>"; };
 		2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationSetUsernameViewController.swift; sourceTree = "<group>"; };
 		2D64C83220DAE96900D368AF /* MockNavigationState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationState.swift; sourceTree = "<group>"; };
@@ -122,31 +122,31 @@
 			path = TabBar;
 			sourceTree = "<group>";
 		};
-		2D399ABE20E5794A00D4F83E /* DelegationExample */ = {
+		2D399ABE20E5794A00D4F83E /* Delegation Example */ = {
 			isa = PBXGroup;
 			children = (
 				2D399AB620E560A600D4F83E /* DelegationViewController.swift */,
 			);
-			path = DelegationExample;
+			path = "Delegation Example";
 			sourceTree = "<group>";
 		};
-		2D399ABF20E5795300D4F83E /* ContainmentExample */ = {
+		2D399ABF20E5795300D4F83E /* Containment Example */ = {
 			isa = PBXGroup;
 			children = (
-				2D399AB820E5613900D4F83E /* ContainerViewController.swift */,
-				2D399ABC20E564EB00D4F83E /* ContainerChildViewController.swift */,
+				2D399AB820E5613900D4F83E /* ContainmentViewController.swift */,
+				2D399ABC20E564EB00D4F83E /* ContainmentChildViewController.swift */,
 			);
-			path = ContainmentExample;
+			path = "Containment Example";
 			sourceTree = "<group>";
 		};
-		2D399AC020E5795E00D4F83E /* NavigationExample */ = {
+		2D399AC020E5795E00D4F83E /* Navigation Example */ = {
 			isa = PBXGroup;
 			children = (
 				2D399ABA20E5615500D4F83E /* NavigationViewController.swift */,
 				2D399AC120E5799400D4F83E /* NavigationInfoViewController.swift */,
 				2D399AC320E57B2D00D4F83E /* NavigationSetUsernameViewController.swift */,
 			);
-			path = NavigationExample;
+			path = "Navigation Example";
 			sourceTree = "<group>";
 		};
 		2DD5EAF820AF88B60059365E /* Specs */ = {
@@ -175,9 +175,9 @@
 		2DD5EAFC20AF8A5D0059365E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2D399AC020E5795E00D4F83E /* NavigationExample */,
-				2D399ABF20E5795300D4F83E /* ContainmentExample */,
-				2D399ABE20E5794A00D4F83E /* DelegationExample */,
+				2D399AC020E5795E00D4F83E /* Navigation Example */,
+				2D399ABF20E5795300D4F83E /* Containment Example */,
+				2D399ABE20E5794A00D4F83E /* Delegation Example */,
 				2DD774CB2065490C00DF05D1 /* RootViewController.swift */,
 			);
 			path = Controllers;
@@ -506,11 +506,11 @@
 			files = (
 				2D399AB720E560A600D4F83E /* DelegationViewController.swift in Sources */,
 				2DD774E02065490D00DF05D1 /* AppDelegate.swift in Sources */,
-				2D399AB920E5613900D4F83E /* ContainerViewController.swift in Sources */,
+				2D399AB920E5613900D4F83E /* ContainmentViewController.swift in Sources */,
 				2D399AC220E5799400D4F83E /* NavigationInfoViewController.swift in Sources */,
 				2D399ABB20E5615500D4F83E /* NavigationViewController.swift in Sources */,
 				2DD774D72065490D00DF05D1 /* RootViewController.swift in Sources */,
-				2D399ABD20E564EB00D4F83E /* ContainerChildViewController.swift in Sources */,
+				2D399ABD20E564EB00D4F83E /* ContainmentChildViewController.swift in Sources */,
 				2D399AC420E57B2D00D4F83E /* NavigationSetUsernameViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

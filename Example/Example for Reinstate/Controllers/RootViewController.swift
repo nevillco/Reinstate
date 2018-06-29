@@ -11,7 +11,7 @@ import Reinstate
 enum RootViewState {
 
     case delegation
-    case container
+    case containment
     case navigation
 
 }
@@ -20,12 +20,12 @@ class RootViewController: StatefulTabBarController<RootViewState> {
 
     init() {
         let delegationVC = DelegationViewController()
-        let containerVC = ContainerViewController()
+        let containmentVC = ContainmentViewController()
         let navigationVC = NavigationViewController()
         let delegationItem: Item = (.delegation, delegationVC)
-        let containerItem: Item = (.container, containerVC)
+        let containmentItem: Item = (.containment, containmentVC)
         let navigationItem: Item = (.navigation, navigationVC)
-        let allItems = [delegationItem, containerItem, navigationItem]
+        let allItems = [delegationItem, containmentItem, navigationItem]
         super.init(allItems: allItems, initialItem: delegationItem)
         delegationVC.delegate = self
     }
@@ -35,7 +35,7 @@ class RootViewController: StatefulTabBarController<RootViewState> {
 extension RootViewController: DelegationViewControllerDelegate {
 
     func delegationViewControllerDidSwitchTabs(_ vc: DelegationViewController) {
-        transition(to: .container)
+        transition(to: .containment)
     }
 
 }
