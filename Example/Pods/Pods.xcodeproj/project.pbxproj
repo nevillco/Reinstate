@@ -404,30 +404,21 @@
 			path = Children;
 			sourceTree = "<group>";
 		};
-		2D1D91A220C03642007D7808 /* Stateful */ = {
-			isa = PBXGroup;
-			children = (
-				2D64C82F20DAE33D00D368AF /* Navigation */,
-				2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */,
-				2D0EDCBF20B0E73F00FD74D8 /* StatefulTabBarController.swift */,
-			);
-			path = Stateful;
-			sourceTree = "<group>";
-		};
-		2D64C82F20DAE33D00D368AF /* Navigation */ = {
+		2D1D91A220C03642007D7808 /* Containers */ = {
 			isa = PBXGroup;
 			children = (
 				2D6EA0D420AB1A7D00EFC2A7 /* StatefulNavigationController.swift */,
-				2D1D91A320C036B7007D7808 /* ChildNavigationController.swift */,
+				2D6EA0CD20AA43CA00EFC2A7 /* StatefulViewController.swift */,
+				2D0EDCBF20B0E73F00FD74D8 /* StatefulTabBarController.swift */,
 			);
-			path = Navigation;
+			path = Containers;
 			sourceTree = "<group>";
 		};
 		2DD774BF2065484F00DF05D1 /* Public */ = {
 			isa = PBXGroup;
 			children = (
 				2D1D91A120C03635007D7808 /* Children */,
-				2D1D91A220C03642007D7808 /* Stateful */,
+				2D1D91A220C03642007D7808 /* Containers */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -435,6 +426,7 @@
 		2DD774C62065485E00DF05D1 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				2D1D91A320C036B7007D7808 /* ChildNavigationController.swift */,
 				2DD774C72065485E00DF05D1 /* UIView+ConstrainToEdges.swift */,
 			);
 			path = Utility;
