@@ -142,7 +142,13 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
 ## StatefulNavigationController
 
-`StatefulNavigationController` is a wrapper around `UINavigationController` that manages its navigation stack according to its `NavigationState`. Similar to `StatefulViewController`, you tell it which view controller should be created for which state, and tell it when to transition. 
+`StatefulNavigationController` is a wrapper around `UINavigationController` that manages its navigation stack according to its `NavigationState`. Similar to `StatefulViewController`, you tell it which view controller should be created for which state, and tell it when to transition. The API is meant to mirror that of `StatefulViewController`. See the Example project for usage.
+
+[Flowchart describing whether your transition will push or pop](Resources/NavigationLogic.png)
+
+## StatefulTabBarController
+
+`StatefulNavigationController` is a wrapper around `UITabBarController`, in the same vein as the other stateful controllers. Its API is highly similar to the other two (one difference: a Tab Bar needs to know all possible states when initialized). See the Example project for usage.
 
 ## Example
 
