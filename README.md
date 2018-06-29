@@ -8,6 +8,8 @@ Reinstate is a toolbox for creating apps using hierarchies of view controllers, 
 
 `UIKit` comes with a few built-in container view controllers that are meant to coordinate app logic (`UINavigationController`, `UITabBarController`, `UIPageViewController` to name a few). They hold on to one or several child view controllers and handle the necessary app logic to switch between them. Reinstate aims to make it easy to use this pattern in your own `UIViewControllers` to help break your app into composable pieces. What exactly do you get out of this pattern?
 
+## Benefits of View Controller Composition
+
 * Your view controllers are less dependent on one another. Do your view controllers do things like  `self.navigationController?.pushViewController(...`? It's common, but now this view controller doesn't know how to operate outside of a particular navigation stack.
 * This pattern can be extended to single screens. If you have a really complicated UI, rather than a single, massive view controller, you could have a single container view controller that manages a handful of children.
 * It is easier to identify bugs, and be more confident that regressions won't occur. Going back to the above example, suppose you have a bug in one of the widgets in your highly complex UI. As a single view controller, it's harder to know if your change will impact the view controller elsewhere, and it's probably harder to even pinpoint the bug. However, with container and child view controllers, you can isolate the particular component and be sure the others are not involved.
@@ -154,10 +156,10 @@ extension RootViewController: OnboardingViewControllerDelegate {
 
 To run the example project, clone the repo, open and run `Example/Reinstate.xcworkspace`.
 
-## Author
+### Author
 
 Connor Neville, connor.neville16@gmail.com
 
-## License
+### License
 
 Reinstate is available under the MIT license. See the LICENSE file for more info.
