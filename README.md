@@ -4,55 +4,71 @@
 [![License](https://img.shields.io/cocoapods/l/Reinstate.svg?style=flat)](http://cocoapods.org/pods/Reinstate)
 [![Platform](https://img.shields.io/cocoapods/p/Reinstate.svg?style=flat)](http://cocoapods.org/pods/Reinstate)
 
-Reinstate helps you leverage child view controllers in your iOS application to make the code cleaner, easier to maintain, and less bug-prone.
+Reinstate is a toolbox for creating apps using hierarchies of view controllers, helping to dispel the myth that a `UIViewController` needs to correspond to a single screen in your application. Write clean and easy-to-understand app logic using container and child view controllers, keeping each individual component small and much easier to maintain.
+
+`UIKit` comes with a few built-in container view controllers that are meant to coordinate app logic (`UINavigationController`, `UITabBarController`, `UIPageViewController` to name a few). They hold on to one or several child view controllers and handle the necessary app logic to switch between them. Reinstate aims to make it easy to use this pattern in your own `UIViewControllers` to help break your app into composable pieces. What exactly do you get out of this pattern?
+
+* Your view controllers are less dependent on one another. Do your view controllers do things like  `self.navigationController?.pushViewController(...`? It's common, but now this view controller doesn't know how to operate outside of a particular navigation stack.
+* This pattern can be extended to single screens. If you have a really complicated UI, rather than a single, massive view controller, you could have a single container view controller that manages a handful of children.
+* It is easier to identify bugs, and be more confident that regressions won't occur. Going back to the above example, suppose you have a bug in one of the widgets in your highly complex UI. As a single view controller, it's harder to know if your change will impact the view controller elsewhere, and it's probably harder to even pinpoint the bug. However, with container and child view controllers, you can isolate the particular component and be sure the others are not involved.
+* Unlike a screen broken down into several `UIView`s, each child `UIViewController` reaps the benefits of the `UIViewController` lifecycle events. You can supply some special logic to occur on only one component of your screen on `viewWillAppear`. Or you can customize the layout code of a single component when it rotates to landscape mode.
+
+How to get started?
+
+## Installation
+
+Reinstate is available through [CocoaPods](http://cocoapods.org). To install
+it, simply add the following line to your Podfile:
+
+```ruby
+pod 'Reinstate'
+```
 
 ## Adding and Removing Child View Controllers
 
-Perhaps one of the most common beginner hurdles in the iOS world is the _massive view controller_ - UIKit heavily leans the developer towards an MVC pattern, and in reality that turns into putting everything that is neither a model nor a view inside the controller. There are lots of good ways to alleviate this problem, and one of those ways is to leverage __child view controllers__.
-
-So let's look at adding a child view controller to a particular view. **Without Reinstate**:
+It’s probably second nature adding `UIView` subclasses to your `UIViewController`. But how about adding a child `UIViewController` instead? **Without Reinstate** it looks like this:
 
 ```swift
-// containerView is a subview of self.view,
-// controller is the new child view controller
-self.addChildViewController(controller)
-containerView.addSubview(controller.view)
-containerView.translatesAutoresizingMaskIntoConstraints = false
+// childController is the new child view controller
+self.addChildViewController(childController)
+view.addSubview(childController.view)
 NSLayoutConstraint.activate([
-    controller.view.topAnchor.constraint(equalTo: containerView.topAnchor),
-    controller.view.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-    controller.view.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
-    controller.view.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
+    childController.view.topAnchor.constraint(equalTo: view.topAnchor),
+    childController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+    childController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+    childController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor)
 ])
-controller.didMove(toParentViewController: self)
+childController.didMove(toParentViewController: self)
 ```
 
-And this is without any animation code. The version with animation code is substantially longer. However, **with Reinstate**:
+And this gets a *lot* more complicated if you want to animate the change. However, **with Reinstate**:
 
 ```swift
-self.addChild(controller, constrainedTo: containerView)
+self.addChild(childController)
 // or, an animated version:
-self.addChild(controller, constrainedTo: containerView, animations: (duration: 0.3, options: .transitionCrossDissolve))
+self.addChild(childController, animations: (duration: 0.3, options: .transitionCrossDissolve))
+// or, add it to a subview instead of self.view:
+self.addChild(childController, constrainedTo: containerView, animations: (duration: 0.3, options: .transitionCrossDissolve))
 ```
 
-You can similarly remove and replace child view controllers this way. But Reinstate goes beyond utilities to add and remove these child view controllers: it provides an interface for integrating them with the state of your parent controller.
+You can similarly remove and replace child view controllers this way. But Reinstate goes beyond utilities to add and remove these child view controllers: it provides several clean container view controllers for you to manage the state of your app.
 
 ## StatefulViewController
 
-`StatefulViewController` is a `UIViewController` subclass that can manage its contents according to a  `State`. It does so by swapping out child view controllers that you can map to however you model the state of the controller. `StatefulViewController` can greatly cut down on boilerplate, confusing code, and give you an easy, readable API to specify transition animations and settings.
+`StatefulViewController` is a `UIViewController` subclass that can manage its contents according to a  `State`. It does so by swapping out child view controllers that you can map to however you model the state of the controller. `StatefulViewController` can greatly cut down on confusing code, and give you an easy, readable API to specify transition animations and settings.
 
 ```swift
 
 import Reinstate
 
-enum RootState {
+enum RootViewState {
     case splash
     case onboarding
     case signIn
     case home
 }
 
-class RootViewController: StatefulViewController<RootState> {
+class RootViewController: StatefulViewController<RootViewState> {
 
     var currentChild: UIViewController?
 
@@ -124,6 +140,10 @@ extension RootViewController: OnboardingViewControllerDelegate {
 // Other delegate implementations omitted for brevity
 ```
 
+## StatefulNavigationController
+
+`StatefulNavigationController` is a wrapper around `UINavigationController` that manages its navigation stack according to its `NavigationState`. Similar to `StatefulViewController`, you tell it which view controller should be created for which state, and tell it when to transition. 
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
@@ -131,15 +151,6 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 ![Demo GIF](Resources/demo.gif)
 
 The example demonstrates how you might use `StatefulViewController` to make a `RootViewController`, as described in the code above.
-
-## Installation
-
-Reinstate is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'Reinstate'
-```
 
 ## Author
 
