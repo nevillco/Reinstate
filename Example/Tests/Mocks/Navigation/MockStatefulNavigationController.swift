@@ -24,7 +24,7 @@ class MockStatefulNavigationController: StatefulNavigationController<MockNavigat
         hasConfiguredInitialState = true
     }
 
-    override func canPop(from oldState: MockNavigationState, to newState: MockNavigationState) -> Bool {
+    override func shouldPopToViewController(from oldState: MockNavigationState, to newState: MockNavigationState) -> Bool {
         switch (oldState, newState) {
         case (.stateA, .stateA): return true
         case (.stateB, .stateB): return true

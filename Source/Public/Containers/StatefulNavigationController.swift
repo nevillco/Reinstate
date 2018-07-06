@@ -25,7 +25,8 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
         return childNavigationController.visibleViewController
     }
 
-    var statesInNavigationStack: [State] = []
+    /// The states that exist in this navigation stack. Cannot be directly set.
+    public private(set) var statesInNavigationStack: [State] = []
 
     /// Initializes a new `StatefulNavigationController` with the specified
     /// initial state, which will determine its first child view controller.
@@ -65,68 +66,76 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
         fatalError("Subclasses of StatefulNavigationController must implement childViewController(for:)")
     }
 
-    /// Whether or not, when transitioning to a new state, the given `oldState`
-    /// is an acceptable candidate to pop backwards to in the navigation stack.
-    /// The default value is whether oldState and newState are equal.
+    /// Determines whether or not the given `oldState` is an acceptable
+    /// candidate to pop backwards to in the navigation stack, given a `newState`.
+    /// The default value is whether oldState and newState are equal as
+    /// defined by Equatable.
     ///
     /// - Parameters:
     ///   - oldState: a previous state that exists in the navigation stack.
     ///   - newState: a state being transitioned to.
     /// - Returns: whether this controller should pop back to `oldState`’s
     /// position in the stack rather than pushing to a new controller.
-    open func canPop(from oldState: State, to newState: State) -> Bool {
+    open func shouldPopToViewController(from oldState: State, to newState: State) -> Bool {
         return oldState == newState
     }
 
-    /// Transitions this `StatefulNavigationController` to a new state. This
-    /// transition will either be a push to a new view controller, or a pop backwards
-    /// through the navigation stack, depending on a number of conditions:
+    /// Transitions this `StatefulNavigationController` to a new state.
+    /// This will either be a push transition or a pop transition, depending on if
+    /// pop transitions are allowed and if there is an eligible existing
+    /// state on the stack to pop to.
     ///
-    /// * If the new child view controller that corresponds to `newState` already
-    /// exists in the stack, pop to it.
-    /// * If `canPop` is false, push to the new child view controller.
-    /// * If `canPop` is true, search the existing states on the navigation stack for
-    /// a candidate according to the `NavigationEquatable` definition. If one is found,
-    /// and it is equal to `newState`, pop to it. If it is not equal to `newState`, replace
-    /// the existing view controller with the new one first, then pop to it.
+    /// Note that, if the view controller generated for `newState` already exists
+    /// in the stack, this will always be a pop transition, even if
+    /// `canPopToExistingState` is false.
     ///
     /// - Parameters:
     ///   - newState: the state to transition to.
-    ///   - canPop: whether to allow popping transitions. Defaults to `true`.
     ///   - animated: whether to animate the transition.
+    ///   - canPopToExistingState: whether to allow popping transitions. Defaults to `true`.
     ///   - completion: a completion block.
-    open func transition(to newState: State, animated: Bool, canPop: Bool = true, completion: (() -> Void)? = nil) {
-        let augmentedCompletion: (() -> Void)? = {
+    open func transition(to newState: State, animated: Bool, canPopToExistingState: Bool = true, completion: (() -> Void)? = nil) {
+        let completion = insert({
             self.state = newState
-            completion?()
-        }
+        }, before: completion)
         let newChild = childViewController(for: newState)
 
         let isInitiallyConfigured = !childNavigationController.viewControllers.isEmpty
         let containsNewChild = childNavigationController.viewControllers.contains(newChild)
-        let popIndex = canPop ? self.popIndex(for: newState) : nil
+        let popIndex = canPopToExistingState ? self.popIndex(for: newState) : nil
 
         switch (isInitiallyConfigured, containsNewChild, popIndex) {
         case (false, _, _):
-            print("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
+            // Controller has not been configured yet. Treat this as the initial state instead.
+            Reinstate.log("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
             state = newState
             configureInitialState()
-            completion?()
+            completion()
         case (true, true, _):
-            print("StatefulNavigationController attempted to transition to a view controller that was already in its stack. Popping back to the previous controller.")
-            pop(to: newChild, animated: animated, completion: augmentedCompletion)
+            // The new view controller already exists in the stack. Since it’s not
+            // valid to have the same controller in a stack twice, pop transition
+            // is necessary.
+            Reinstate.log("StatefulNavigationController attempted to transition to a view controller that was already in its stack. Popping back to the previous controller.")
+            pop(to: newChild, animated: animated, completion: completion)
         case let (true, false, popIndex?):
+            // We have a state in the navigation stack to pop to.
             let existingState = statesInNavigationStack[popIndex]
             switch existingState == newState {
             case true:
+                // The state in the navigation stack is equal to the new state.
+                // Pop to the existing view controller without changing.
                 let existingChild = childNavigationController.viewControllers[popIndex]
-                pop(to: existingChild, animated: animated, completion: augmentedCompletion)
+                pop(to: existingChild, animated: animated, completion: completion)
             case false:
+                // The state in the navigation stack is *not* equal to the new state.
+                // Replace the existing view controller with the new one, then pop.
                 childNavigationController.viewControllers[popIndex] = newChild
-                pop(to: newChild, animated: animated, completion: augmentedCompletion)
+                pop(to: newChild, animated: animated, completion: completion)
             }
         case (true, false, nil):
-            push(newChild, for: newState, animated: animated, completion: augmentedCompletion)
+            // We do not have a state in the navigation stack to pop to,
+            // or popping was explicitly disabled. Just push to the new controller.
+            push(newChild, for: newState, animated: animated, completion: completion)
         }
     }
 
@@ -135,46 +144,44 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
 extension StatefulNavigationController {
 
     func pop(to existingChild: UIViewController, animated: Bool, completion: (() -> Void)?) {
-        let augmentedCompletion: (() -> Void)? = {
+        let completion = insert({
             let newStackLength = self.childNavigationController.viewControllers.count
             let prefixed = self.statesInNavigationStack.prefix(newStackLength)
             self.statesInNavigationStack = Array(prefixed)
-            completion?()
-        }
+        }, before: completion)
         if animated {
             CATransaction.begin()
-            CATransaction.setCompletionBlock(augmentedCompletion)
+            CATransaction.setCompletionBlock(completion)
             childNavigationController.popToViewController(existingChild, animated: animated)
             CATransaction.commit()
         }
         else {
             childNavigationController.popToViewController(existingChild, animated: false)
-            augmentedCompletion?()
+            completion()
         }
     }
 
     func push(_ newChild: UIViewController, for newState: State, animated: Bool, completion: (() -> Void)?) {
-        let augmentedCompletion: (() -> Void)? = {
+        let completion = insert({
             self.statesInNavigationStack.append(newState)
-            completion?()
-        }
+        }, before: completion)
         if animated {
             CATransaction.begin()
-            CATransaction.setCompletionBlock(augmentedCompletion)
+            CATransaction.setCompletionBlock(completion)
             childNavigationController.pushViewController(newChild, animated: animated)
             CATransaction.commit()
         }
         else {
             childNavigationController.pushViewController(newChild, animated: false)
-            augmentedCompletion?()
+            completion()
         }
     }
 
     func popIndex(for newState: State) -> Int? {
         return statesInNavigationStack.enumerated()
-            .filter({ canPop(from: $0.element, to: newState) })
+            .filter({ shouldPopToViewController(from: $0.element, to: newState) })
             .last
-            .map { $0.offset }
+            .map({ $0.offset })
     }
 
 }
@@ -185,6 +192,5 @@ extension StatefulNavigationController: ChildNavigationControllerDelegate {
         let prefixed = self.statesInNavigationStack.prefix(stackCount)
         self.statesInNavigationStack = Array(prefixed)
     }
-
 
 }

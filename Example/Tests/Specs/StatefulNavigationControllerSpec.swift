@@ -159,7 +159,7 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
                     waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), animated: false, canPop: false) {
+                        vc.transition(to: .stateA(reusableVC: false), animated: false, canPopToExistingState: false) {
                             vc.transition(to: .stateA(reusableVC: false), animated: false) {
                                 expect(vc.statesInNavigationStack.count) == 2
                                 done()
@@ -198,7 +198,7 @@ class StatefulNavigationControllerSpec: QuickSpec {
                     let vc = MockStatefulNavigationController()
                     vc.loadViewIfNeeded()
                     waitUntil { done in
-                        vc.transition(to: .stateA(reusableVC: false), animated: true, canPop: false) {
+                        vc.transition(to: .stateA(reusableVC: false), animated: true, canPopToExistingState: false) {
                             vc.transition(to: .stateA(reusableVC: false), animated: true) {
                                 expect(vc.statesInNavigationStack.count) == 2
                                 done()

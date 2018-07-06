@@ -12,12 +12,12 @@ Pod::Spec.new do |s|
   s.summary          = 'A toolbox for better view controller management in iOS.'
 
   s.description      = <<-DESC
-  It is common to leverage container view controllers in iOS, like UINavigationController and UITabBarController. It is less common to fully utilize the pattern of view controller composition to keep your code clean and easy to reason with. Reinstate provides a variety of tools to help you compose a hierarchy of view controllers, each one small and with a single focus.
+  Leverage view controller containment to write cleaner, more readable UI code.
                        DESC
 
   s.homepage         = 'https://github.com/nevillco/Reinstate'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'nevillco' => 'connor.neville16@gmail.com' }
+  s.author           = { 'Connor Neville' => 'connor.neville16@gmail.com' }
   s.source           = { :git => 'https://github.com/nevillco/Reinstate.git', :tag => s.version.to_s }
 
   s.swift_version = '4.0'
