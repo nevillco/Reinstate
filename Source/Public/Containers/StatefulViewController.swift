@@ -39,6 +39,10 @@ open class StatefulViewController<State: Equatable>: UIViewController {
     /// directly and usually should not be overridden. If you do override this
     /// function, include a call to the superclass implementation.
     open func configureInitialState() {
+        guard currentChild == nil else {
+            Reinstate.log("Tried to configure the initial state of StatefulViewController multiple times - ignoring.")
+            return
+        }
         let initialChild = childViewController(for: state)
         currentChild = initialChild
         addChild(initialChild)
@@ -73,12 +77,15 @@ open class StatefulViewController<State: Equatable>: UIViewController {
     ///   - completion: a completion block.
 	open func transition(to newState: State, animated: Bool, completion: (() -> Void)? = nil) {
         if newState == state {
-            print("StatefulViewController ignored a same-state transition: \(state)")
+            Reinstate.log("StatefulViewController ignored a same-state transition: \(state)")
             completion?()
             return
         }
         guard let currentChild = currentChild else {
-            assertionFailure("Missing a currentChild while transitioning states.")
+            Reinstate.log("Encountered a transition in StatefulViewController before the initial state was configured. Treating it as the initial state.")
+            state = newState
+            configureInitialState()
+            completion?()
             return
         }
         let newChild = childViewController(for: newState)
