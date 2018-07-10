@@ -90,10 +90,12 @@ open class StatefulViewController<State: Equatable>: UIViewController {
         }
         let newChild = childViewController(for: newState)
 		let animation = animated ? transitionAnimation(from: state, to: newState) : nil
-        replaceChild(currentChild, with: newChild, animation: animation) {
-            self.state = newState
-            self.currentChild = newChild
-            completion?()
+        DispatchQueue.main.async {
+            self.replaceChild(currentChild, with: newChild, animation: animation) {
+                self.state = newState
+                self.currentChild = newChild
+                completion?()
+            }
         }
     }
 

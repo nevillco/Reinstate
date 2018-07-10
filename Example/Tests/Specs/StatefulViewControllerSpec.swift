@@ -72,13 +72,13 @@ class StatefulViewControllerSpec: QuickSpec {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
 					vc.transition(to: .stateB, animated: false)
-                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
+                    expect(vc.childViewControllers).toEventually(contain(vc.childForStateB))
                 }
                 it("removes previous child controller") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
                     vc.transition(to: .stateB, animated: false)
-                    expect(vc.childViewControllers).toNot(contain(vc.childForStateA))
+                    expect(vc.childViewControllers).toEventuallyNot(contain(vc.childForStateA))
                 }
                 it("constrains child controller to its view") {
                     let vc = MockStatefulViewController()
@@ -91,20 +91,20 @@ class StatefulViewControllerSpec: QuickSpec {
                         let predicate: (NSLayoutConstraint) -> Bool = {
                             return $0.isPinning(childView, and: view, to: attribute)
                         }
-                        expect(view.constraints).to(containElementSatisfying(predicate))
+                        expect(view.constraints).toEventually(containElementSatisfying(predicate))
                     }
                 }
                 it("sets currentChild") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
                     vc.transition(to: .stateB, animated: false)
-                    expect(vc.currentChild) == vc.childForStateB
+                    expect(vc.currentChild).toEventually(equal(vc.childForStateB))
                 }
                 it("sets state") {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
                     vc.transition(to: .stateB, animated: false)
-                    expect(vc.state) == .stateB
+                    expect(vc.state).toEventually(equal(.stateB))
                 }
                 it("calls completion") {
                     let vc = MockStatefulViewController()
@@ -128,7 +128,7 @@ class StatefulViewControllerSpec: QuickSpec {
                     let vc = MockStatefulViewController()
                     vc.loadViewIfNeeded()
                     vc.transition(to: .stateB, animated: true)
-                    expect(vc.childViewControllers).to(contain(vc.childForStateB))
+                    expect(vc.childViewControllers).toEventually(contain(vc.childForStateB))
                 }
                 it("removes previous child controller") {
                     let vc = MockStatefulViewController()
@@ -146,7 +146,7 @@ class StatefulViewControllerSpec: QuickSpec {
                         let predicate: (NSLayoutConstraint) -> Bool = {
                             return $0.isPinning(childView, and: view, to: attribute)
                         }
-                        expect(view.constraints).to(containElementSatisfying(predicate))
+                        expect(view.constraints).toEventually(containElementSatisfying(predicate))
                     }
                 }
                 it("sets currentChild") {
