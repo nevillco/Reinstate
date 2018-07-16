@@ -95,22 +95,19 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
     ///   - canPopToExistingState: whether to allow popping transitions. Defaults to `true`.
     ///   - completion: a completion block.
     open func transition(to newState: State, animated: Bool, canPopToExistingState: Bool = true, completion: (() -> Void)? = nil) {
-        let completion = insert({
-            self.state = newState
-        }, before: completion)
         let newChild = childViewController(for: newState)
 
         let isInitiallyConfigured = !childNavigationController.viewControllers.isEmpty
         let containsNewChild = childNavigationController.viewControllers.contains(newChild)
         let popIndex = canPopToExistingState ? self.popIndex(for: newState) : nil
 
+        state = newState
         switch (isInitiallyConfigured, containsNewChild, popIndex) {
         case (false, _, _):
             // Controller has not been configured yet. Treat this as the initial state instead.
             Reinstate.log("Encountered a transition in StatefulNavigationController while the navigation stack was empty. Configuring as the initial state.")
-            state = newState
             configureInitialState()
-            completion()
+            completion?()
         case (true, true, _):
             // The new view controller already exists in the stack. Since it’s not
             // valid to have the same controller in a stack twice, pop transition
