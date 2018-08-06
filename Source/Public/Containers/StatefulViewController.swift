@@ -12,7 +12,7 @@ import UIKit
 open class StatefulViewController<State: Equatable>: UIViewController {
 
     /// The current state of the view controller.
-    public private(set) var state: State
+    public var state: State
     /// The current child view controller being managed by the
     /// view controller’s state.
     public private(set) var currentChild: UIViewController?

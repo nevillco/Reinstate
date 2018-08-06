@@ -14,7 +14,7 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
     let internalChild = ChildNavigationController()
 
     /// The current state of the view controller.
-    public private(set) var state: State
+    public var state: State
     /// The `UINavigationController` displayed by this view controller.
     public var childNavigationController: UINavigationController {
         return internalChild.internalController
