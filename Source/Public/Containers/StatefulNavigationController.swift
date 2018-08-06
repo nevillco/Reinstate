@@ -25,8 +25,8 @@ open class StatefulNavigationController<State: Equatable>: UIViewController {
         return childNavigationController.visibleViewController
     }
 
-    /// The states that exist in this navigation stack. Cannot be directly set.
-    public private(set) var statesInNavigationStack: [State] = []
+    /// The states that exist in this navigation stack. Should not be directly set.
+    public var statesInNavigationStack: [State] = []
 
     /// Initializes a new `StatefulNavigationController` with the specified
     /// initial state, which will determine its first child view controller.
