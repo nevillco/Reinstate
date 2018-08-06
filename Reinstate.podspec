@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Reinstate'
-  s.version          = '0.6.5'
+  s.version          = '0.6.6'
   s.summary          = 'A toolbox for better view controller management in iOS.'
 
   s.description      = <<-DESC
